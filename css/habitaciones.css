@@ -24,6 +24,105 @@ p, a, li   { font-family: var(--font-body); }
 
 
 /* ══════════════════════════════
+   NAVBAR
+══════════════════════════════ */
+.custom-navbar {
+  background-color: var(--color-opcional);
+}
+
+.navbar-brand {
+  font-family: var(--font-title);
+  font-size: 35px;
+  color: var(--color-secondary) !important;
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--color-secondary) !important;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-accent) !important;
+  transform: translateY(-2px);
+}
+
+.custom-btn-primary {
+  font-family: var(--font-body);
+  font-size: 17px;
+  background-color: var(--color-button);
+  border: none;
+  color: #ffffff;
+  width: 150px !important;
+}
+
+.custom-btn-primary:hover {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-dark);
+}
+
+.custom-btn-secondary {
+  font-family: var(--font-body);
+  font-size: 17px;
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  color: #ffffff;
+  width: 150px !important;
+}
+
+.custom-btn-secondary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-opcional);
+}
+
+.navbar-toggler {
+  border-color: var(--color-secondary);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* raya debajo de los links */
+.nav-link.active {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* VERSIÓN MÓVIL — NAVBAR */
+@media (max-width: 768px) {
+  .navbar-brand { font-size: 22px; }
+  .logo-nav { height: 40px; width: 40px; margin-right: 8px; }
+
+  .nav-link.active::after {
+    left: 0;
+    transform: none;
+    width: 30%;
+  }
+}
+
+
+
+
+/* ══════════════════════════════
    HABITACIONES 
 ══════════════════════════════ */
 
