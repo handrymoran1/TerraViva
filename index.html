@@ -3,26 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Huellas de la Pola — plataforma turística para hoteles y reservas en Guaduas." />
+    <meta
+      name="description"
+      content="Huellas de la Pola — plataforma turística para hoteles y reservas en Guaduas."
+    />
     <meta property="og:title" content="Huellas de la Pola" />
-    <meta property="og:description" content="Encuentra la habitación perfecta y reserva sin complicaciones en Guaduas." />
-    <meta property="og:image" content="https://tu-dominio.com/assets/logo/NuevoLogo.png" />
+    <meta
+      property="og:description"
+      content="Encuentra la habitación perfecta y reserva sin complicaciones en Guaduas."
+    />
+    <meta
+      property="og:image"
+      content="https://tu-dominio.com/assets/logo/NuevoLogo.png"
+    />
     <meta property="og:url" content="https://tu-dominio.com" />
     <meta property="og:type" content="website" />
     <link rel="manifest" href="/manifest.json" />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Hotel",
-      "name": "Huellas de la Pola",
-      "description": "Plataforma turística para hoteles y reservas en Guaduas",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Guaduas",
-        "addressCountry": "CO"
-      },
-      "url": "https://tu-dominio.com"
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "Huellas de la Pola",
+        "description": "Plataforma turística para hoteles y reservas en Guaduas",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Guaduas",
+          "addressCountry": "CO"
+        },
+        "url": "https://tu-dominio.com"
+      }
     </script>
     <title>Huellas de la Pola</title>
 
@@ -43,17 +52,16 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-md custom-navbar" role="banner">
+    <nav class="navbar navbar-expand-lg custom-navbar py-4">
       <div class="container-fluid">
-        <a class="navbar-brand ms-5" href="index.html">
+        <a class="navbar-brand ms-5" href="../index.html">
           <img
-            src="assets/logo/NuevoLogo.png"
+            src="../assets/logo/LogoV2.png"
             alt="Logo Huellas de la Pola"
             style="border-radius: 50%"
-            width="50"
-            height="50"
+            width="70px"
+            height="70px"
             class="d-inline-block logo-nav align-text-center me-3"
-            loading="lazy"
           />
           Huellas de la Pola
         </a>
@@ -74,21 +82,33 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+              <a class="nav-link" href="../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#habitaciones">Habitaciones</a>
+              <a class="nav-link active" href="habitaciones.html"
+                >Habitaciones</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="html/nosotros.html">Nosotros</a>
+              <a class="nav-link" href="nosotros.html">Nosotros</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="html/contactanos.html">Contacto</a>
+              <a class="nav-link" href="contactanos.html">Contactanos</a>
             </li>
           </ul>
-          <div class="d-flex gap-2 me-n5">
-            <button type="button" class="btn custom-btn-primary btn-sm btn-pill" data-bs-toggle="modal" data-bs-target="#loginModal" aria-label="Iniciar sesión">Iniciar sesión</button>
-            <button type="button" class="btn custom-btn-secondary btn-sm btn-pill" aria-label="Registrarse">Registrarse</button>
+          <div class="d-flex gap-2">
+            <a
+              href="/html/resgistrar.html"
+              class="btn custom-btn-primary btn-sm"
+              style="border-radius: 32px; width: 100px"
+              >Registrarse</a
+            >
+            <a
+              href="/html/iniciarSesion.html"
+              class="btn custom-btn-secondary btn-sm"
+              style="border-radius: 32px; width: 100px"
+              >Iniciar sesión</a
+            >
           </div>
         </div>
       </div>
@@ -99,7 +119,10 @@
         <img
           class="hero-image"
           src="assets/banner-contacto/bannerContacto.webp"
-          srcset="assets/banner-contacto/bannerContacto.webp 1920w, assets/banner-contacto/bannerContacto.webp 960w"
+          srcset="
+            assets/banner-contacto/bannerContacto.webp 1920w,
+            assets/banner-contacto/bannerContacto.webp  960w
+          "
           sizes="(max-width: 768px) 100vw, 1920px"
           alt="Paisaje de Huellas de la Pola"
           loading="lazy"
@@ -108,10 +131,21 @@
         <div class="hero-content container text-center text-white">
           <span class="eyebrow">Vive Guaduas con estilo</span>
           <h1>Encuentra la habitación perfecta y reserva sin complicaciones</h1>
-          <p class="lead mx-auto">Explora alojamientos pensados para tu descanso, descubre la cultura local y reserva con una experiencia clara y amigable.</p>
+          <p class="lead mx-auto">
+            Explora alojamientos pensados para tu descanso, descubre la cultura
+            local y reserva con una experiencia clara y amigable.
+          </p>
           <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-            <a href="html/contactanos.html" class="btn custom-btn-primary btn-lg btn-pill">Reserva ahora</a>
-            <a href="html/nosotros.html" class="btn custom-btn-secondary btn-lg btn-pill">Conócenos</a>
+            <a
+              href="html/contactanos.html"
+              class="btn custom-btn-primary btn-lg btn-pill"
+              >Reserva ahora</a
+            >
+            <a
+              href="html/nosotros.html"
+              class="btn custom-btn-secondary btn-lg btn-pill"
+              >Conócenos</a
+            >
           </div>
         </div>
       </section>
@@ -139,7 +173,12 @@
                     </select>
                   </div>
                   <div class="col-12 col-md-3 d-grid">
-                    <button type="button" class="btn custom-btn-primary btn-pill">Buscar disponibilidad</button>
+                    <button
+                      type="button"
+                      class="btn custom-btn-primary btn-pill"
+                    >
+                      Buscar disponibilidad
+                    </button>
                   </div>
                 </div>
               </div>
@@ -156,37 +195,74 @@
         <div class="row g-4">
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card room-card h-100">
-              <img src="assets/fotos_page_contacto/imagenContacto.png" class="card-img-top" alt="Habitación Cielo" loading="lazy" />
+              <img
+                src="assets/fotos_page_contacto/imagenContacto.png"
+                class="card-img-top"
+                alt="Habitación Cielo"
+                loading="lazy"
+              />
               <div class="card-body">
                 <h5 class="card-title">Habitación Cielo</h5>
-                <p class="card-text">Descanso sereno con detalles artesanales y aire puro.</p>
-                <a href="html/contactanos.html" class="btn custom-btn-secondary btn-sm btn-pill">Reservar</a>
+                <p class="card-text">
+                  Descanso sereno con detalles artesanales y aire puro.
+                </p>
+                <a
+                  href="html/contactanos.html"
+                  class="btn custom-btn-secondary btn-sm btn-pill"
+                  >Reservar</a
+                >
               </div>
             </div>
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card room-card h-100">
-              <img src="assets/fotos_page_contacto/imagenContacto 2.png" class="card-img-top" alt="Habitación Amaranto" loading="lazy" />
+              <img
+                src="assets/fotos_page_contacto/imagenContacto 2.png"
+                class="card-img-top"
+                alt="Habitación Amaranto"
+                loading="lazy"
+              />
               <div class="card-body">
                 <h5 class="card-title">Habitación Amaranto</h5>
-                <p class="card-text">Ambiente cálido y elegante para una estadía acogedora.</p>
-                <a href="html/contactanos.html" class="btn custom-btn-secondary btn-sm btn-pill">Reservar</a>
+                <p class="card-text">
+                  Ambiente cálido y elegante para una estadía acogedora.
+                </p>
+                <a
+                  href="html/contactanos.html"
+                  class="btn custom-btn-secondary btn-sm btn-pill"
+                  >Reservar</a
+                >
               </div>
             </div>
           </div>
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card room-card h-100">
-              <img src="assets/fotos_page_contacto/imagenContacto 3.png" class="card-img-top" alt="Habitación Esmeralda" loading="lazy" />
+              <img
+                src="assets/fotos_page_contacto/imagenContacto 3.png"
+                class="card-img-top"
+                alt="Habitación Esmeralda"
+                loading="lazy"
+              />
               <div class="card-body">
                 <h5 class="card-title">Habitación Esmeralda</h5>
-                <p class="card-text">Diseño moderno con comodidades premium y relax asegurado.</p>
-                <a href="html/contactanos.html" class="btn custom-btn-secondary btn-sm btn-pill">Reservar</a>
+                <p class="card-text">
+                  Diseño moderno con comodidades premium y relax asegurado.
+                </p>
+                <a
+                  href="html/contactanos.html"
+                  class="btn custom-btn-secondary btn-sm btn-pill"
+                  >Reservar</a
+                >
               </div>
             </div>
           </div>
         </div>
         <div class="text-center mt-4">
-          <a href="html/contactanos.html" class="btn custom-btn-secondary btn-pill">Ver más habitaciones</a>
+          <a
+            href="html/habitaciones.html"
+            class="btn custom-btn-secondary btn-pill"
+            >Ver más habitaciones</a
+          >
         </div>
       </section>
 
@@ -195,15 +271,33 @@
           <div class="row align-items-center g-4">
             <div class="col-lg-6">
               <h2 class="section-title">Sobre nosotros</h2>
-              <p class="mb-4">Huellas de la Pola conecta turistas con alojamientos auténticos en Guaduas, ofreciendo reservas seguras, experiencias locales y un servicio atento.</p>
+              <p class="mb-4">
+                Huellas de la Pola conecta turistas con alojamientos auténticos
+                en Guaduas, ofreciendo reservas seguras, experiencias locales y
+                un servicio atento.
+              </p>
               <ul class="list-unstyled mb-0">
-                <li class="mb-3"><strong>Atención personalizada.</strong> Un equipo local disponible para cada reserva.</li>
-                <li class="mb-3"><strong>Estilo auténtico.</strong> Espacios con encanto y decoración regional.</li>
-                <li><strong>Calidad garantizada.</strong> Alojamientos seleccionados para tu comodidad.</li>
+                <li class="mb-3">
+                  <strong>Atención personalizada.</strong> Un equipo local
+                  disponible para cada reserva.
+                </li>
+                <li class="mb-3">
+                  <strong>Estilo auténtico.</strong> Espacios con encanto y
+                  decoración regional.
+                </li>
+                <li>
+                  <strong>Calidad garantizada.</strong> Alojamientos
+                  seleccionados para tu comodidad.
+                </li>
               </ul>
             </div>
             <div class="col-lg-5 offset-lg-1">
-              <img src="assets/fotos_page_contacto/imagenContacto 4.png" alt="Sobre nosotros" class="img-fluid rounded-4 shadow" loading="lazy" />
+              <img
+                src="assets/fotos_page_contacto/imagenContacto 4.png"
+                alt="Sobre nosotros"
+                class="img-fluid rounded-4 shadow"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
@@ -218,19 +312,27 @@
           <div class="row g-4">
             <div class="col-12 col-md-4">
               <div class="card testimonial-card h-100 p-4">
-                <p class="mb-4">"Un lugar encantador, el personal fue muy amable y la habitación impecable."</p>
+                <p class="mb-4">
+                  "Un lugar encantador, el personal fue muy amable y la
+                  habitación impecable."
+                </p>
                 <p class="mb-0 testimonial-author">— Ana R.</p>
               </div>
             </div>
             <div class="col-12 col-md-4">
               <div class="card testimonial-card h-100 p-4">
-                <p class="mb-4">"La ubicación es perfecta y la experiencia fue muy tranquila."</p>
+                <p class="mb-4">
+                  "La ubicación es perfecta y la experiencia fue muy tranquila."
+                </p>
                 <p class="mb-0 testimonial-author">— Carlos T.</p>
               </div>
             </div>
             <div class="col-12 col-md-4">
               <div class="card testimonial-card h-100 p-4">
-                <p class="mb-4">"Recomiendo este sitio para una escapada con estilo y confort."</p>
+                <p class="mb-4">
+                  "Recomiendo este sitio para una escapada con estilo y
+                  confort."
+                </p>
                 <p class="mb-0 testimonial-author">— Laura M.</p>
               </div>
             </div>
@@ -240,40 +342,64 @@
     </main>
 
     <!-- Modal de Login -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
           </div>
           <div class="modal-body">
             <form>
               <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" required />
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" required>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                />
               </div>
-              <button type="submit" class="btn custom-btn-primary">Iniciar Sesión</button>
+              <button type="submit" class="btn custom-btn-primary">
+                Iniciar Sesión
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"></script>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+      crossorigin="anonymous"
+    ></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GA_MEASUREMENT_ID");
     </script>
     <script type="module" src="js/script.js"></script>
   </body>
