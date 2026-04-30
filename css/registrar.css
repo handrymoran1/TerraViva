@@ -1,27 +1,28 @@
-/* ══════════════════════════════
-   VARIABLES CORPORATIVAS
-══════════════════════════════ */
 :root {
   --color-primary: #ccc5b7;
   --color-secondary: #ffffff;
   --color-accent: #e5bb89;
   --color-dark: #6f5d44;
-  --color-button: #5FA62D;
-  --color-opcional: #1B4015;
+  --color-button: #5fa62d;
+  --color-opcional: #1b4015;
   --font-title: "Berkshire Swash", cursive;
   --font-body: "Yrsa", serif;
 }
 
-/* ══════════════════════════════
-   FUENTE GLOBAL DEL BODY
-══════════════════════════════ */
 body {
   font-family: var(--font-body);
 }
 
-h1, h2, h3 { font-family: var(--font-title); }
-p, a, li   { font-family: var(--font-body); }
-
+h1,
+h2,
+h3 {
+  font-family: var(--font-title);
+}
+p,
+a,
+li {
+  font-family: var(--font-body);
+}
 
 /* ══════════════════════════════
    NAVBAR
@@ -119,79 +120,94 @@ p, a, li   { font-family: var(--font-body); }
   }
 }
 
+/*fin de seccion Navbard*/
 
-
-
-/* ══════════════════════════════
-   HABITACIONES 
-══════════════════════════════ */
-
-.habitaciones-section {
-   padding-bottom: 80px !important;
+h1 {
+  text-align: center;
+  margin-top: 18px;
 }
 
-.card-habitacion{
-    border-radius: 18px;
-    overflow: hidden;
-    max-width: 260px;
-    margin: 0 auto;
-  }
+.section-registro {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4%;
+}
 
-  .img-habitacion{
-    height: 150px;
-    object-fit: cover;
-  }
+.card-registro {
+  padding: 2rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
 
-  .card-texto{
-    padding: 20px;
-  }
+.card-registro .form-control {
+  border-radius: 10px;
+  padding: 10px;
+}
 
-  .card-habitacion h6{
-    font-size: 25px;;
-    font-weight: 700;
-  }
+.card-registro .btn-primary {
+  width: 100%;
+  border-radius: 12px;
+  background-color: var(--color-button);
+  border: none;
+}
 
-  .precio{
-    font-size: .9rem;
-    color: #6b5b3e;
-    font-weight: 600;
-  }
+.card-registro .btn-primary:hover {
+  background-color: var(--color-opcional);
+}
+.footer {
+  background-color: var(--color-opcional);
+  color: var(--color-secondary);
+  margin-top: 100px;
+}
 
-  .texto-card-habitacion{
-    font-size: .8rem;
-    line-height: 1.3;
-    margin-bottom: 0;
-  }
+.logo-footer {
+  width: 120px;
+  height: 120px;
+}
 
-  .titulo-habitaciones{
-    margin-top: 140px !important;
-    font-family: var(--font-body);
-    color: #244d22;
-    font-size: 2.5rem;
-    font-weight: 700;
+@media (max-width: 768px) {
+  .logo-footer {
+    width: 100px;
+    height: 100px;
+    margin-top: 5px;
+    margin-bottom: 20px;
   }
+}
 
-  .btn-reservar {
-    margin: 20px;
-    font-family: var(--font-body);
-    background-color: var(--color-button);
-    border: none;
-    border-radius: 20px;
-    padding: 5px;
-    color: #ffffff;
-    width: 150px !important;
-  }
+.footer p {
+  color: var(--color-primary);
+  font-family: var(--font-body);
+}
 
-  .btn-reservar:hover {
-    background-color: var(--color-accent) !important;
-    color: #1B4015;
-  }
+.footer hr {
+  border-color: var(--color-accent);
+  opacity: 0.5;
+}
 
-  .linea{
-    margin-bottom: 80px !important;
-    width: 90px;
-    height: 3px;
-    background: #caa95a;
-    margin: 10px auto 0;
-    border-radius: 2px;
-  }
+.footer-link {
+  display: inline-block;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  text-decoration: none;
+  font-size: 18px;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.footer ul li {
+  margin-bottom: 8px;
+}
+
+.texto-derechos {
+  color: #e5bb89 !important;
+}

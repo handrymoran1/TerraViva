@@ -1,56 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Huellas de la Pola · Habitaciones</title>
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/habitaciones.css" />
-</head>
-<body>
-
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg custom-navbar py-4">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Huellas de la Pola · Habitaciones</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Yrsa:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/habitaciones.css" />
+  </head>
+  <body>
+    <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand ms-5" href="../index.html">
-        <img src="../assets/logo/LogoV2.png" alt="Logo Huellas de la Pola"
-             style="border-radius: 50%" width="70px" height="70px"
-             class="d-inline-block logo-nav align-text-center me-3" />
+
+      <!-- LOGO -->
+      <a class="navbar-brand ms-5 d-flex align-items-center" href="index.html">
+        <img
+          src="assets/logo/LogoV2.png"
+          alt="Logo Huellas de la Pola"
+          width="70"
+          height="70"
+          class="me-3 logo-nav"
+          style="border-radius: 50%;">
         Huellas de la Pola
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+      <!-- BOTÓN MOBILE -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- MENÚ -->
       <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
+
+        <!-- LINKS — activo: Inicio -->
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link active" href="habitaciones.html">Habitaciones</a></li>
-          <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-          <li class="nav-item"><a class="nav-link" href="contactanos.html">Contacto</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="../html/habitaciones.html">Habitaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../html/nosotros.html">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../huellas_de_la_pola/html/contactanos.html">Contacto</a>
+          </li>
         </ul>
+
+        <!-- BOTONES -->
         <div class="d-flex gap-2">
-          <button class="btn custom-btn-primary btn-sm" style="border-radius: 32px; width: 100px;">Registrarse</button>
-          <button class="btn custom-btn-secondary btn-sm" style="border-radius: 32px; width: 100px;">Iniciar sesión</button>
+          
+          <a href="../html/registrar.html"
+            class="btn custom-btn-primary btn-sm"
+            style="border-radius: 32px; width: 100px;">
+            Registrarse
+          </a>
+
+          <a href="../html/iniciarSesion.html"
+            class="btn custom-btn-secondary btn-sm"
+            style="border-radius: 32px; width: 100px;">
+            Iniciar sesión
+            </a>
         </div>
+
       </div>
     </div>
   </nav>
 <<<<<<< HEAD
 =======
 
-  <!-- BANNER -->
-  <div class="banner-wrapper">
-    <img src="../assets/habitaciones/bannerHabitaciones.png" alt="Banner" class="img-banner-contacto">
-    <div class="banner-overlay"></div>
-    <div class="texto-banner-contacto">
-      <h1>Habitaciones</h1>
+    <!-- BANNER -->
+    <div class="banner-wrapper">
+      <img
+        src="../assets/habitaciones/bannerHabitaciones.png"
+        alt="Banner"
+        class="img-banner-contacto"
+      />
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Habitaciones</h1>
+      </div>
     </div>
-  </div>
 
+    <!-- CONTENEDOR  -->
+    <div class="container mt-5">
+      <div class="text-center mb-4">
+        <h2 class="titulo-habitaciones">
+          Habitaciones diseñadas para brindarte descanso, confort y una
+          experiencia inolvidable
+        </h2>
+        <div class="linea"></div>
+      </div>
+      <div
+        id="contenedorHabitaciones"
+        class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3"
+      >
+        <!-- Aquí se cargarán dinámicamente las habitaciones visibles -->
+      </div>
+    </div>
   <!-- CONTENEDOR  -->
   <div class="container mt-5">
     <div class="text-center mb-4">
@@ -95,35 +163,55 @@
       </div>
     </div>
 
-  <!-- FOOTER -->
-  <footer class="footer py-5">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-12 col-md-2 mb-3 mb-md-0 text-center text-md-start">
-          <img src="../assets/logo/LogoV2.png" alt="Logo Huellas de la Pola"
-               style="border-radius: 50%" width="120" height="120" class="d-inline-block logo-footer" />
-        </div>
-        <div class="col-12 col-md-9 d-flex align-items-center justify-content-center justify-content-md-start gap-5 flex-wrap">
-          <ul class="list-unstyled mb-0 d-flex gap-4 flex-wrap">
-            <li><a href="#" class="footer-link">Inicio</a></li>
-            <li><a href="#" class="footer-link">Nosotros</a></li>
-            <li><a href="#" class="footer-link">Habitaciones</a></li>
-            <li><a href="#" class="footer-link">Contacto</a></li>
-          </ul>
-          <div class="d-flex gap-3 justify-content-center ms-md-auto">
-            <a href="https://www.instagram.com/" class="footer-link fs-4"><i class="bi bi-instagram"></i></a>
-            <a href="https://www.facebook.com/" class="footer-link fs-4"><i class="bi bi-facebook"></i></a>
+    <!-- FOOTER -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-2 mb-3 mb-md-0 text-center text-md-start">
+            <img
+              src="../assets/logo/LogoV2.png"
+              alt="Logo Huellas de la Pola"
+              style="border-radius: 50%"
+              width="120"
+              height="120"
+              class="d-inline-block logo-footer"
+            />
+          </div>
+          <div
+            class="col-12 col-md-9 d-flex align-items-center justify-content-center justify-content-md-start gap-5 flex-wrap"
+          >
+            <ul class="list-unstyled mb-0 d-flex gap-4 flex-wrap">
+              <li><a href="#" class="footer-link">Inicio</a></li>
+              <li><a href="#" class="footer-link">Nosotros</a></li>
+              <li><a href="#" class="footer-link">Habitaciones</a></li>
+              <li><a href="#" class="footer-link">Contacto</a></li>
+            </ul>
+            <div class="d-flex gap-3 justify-content-center ms-md-auto">
+              <a href="https://www.instagram.com/" class="footer-link fs-4"
+                ><i class="bi bi-instagram"></i
+              ></a>
+              <a href="https://www.facebook.com/" class="footer-link fs-4"
+                ><i class="bi bi-facebook"></i
+              ></a>
+            </div>
           </div>
         </div>
+        <hr class="my-4" />
+        <div class="text-center">
+          <p class="mb-2">
+            Equipo de desarrollo<br />Brayan Velasquez | Joan Triana | Handry
+            Moran | Robinson Salamanca
+          </p>
+          <p class="mb-0 texto-derechos">
+            &copy; 2026 Huellas de la Pola. Todos los derechos reservados.
+          </p>
+        </div>
       </div>
-      <hr class="my-4">
-      <div class="text-center">
-        <p class="mb-2">Equipo de desarrollo<br>Brayan Velasquez | Joan Triana | Handry Moran | Robinson Salamanca</p>
-        <p class="mb-0 texto-derechos">&copy; 2026 Huellas de la Pola. Todos los derechos reservados.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/habitaciones.js"></script>
+  </body>
 =======
   <!-- FOOTER -->
   <footer class="footer py-5">
