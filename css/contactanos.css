@@ -71,6 +71,7 @@ p, a, li   { font-family: var(--font-body); }
 .custom-btn-secondary:hover {
   background-color: var(--color-accent);
   color: var(--color-opcional);
+  text-decoration: underline;
 }
 
 .navbar-toggler {
@@ -295,3 +296,4 @@ textarea.form-control {
 .texto-derechos {
   color: #e5bb89 !important;
 }
+

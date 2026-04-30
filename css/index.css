@@ -53,7 +53,11 @@ p, a, li   { font-family: var(--font-body); }
   font-family: var(--font-body);
   font-size: 17px;
   background-color: var(--color-button);
+<<<<<<< HEAD
   border: 2px solid var(--color-secondary);
+=======
+  border: none;
+>>>>>>> c5a03999f2f54a496b0e999ef2a4f71bc00b40f0
   color: #ffffff;
   width: 150px !important;
 }
@@ -61,7 +65,10 @@ p, a, li   { font-family: var(--font-body); }
 .custom-btn-primary:hover {
   background-color: var(--color-secondary) !important;
   color: var(--color-dark);
+<<<<<<< HEAD
   
+=======
+>>>>>>> c5a03999f2f54a496b0e999ef2a4f71bc00b40f0
 }
 
 .custom-btn-secondary {

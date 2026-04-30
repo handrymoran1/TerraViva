@@ -41,9 +41,7 @@ li {
   font-family: var(--font-body);
   font-size: 18px;
   color: var(--color-secondary) !important;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-link:hover {
@@ -55,11 +53,7 @@ li {
   font-family: var(--font-body);
   font-size: 17px;
   background-color: var(--color-button);
-<<<<<<< HEAD
-  border: 2px solid var(--color-secondary);
-=======
   border: none;
->>>>>>> c5a03999f2f54a496b0e999ef2a4f71bc00b40f0
   color: #ffffff;
   width: 150px !important;
 }
@@ -83,10 +77,6 @@ li {
   color: var(--color-opcional);
 }
 
-.btn-pill {
-  color: black;
-}
-
 .navbar-toggler {
   border-color: var(--color-secondary);
 }
@@ -99,14 +89,34 @@ li {
   box-shadow: none;
 }
 
+/* raya debajo de los links */
+.nav-link.active {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* VERSIÓN MÓVIL — NAVBAR */
 @media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 22px;
-  }
-  .logo-nav {
-    height: 40px;
-    width: 40px;
-    margin-right: 8px;
+  .navbar-brand { font-size: 22px; }
+  .logo-nav { height: 40px; width: 40px; margin-right: 8px; }
+
+  .nav-link.active::after {
+    left: 0;
+    transform: none;
+    width: 30%;
   }
 }
 
@@ -114,7 +124,7 @@ li {
 
 h1 {
   text-align: center;
-  margin-top: 4%;
+  margin-top: 18px;
 }
 
 .section-registro {
@@ -122,6 +132,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 4%;
 }
 
 .card-registro {
