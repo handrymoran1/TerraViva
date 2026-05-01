@@ -6,16 +6,16 @@ const habitacionesIniciales = [
     id: 1,
     nombre: "ALOJAMIENTO",
     precio: 340000,
-    imagen: "huellas_de_la_pola\assets\habitaciones\habitacion1.png",
+    imagen: "../assets/habitaciones/habitacion1.png",
     descripcion:
       "Elegante esia cotancn cama gfgfgfgfgdfgdfgddfgdfgdfgdfghghghg.",
     mostrar: true,
   },
   {
     id: 2,
-    nombre: "Habitación 2",
+    nombre: "",
     precio: 700000,
-    imagen: "",
+    imagen: "../assets/habitaciones/habitacion2.png",
     descripcion: "Suite de lujo con balcón.",
     mostrar: true,
   },
@@ -23,7 +23,7 @@ const habitacionesIniciales = [
     id: 3,
     nombre: "Habitación 3",
     precio: 250000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion3.png",
     descripcion: "Habitación temática botánica.",
     mostrar: true,
   },
@@ -31,7 +31,7 @@ const habitacionesIniciales = [
     id: 4,
     nombre: "Habitación 4",
     precio: 800000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion4.png",
     descripcion: "Suite familiar espaciosa.",
     mostrar: true,
   },
@@ -39,7 +39,7 @@ const habitacionesIniciales = [
     id: 5,
     nombre: "Habitación 5",
     precio: 200000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion5.png",
     descripcion: "Opción cómoda y funcional.",
     mostrar: true,
   },
@@ -47,7 +47,7 @@ const habitacionesIniciales = [
     id: 6,
     nombre: "Habitación 6",
     precio: 420000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion6.png",
     descripcion: "Vista a la ciudad, cama Queen.",
     mostrar: true,
   },
@@ -55,7 +55,7 @@ const habitacionesIniciales = [
     id: 7,
     nombre: "Habitación 7",
     precio: 550000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion7.png",
     descripcion: "Con jacuzzi y terraza.",
     mostrar: true,
   },
@@ -63,7 +63,7 @@ const habitacionesIniciales = [
     id: 8,
     nombre: "Habitación 8",
     precio: 310000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion8.png",
     descripcion: "Económica pero acogedora.",
     mostrar: true,
   },
@@ -71,7 +71,7 @@ const habitacionesIniciales = [
     id: 9,
     nombre: "Habitación 9",
     precio: 670000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion9.png",
     descripcion: "Doble con vistas panorámicas.",
     mostrar: true,
   },
@@ -79,7 +79,7 @@ const habitacionesIniciales = [
     id: 10,
     nombre: "Habitación 10",
     precio: 920000,
-    imagen: ".",
+    imagen: "../assets/habitaciones/habitacion10.png",
     descripcion: "Presidencial con servicio 24h.",
     mostrar: true,
   },
@@ -113,7 +113,7 @@ function generarId() {
 }
 
 function placeholderImagen() {
-  return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200" fill="%23cccccc"%3E%3Crect width="300" height="200"/%3E%3Ctext x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23333333"%3ESin imagen%3C/text%3E%3C/svg%3E';
+  return "https://placehold.co/300x200?text=Sin+imagen";
 }
 
 // modelado crud
