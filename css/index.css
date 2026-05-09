@@ -56,6 +56,10 @@ p, a, li   { font-family: var(--font-body); }
   border: none;
   color: #ffffff;
   width: 150px !important;
+  display: inline-flex;        
+  align-items: center;         
+  justify-content: center;     
+  text-align: center;          
 }
 
 .custom-btn-primary:hover {
@@ -165,7 +169,47 @@ p, a, li   { font-family: var(--font-body); }
   font-size: 20px;
 }
 
-/* VERSIÓN MÓVIL — BANNER */
+.carousel-item {
+  position: relative;
+}
+
+.carousel-item .banner-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.carousel-item .texto-banner-contacto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: #ffffff;
+  opacity: 0.5;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+}
+
+.carousel-indicators .active {
+  opacity: 1;
+  background-color: #ffffff;
+}
+
+/* ══════════════════════════════
+   VERSIÓN MÓVIL — BANNER
+══════════════════════════════ */
 @media (max-width: 768px) {
   .img-banner-inicio {
     height: 320px;
@@ -187,6 +231,12 @@ p, a, li   { font-family: var(--font-body); }
   .frase-banner-inicio {
     font-size: 1rem;
     line-height: 1.5;
+  }
+
+  /*Carrusel paa movil */
+  .carousel-item .texto-banner-contacto {
+    width: 90%;
+    white-space: normal;
   }
 }
 
@@ -568,12 +618,7 @@ p, a, li   { font-family: var(--font-body); }
   margin: 0 auto 20px;
   font-size: 2rem;
   color: var(--color-accent);
-  transition: background .3s ease, transform .3s ease;
-}
-
-.beneficio-card:hover .beneficio-icono {
-  background-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-4px);
+  
 }
 
 .beneficio-titulo {
@@ -728,10 +773,6 @@ p, a, li   { font-family: var(--font-body); }
   transition: transform .4s ease;
 }
 
-.galeria-img:hover {
-  transform: scale(1.06);
-}
-
 /* VERSIÓN MÓVIL — GALERÍA */
 @media (max-width: 768px) {
   .galeria-item {
@@ -750,8 +791,8 @@ p, a, li   { font-family: var(--font-body); }
 }
 
 .logo-footer {
-  width: 120px;
-  height: 120px;
+  width: 75px;
+  height: 75px;
 }
 
 .footer p {

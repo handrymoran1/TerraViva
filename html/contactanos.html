@@ -22,14 +22,15 @@
 </head>
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+
+   <!-- ================= NAVBAR ================= -->
   <nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
     <div class="container-fluid">
 
       <!-- LOGO -->
       <a class="navbar-brand ms-5 d-flex align-items-center" href="index.html">
         <img
-          src="../assets/logo/LogoV2.png"
+          src="assets/logo/LogoV2.png"
           alt="Logo Huellas de la Pola"
           width="70"
           height="70"
@@ -56,29 +57,29 @@
         <!-- LINKS — activo: Inicio -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="../index.html">Inicio</a>
+            <a class="nav-link " href="index.html">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="../html/habitaciones.html">Habitaciones</a>
+            <a class="nav-link" href="./habitaciones.html">Habitaciones</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html/nosotros.html">Nosotros</a>
+            <a class="nav-link" href="./nosotros.html">Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html/contactanos.html">Contactanos</a>
+            <a class="nav-link active" href="./contactanos.html">Contacto</a>
           </li>
         </ul>
 
         <!-- BOTONES -->
         <div class="d-flex gap-2">
           
-          <a href="../html/registrar.html"
+          <a href="./registrar.html"
             class="btn custom-btn-primary btn-sm"
             style="border-radius: 32px; width: 100px;">
             Registrarse
           </a>
 
-          <a href="../html/iniciarSesion.html"
+          <a href="./iniciarSesion.html"
             class="btn custom-btn-secondary btn-sm"
             style="border-radius: 32px; width: 100px;">
             Iniciar sesión
@@ -99,55 +100,66 @@
       </div>
     </div>
 
+
     <!-- FORMULARIO -->
     <section class="container my-5">
-  <div class="row align-items-center g-5">
+      <div class="row align-items-center g-5">
 
-    <div class="col-12 col-md-6">
-      <h2 class="mb-2">Contáctanos</h2>
-      <p class="mb-4">¿Tienes alguna pregunta o quieres hacer una reserva? Escríbenos y te responderemos lo antes posible.</p>
+        <!-- COLUMNA IZQUIERDA — formulario -->
+        <div class="col-12 col-md-6">
+          <h2 class="mb-2">Contáctanos</h2>
+          <p class="mb-4">¿Tienes alguna pregunta o quieres hacer una reserva? Escríbenos y te responderemos lo antes posible.</p>
 
-      <form action="https://formspree.io/f/xjgjwolj" method="POST">
-        <div class="mb-3">
-          <label for="full-name" class="form-label">Nombre completo</label>
-          <input type="text" class="form-control" id="full-name" name="full-name" required>
+          <form action="https://formspree.io/f/xjgjwolj" method="POST">
+            <div class="mb-3">
+              <label for="full-name" class="form-label">Nombre completo</label>
+              <input type="text" class="form-control" id="full-name" name="full-name" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="email-address" class="form-label">Correo</label>
+              <input type="email" class="form-control" id="email-address" name="email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="support-type" class="form-label">Tipo de soporte</label>
+              <select class="form-select" id="support-type" name="support-type" required>
+                <option value="" disabled selected hidden>Selecciona una opción</option>
+                <option value="technical-issue">Problema técnico</option>
+                <option value="billing-inquiry">Atención al cliente</option>
+                <option value="account-help">Ayuda con la cuenta</option>
+                <option value="general-question">Pregunta general</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="subject-of-request" class="form-label">Asunto</label>
+              <input type="text" class="form-control" id="subject-of-request" name="subject-of-request" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="detailed-description" class="form-label">Descripción</label>
+              <textarea class="form-control" id="detailed-description" name="detailed-description" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-enviar w-100" style="border-radius: 32px">Enviar</button>
+          </form>
         </div>
 
-        <div class="mb-3">
-          <label for="email-address" class="form-label">Correo</label>
-          <!-- correo del remitente -->
-          <input type="email" class="form-control" id="email-address" name="email" required>
+        <!-- COLUMNA DERECHA — 4 fotos 2x2 -->
+        <div class="col-12 col-md-6">
+          <div class="contacto-grid-fotos">
+            <img src="../assets/fotos_index/foto1.png" alt="Foto 1" class="contacto-foto" loading="lazy">
+            <img src="../assets/fotos_index/foto2.png" alt="Foto 2" class="contacto-foto" loading="lazy">
+            <img src="../assets/fotos_index/foto3.png" alt="Foto 3" class="contacto-foto" loading="lazy">
+            <img src="../assets/fotos_index/foto4.png" alt="Foto 4" class="contacto-foto" loading="lazy">
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label for="support-type" class="form-label">Tipo de soporte</label>
-          <select class="form-select" id="support-type" name="support-type" required>
-            <option value="" disabled selected hidden>Selecciona una opción</option>
-            <option value="technical-issue">Problema técnico</option>
-            <option value="billing-inquiry">Atención al cliente</option>
-            <option value="account-help">Ayuda con la cuenta</option>
-            <option value="general-question">Pregunta general</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label for="subject-of-request" class="form-label">Asunto</label>
-          <input type="text" class="form-control" id="subject-of-request" name="subject-of-request" required>
-        </div>
-
-        <div class="mb-3">
-          <label for="detailed-description" class="form-label">Descripción</label>
-          <textarea class="form-control" id="detailed-description" name="detailed-description" rows="4" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-enviar w-100" style="border-radius: 32px">Enviar</button>
-      </form>
-    </div>
-    <div class="col-12 col-md-6">
-      <img src="../assets/banner-contacto/bannerContacto.webp" alt="Imagen de contacto" class="img-fluid rounded">
-  </div>
-</section>
+      </div>
+    </section>
     <!-- FIN FORMULARIO -->
+
 
     <!-- FOOTER -->
     <footer class="footer py-5">
@@ -164,9 +176,7 @@
             />
           </div>
 
-          <div
-            class="col-12 col-md-9 d-flex align-items-center justify-content-center justify-content-md-start gap-5 flex-wrap"
-          >
+          <div class="col-12 col-md-9 d-flex align-items-center justify-content-center justify-content-md-start gap-5 flex-wrap">
             <ul class="list-unstyled mb-0 d-flex gap-4 flex-wrap">
               <li><a href="../index.html" class="footer-link">Inicio</a></li>
               <li><a href="../html/nosotros.html" class="footer-link">Nosotros</a></li>
@@ -200,12 +210,11 @@
     </footer>
     <!-- FIN FOOTER -->
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
 
-    <!-- Choices.js -->
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
       new Choices('#support-type', {
