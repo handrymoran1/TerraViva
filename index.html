@@ -4,7 +4,7 @@
   <!-- META -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Huellas de la Pola · Inicio</title>
+  <title>Inicio</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,6 +16,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/index.css">
 </head>
+
 
 <body>
 
@@ -56,26 +57,26 @@
             <a class="nav-link active" href="index.html">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html/habitaciones.html">Habitaciones</a>
+            <a class="nav-link" href="html/habitaciones.html">Habitaciones</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html/nosotros.html">Nosotros</a>
+            <a class="nav-link" href="html/nosotros.html">Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../html/contactanos.html">Contactanos</a>
+            <a class="nav-link" href="html/contactanos.html">Contacto</a>
           </li>
         </ul>
 
         <!-- BOTONES -->
         <div class="d-flex gap-2">
           
-          <a href="../html/registrar.html"
+          <a href="./html/registrar.html"
             class="btn custom-btn-primary btn-sm"
             style="border-radius: 32px; width: 100px;">
             Registrarse
           </a>
 
-          <a href="../html/iniciarSesion.html"
+          <a href="./html/iniciarSesion.html"
             class="btn custom-btn-secondary btn-sm"
             style="border-radius: 32px; width: 100px;">
             Iniciar sesión
@@ -86,15 +87,56 @@
     </div>
   </nav>
 
-  <!-- ================= BANNER ================= -->
-  <div class="banner-wrapper">
-    <img src="./assets/fotos_index/bannerInicio.png" alt="Banner" class="img-banner-inicio">
-    <div class="banner-overlay"></div>
-    <div class="texto-banner-contacto">
-      <h1>Vive la esencia de Guaduas</h1>
-      <p class="frase-banner-inicio">Confort, atención cercana y una experiencia auténtica desde el primer momento.</p>
+  <!-- ================= CARRUSEL BANNER ================= -->
+<div id="carouselBanner" class="carousel slide banner-wrapper" data-bs-ride="carousel" data-bs-interval="4000">
+
+  <!-- INDICADORES -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <!-- SLIDES -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="./assets/fotos_index/bannerInicio.png" class="img-banner-inicio" alt="Vista de Guaduas">
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Vive la esencia de Guaduas</h1>
+        <p class="frase-banner-inicio">Confort, atención cercana y una experiencia auténtica desde el primer momento.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="./assets/fotos_index/hotelBoutique.png" class="img-banner-inicio" alt="Habitaciones Huellas de la Pola">
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Descanso que mereces</h1>
+        <p class="frase-banner-inicio">Habitaciones diseñadas para tu comodidad en el corazón de Cundinamarca.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="./assets/fotos_index/bannerInicio2.png" class="img-banner-inicio" alt="Paisajes de Guaduas">
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Guaduas te espera</h1>
+        <p class="frase-banner-inicio">Historia, naturaleza y hospitalidad colombiana en un solo lugar.</p>
+      </div>
     </div>
   </div>
+
+  <!-- CONTROLES -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
 
   <!-- ================= BUSCADOR ================= -->
   <section class="buscador-section">
@@ -201,12 +243,12 @@
             espacios con historia, decoración regional y el calor humano que
             hace que una estadía se convierta en un recuerdo.
           </p>
-          <a href="../html/nosotros.html" class="btn btn-ver-nosotros">Conocer más</a>
+          <a href="./html/nosotros.html" class="btn btn-ver-nosotros">Conocer más</a>
         </div>
 
         <div class="col-lg-5 offset-lg-1">
           <img
-            src="./assets/fotos_index/hotelBoutique.jpg"
+            src="./assets/fotos_index/hotelBoutique.png"
             alt="Sobre nosotros - Huellas de la Pola"
             class="about-imagen img-fluid"
             loading="lazy"
@@ -352,7 +394,7 @@
         <div class="row align-items-center">
           <div class="col-12 col-md-2 mb-3 mb-md-0 text-center text-md-start">
             <img
-              src="../assets/logo/LogoV2.png"
+              src="./assets/logo/LogoV2.png"
               alt="Logo Huellas de la Pola"
               style="border-radius: 50%"
               width="120"

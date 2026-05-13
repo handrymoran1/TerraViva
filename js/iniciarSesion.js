@@ -70,9 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //lógica para usuarios normales
     else {
       console.log("Usuario normal detectado. Iniciando sesión...");
-      // aquí podrías poner otra redirección o una llamada a una Api
       alert("Inicio de sesión exitoso (Usuario Normal)");
-      window.location.href = "#";
+      window.location.href = "../html/perfil_usuario.html";
     }
   });
 });
