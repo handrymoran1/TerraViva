@@ -1,280 +1,447 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Huellas de la Pola — plataforma turística para hoteles y reservas en Guaduas." />
-    <meta property="og:title" content="Huellas de la Pola" />
-    <meta property="og:description" content="Encuentra la habitación perfecta y reserva sin complicaciones en Guaduas." />
-    <meta property="og:image" content="https://tu-dominio.com/assets/logo/NuevoLogo.png" />
-    <meta property="og:url" content="https://tu-dominio.com" />
-    <meta property="og:type" content="website" />
-    <link rel="manifest" href="/manifest.json" />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Hotel",
-      "name": "Huellas de la Pola",
-      "description": "Plataforma turística para hoteles y reservas en Guaduas",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Guaduas",
-        "addressCountry": "CO"
-      },
-      "url": "https://tu-dominio.com"
-    }
-    </script>
-    <title>Huellas de la Pola</title>
+<head>
+  <!-- META -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Yrsa:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Yrsa:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-md custom-navbar" role="banner">
-      <div class="container-fluid">
-        <a class="navbar-brand ms-5" href="index.html">
-          <img
-            src="assets/logo/NuevoLogo.png"
-            alt="Logo Huellas de la Pola"
-            style="border-radius: 50%"
-            width="50"
-            height="50"
-            class="d-inline-block logo-nav align-text-center me-3"
-            loading="lazy"
-          />
-          Huellas de la Pola
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-evenly"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="html/habitaciones.html">Habitaciones</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="html/nosotros.html">Nosotros</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="html/contactanos.html">Contacto</a>
-            </li>
-          </ul>
-          <div class="d-flex gap-2 me-n5">
-            <button type="button" class="btn custom-btn-primary btn-sm btn-pill" data-bs-toggle="modal" data-bs-target="#loginModal" aria-label="Iniciar sesión">Iniciar sesión</button>
-            <button type="button" class="btn custom-btn-secondary btn-sm btn-pill" aria-label="Registrarse">Registrarse</button>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
 
-    <main>
-      <section class="hero-section position-relative">
+
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
+    <div class="container-fluid">
+
+      <!-- LOGO -->
+      <a class="navbar-brand ms-5 d-flex align-items-center" href="index.html">
         <img
-          class="hero-image"
-          src="assets/banner-contacto/bannerContacto.webp"
-          srcset="assets/banner-contacto/bannerContacto.webp 1920w, assets/banner-contacto/bannerContacto.webp 960w"
-          sizes="(max-width: 768px) 100vw, 1920px"
-          alt="Paisaje de Huellas de la Pola"
-          loading="lazy"
-        />
-        <div class="hero-overlay"></div>
-        <div class="hero-content container text-center text-white">
-          <span class="eyebrow">Vive Guaduas con estilo</span>
-          <h1>Encuentra la habitación perfecta y reserva sin complicaciones</h1>
-          <p class="lead mx-auto">Explora alojamientos pensados para tu descanso, descubre la cultura local y reserva con una experiencia clara y amigable.</p>
-          <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-            <a href="html/contactanos.html" class="btn custom-btn-primary btn-lg btn-pill">Reserva ahora</a>
-            <a href="html/nosotros.html" class="btn custom-btn-secondary btn-lg btn-pill">Conócenos</a>
-          </div>
-        </div>
-      </section>
+          src="assets/logo/LogoV2.png"
+          alt="Logo TerraViva"
+          width="70"
+          height="70"
+          class="me-3 logo-nav"
+          style="border-radius: 50%;">
+        TerraViva
+      </a>
 
-      <section class="dates-panel py-5">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-              <div class="card p-4 shadow-sm border-0">
-                <div class="row g-3 align-items-end">
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Llegada</label>
-                    <input type="date" class="form-control" />
-                  </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Salida</label>
-                    <input type="date" class="form-control" />
-                  </div>
-                  <div class="col-12 col-md-3">
-                    <label class="form-label">Huéspedes</label>
-                    <select class="form-select">
-                      <option selected>2 adultos</option>
-                      <option>1 adulto</option>
-                      <option>3 adultos</option>
-                    </select>
-                  </div>
-                  <div class="col-12 col-md-3 d-grid">
-                    <button type="button" class="btn custom-btn-primary btn-pill">Buscar disponibilidad</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- BOTÓN MOBILE -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <section id="habitaciones" class="container featured-section py-5">
-        <div class="text-center mb-5">
-          <p class="section-subtitle">Habitaciones</p>
-          <h2 class="section-title">Habitaciones destacadas</h2>
-        </div>
-        <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="card room-card h-100">
-              <img src="assets/fotos_page_contacto/imagenContacto.png" class="card-img-top" alt="Habitación Cielo" loading="lazy" />
-              <div class="card-body">
-                <h5 class="card-title">Habitación Cielo</h5>
-                <p class="card-text">Descanso sereno con detalles artesanales y aire puro.</p>
-                <a href="html/contactanos.html" class="btn custom-btn-secondary btn-sm btn-pill">Reservar</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="card room-card h-100">
-              <img src="assets/fotos_page_contacto/imagenContacto 2.png" class="card-img-top" alt="Habitación Amaranto" loading="lazy" />
-              <div class="card-body">
-                <h5 class="card-title">Habitación Amaranto</h5>
-                <p class="card-text">Ambiente cálido y elegante para una estadía acogedora.</p>
-                <a href="html/contactanos.html" class="btn custom-btn-secondary btn-sm btn-pill">Reservar</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="card room-card h-100">
-              <img src="assets/fotos_page_contacto/imagenContacto 3.png" class="card-img-top" alt="Habitación Esmeralda" loading="lazy" />
-              <div class="card-body">
-                <h5 class="card-title">Habitación Esmeralda</h5>
-                <p class="card-text">Diseño moderno con comodidades premium y relax asegurado.</p>
-                <a href="html/contactanos.html" class="btn custom-btn-secondary btn-sm btn-pill">Reservar</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center mt-4">
-          <a href="html/contactanos.html" class="btn custom-btn-secondary btn-pill">Ver más habitaciones</a>
-        </div>
-      </section>
+      <!-- MENÚ -->
+      <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
 
-      <section class="about-section py-5 bg-white">
-        <div class="container">
-          <div class="row align-items-center g-4">
-            <div class="col-lg-6">
-              <h2 class="section-title">Sobre nosotros</h2>
-              <p class="mb-4">Huellas de la Pola conecta turistas con alojamientos auténticos en Guaduas, ofreciendo reservas seguras, experiencias locales y un servicio atento.</p>
-              <ul class="list-unstyled mb-0">
-                <li class="mb-3"><strong>Atención personalizada.</strong> Un equipo local disponible para cada reserva.</li>
-                <li class="mb-3"><strong>Estilo auténtico.</strong> Espacios con encanto y decoración regional.</li>
-                <li><strong>Calidad garantizada.</strong> Alojamientos seleccionados para tu comodidad.</li>
-              </ul>
-            </div>
-            <div class="col-lg-5 offset-lg-1">
-              <img src="assets/fotos_page_contacto/imagenContacto 4.png" alt="Sobre nosotros" class="img-fluid rounded-4 shadow" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </section>
+        <!-- LINKS — activo: Inicio -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="html/habitaciones.html">Habitaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="html/nosotros.html">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="html/contactanos.html">Contáctanos</a>
+          </li>
+        </ul>
 
-      <section class="testimonials-section py-5">
-        <div class="container">
-          <div class="text-center mb-5">
-            <p class="section-subtitle">Testimonios</p>
-            <h2 class="section-title">Lo que dicen nuestros huéspedes</h2>
-          </div>
-          <div class="row g-4">
-            <div class="col-12 col-md-4">
-              <div class="card testimonial-card h-100 p-4">
-                <p class="mb-4">"Un lugar encantador, el personal fue muy amable y la habitación impecable."</p>
-                <p class="mb-0 testimonial-author">— Ana R.</p>
-              </div>
-            </div>
-            <div class="col-12 col-md-4">
-              <div class="card testimonial-card h-100 p-4">
-                <p class="mb-4">"La ubicación es perfecta y la experiencia fue muy tranquila."</p>
-                <p class="mb-0 testimonial-author">— Carlos T.</p>
-              </div>
-            </div>
-            <div class="col-12 col-md-4">
-              <div class="card testimonial-card h-100 p-4">
-                <p class="mb-4">"Recomiendo este sitio para una escapada con estilo y confort."</p>
-                <p class="mb-0 testimonial-author">— Laura M.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+        <!-- BOTONES -->
+        <div class="d-flex gap-2">
+          
+          <a href="./html/registrar.html"
+            class="btn custom-btn-primary btn-sm"
+            style="border-radius: 32px; width: 100px;">
+            Registrarse
+          </a>
 
-    <!-- Modal de Login -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" required>
-              </div>
-              <button type="submit" class="btn custom-btn-primary">Iniciar Sesión</button>
-            </form>
-          </div>
+          <a href="./html/iniciarSesion.html"
+            class="btn custom-btn-secondary btn-sm"
+            style="border-radius: 32px; width: 100px;">
+            Iniciar sesión
+            </a>
         </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= CARRUSEL BANNER ================= -->
+<div id="carouselBanner" class="carousel slide banner-wrapper" data-bs-ride="carousel" data-bs-interval="4000">
+
+  <!-- INDICADORES -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <!-- SLIDES -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="./assets/fotos_index/bannerInicio.png" class="img-banner-inicio" alt="Vista de Guaduas">
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Vive la esencia de Guaduas</h1>
+        <p class="frase-banner-inicio">Confort, atención cercana y una experiencia auténtica desde el primer momento.</p>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"></script>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
-    <script type="module" src="js/script.js"></script>
-  </body>
+    <div class="carousel-item">
+      <img src="./assets/fotos_index/hotelBoutique.png" class="img-banner-inicio" alt="Habitaciones TerraViva">
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Descanso que mereces</h1>
+        <p class="frase-banner-inicio">Habitaciones diseñadas para tu comodidad en el corazón de Cundinamarca.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="./assets/fotos_index/bannerInicio2.png" class="img-banner-inicio" alt="Paisajes de Guaduas">
+      <div class="banner-overlay"></div>
+      <div class="texto-banner-contacto">
+        <h1>Guaduas te espera</h1>
+        <p class="frase-banner-inicio">Historia, naturaleza y hospitalidad colombiana en un solo lugar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLES -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+  <!-- ================= BUSCADOR ================= -->
+  <section class="buscador-section">
+    <div class="buscador-card">
+
+      <div class="buscador-campo">
+        <label for="fechaLlegada" class="buscador-label">Llegada</label>
+        <input type="date" id="fechaLlegada" class="buscador-input">
+      </div>
+
+      <div class="buscador-divider"></div>
+
+      <div class="buscador-campo">
+        <label for="fechaSalida" class="buscador-label">Salida</label>
+        <input type="date" id="fechaSalida" class="buscador-input">
+      </div>
+
+      <div class="buscador-divider"></div>
+
+      <div class="buscador-campo">
+        <label for="huespedes" class="buscador-label">Huéspedes</label>
+        <select id="huespedes" class="buscador-input">
+          <option>1 adulto</option>
+          <option selected>2 adultos</option>
+          <option>3 adultos</option>
+          <option>4 adultos</option>
+          <option>2 adultos + 1 niño</option>
+          <option>2 adultos + 2 niños</option>
+        </select>
+      </div>
+
+      <button class="buscador-btn">Buscar disponibilidad</button>
+
+    </div>
+  </section>
+  <!-- ================= FIN BUSCADOR ================= -->
+   
+
+  <!-- ================= HABITACIONES DESTACADAS ================= -->
+  <section id="habitaciones" class="container featured-section py-5">
+    <div class="text-center mb-5">
+      <p class="section-subtitle">Habitaciones</p>
+      <h2 class="section-title">Habitaciones destacadas</h2>
+    </div>
+    <div class="row g-4">
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card room-card h-100">
+          <img src="./assets/fotos_index/habitacion2.png" class="card-img-top" alt="Habitación Doble Jardín" loading="lazy" />
+          <div class="card-body">
+            <h5 class="card-title">Habitación Doble Jardín</h5>
+            <p class="card-text">Espacio acogedor con vista a zonas verdes y excelente iluminación natural. Perfecta para relajarse.</p>
+            <p class="precio-hab">200.000 / noche</p>
+            <a href="html/contactanos.html" class="btn btn-reserva-card">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card room-card h-100">
+          <img src="./assets/fotos_index/habitacion5.png" class="card-img-top" alt="Habitación Doble Natural" loading="lazy" />
+          <div class="card-body">
+            <h5 class="card-title">Habitación Doble Natural</h5>
+            <p class="card-text">Decoración cálida con elementos en madera y tonos suaves. Ambiente relajante y armonioso.</p>
+            <p class="precio-hab">210.000 / noche</p>
+            <a href="html/contactanos.html" class="btn btn-reserva-card">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card room-card h-100">
+          <img src="./assets/fotos_index/habitacion10.png" class="card-img-top" alt="Habitación Suite Premium" loading="lazy" />
+          <div class="card-body">
+            <h5 class="card-title">Habitación Suite Premium</h5>
+            <p class="card-text">La más exclusiva, con cama doble amplia, diseño moderno y detalles elegantes para una experiencia superior.</p>
+            <p class="precio-hab">330.000 / noche</p>
+            <a href="html/contactanos.html" class="btn btn-reserva-card">Reservar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="text-center mt-4">
+      <a href="html/habitaciones.html" class="btn btn-pill">Ver más habitaciones</a>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE NOSOTROS ================= -->
+  <section class="about-section py-5 bg-white">
+    <div class="container">
+      <div class="row align-items-center g-4">
+
+        <div class="col-lg-6">
+          <p class="about-subtitulo">¿Quiénes somos?</p>
+          <h2 class="about-titulo">El alma de Guaduas, en cada estadía</h2>
+          <p class="about-descripcion">
+            TerraViva nació del amor por Guaduas y por quienes la visitan.
+            Somos un equipo local comprometido con conectarte a los rincones más
+            auténticos de este municipio patrimonio de Colombia.
+          </p>
+          <p class="about-descripcion">
+            Cada alojamiento que ofrecemos ha sido seleccionado con cuidado:
+            espacios con historia, decoración regional y el calor humano que
+            hace que una estadía se convierta en un recuerdo.
+          </p>
+          <a href="./html/nosotros.html" class="btn btn-ver-nosotros">Conocer más</a>
+        </div>
+
+        <div class="col-lg-5 offset-lg-1">
+          <img
+            src="./assets/fotos_index/hotelBoutique.png"
+            alt="Sobre nosotros - TerraViva"
+            class="about-imagen img-fluid"
+            loading="lazy"
+          />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BANNER BENEFICIOS ================= -->
+  <section class="beneficios-section">
+    <div class="beneficios-bg" style="background-image: url('./assets/fotos_index/bannerBeneficios.png');"></div>
+    <div class="beneficios-overlay"></div>
+    <div class="container beneficios-content">
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-12 col-md-4">
+          <div class="beneficio-card">
+            <div class="beneficio-icono"><i class="bi bi-headset"></i></div>
+            <h4 class="beneficio-titulo">Atención personalizada</h4>
+            <p class="beneficio-texto">Un equipo local disponible para cada reserva.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="beneficio-card">
+            <div class="beneficio-icono"><i class="bi bi-house-heart"></i></div>
+            <h4 class="beneficio-titulo">Estilo auténtico</h4>
+            <p class="beneficio-texto">Espacios con encanto y decoración regional.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="beneficio-card">
+            <div class="beneficio-icono"><i class="bi bi-patch-check"></i></div>
+            <h4 class="beneficio-titulo">Calidad garantizada</h4>
+            <p class="beneficio-texto">Alojamientos seleccionados para tu comodidad.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ================= FIN BANNER BENEFICIOS ================= -->
+
+  <!-- ================= TESTIMONIOS ================= -->
+  <section class="testimonios-section py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-subtitle">Testimonios</p>
+        <h2 class="section-title">Lo que dicen nuestros huéspedes</h2>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-12 col-md-4">
+          <div class="testimonio-card h-100">
+            <div class="testimonio-estrellas">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonio-texto">"Un lugar encantador que supera las expectativas. El personal fue muy atento, la habitación impecable y el entorno de Guaduas le da un encanto especial que no se encuentra en otro lado."</p>
+            <div class="testimonio-autor">
+              <div class="testimonio-avatar">A</div>
+              <div>
+                <p class="testimonio-nombre">Ana Rodríguez</p>
+                <p class="testimonio-ciudad">Bogotá, Colombia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="testimonio-card h-100">
+            <div class="testimonio-estrellas">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonio-texto">"La ubicación es perfecta para desconectarse del ruido de la ciudad. Nos fuimos descansados y con ganas de volver. La decoración tiene mucho carácter y se siente muy auténtica."</p>
+            <div class="testimonio-autor">
+              <div class="testimonio-avatar">C</div>
+              <div>
+                <p class="testimonio-nombre">Carlos Torres</p>
+                <p class="testimonio-ciudad">Medellín, Colombia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="testimonio-card h-100">
+            <div class="testimonio-estrellas">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+            <p class="testimonio-texto">"Totalmente recomendado para una escapada con estilo. Las instalaciones son cómodas, limpias y con ese toque regional que hace que te sientas parte de la historia de Guaduas."</p>
+            <div class="testimonio-autor">
+              <div class="testimonio-avatar">L</div>
+              <div>
+                <p class="testimonio-nombre">Laura Mora</p>
+                <p class="testimonio-ciudad">Cali, Colombia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALERÍA ================= -->
+  <section class="galeria-section py-5">
+    <div class="container-fluid px-4">
+      <div class="text-center mb-5">
+        <p class="section-subtitle">Galería</p>
+        <h2 class="section-title">Conoce nuestros espacios</h2>
+      </div>
+      <div class="row row-cols-2 row-cols-md-5 g-3">
+
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto1.png" alt="Espacio 1" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto2.png" alt="Espacio 2" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto3.png" alt="Espacio 3" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto4.png" alt="Espacio 4" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto5.png" alt="Espacio 5" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto6.png" alt="Espacio 6" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto7.png" alt="Espacio 7" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto8.png" alt="Espacio 8" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto9.png" alt="Espacio 9" class="galeria-img" loading="lazy"></div></div>
+        <div class="col"><div class="galeria-item"><img src="./assets/fotos_index/foto10.png" alt="Espacio 10" class="galeria-img" loading="lazy"></div></div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ================= FIN GALERÍA ================= -->
+
+  <!-- ================= FOOTER ================= -->
+    <!-- FOOTER -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-2 mb-3 mb-md-0 text-center text-md-start">
+            <img
+              src="./assets/logo/LogoV2.png"
+              alt="Logo TerraViva"
+              style="border-radius: 50%"
+              width="120"
+              height="120"
+              class="d-inline-block logo-footer"
+            />
+          </div>
+
+          <div
+            class="col-12 col-md-9 d-flex align-items-center justify-content-center justify-content-md-start gap-5 flex-wrap"
+          >
+            <ul class="list-unstyled mb-0 d-flex gap-4 flex-wrap">
+              <li><a href="../index.html" class="footer-link">Inicio</a></li>
+              <li><a href="../html/nosotros.html" class="footer-link">Nosotros</a></li>
+              <li><a href="../html/habitaciones.html" class="footer-link">Habitaciones</a></li>
+              <li><a href="../html/contactanos.html" class="footer-link">Contacto</a></li>
+            </ul>
+
+            <div class="d-flex gap-3 justify-content-center ms-md-auto">
+              <a href="https://www.instagram.com/" class="footer-link fs-4">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://www.facebook.com/" class="footer-link fs-4">
+                <i class="bi bi-facebook"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="text-center">
+          <p class="mb-2">
+            Equipo de desarrollo<br />
+            Robinson Salamanca | Joan Triana | Handry Moran | Brayan Velasquez
+          </p>
+          <p class="mb-0 texto-derechos">
+            &copy; 2026 TerraViva. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- FIN FOOTER -->
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/habitaciones.js"></script>
+
+</body>
 </html>

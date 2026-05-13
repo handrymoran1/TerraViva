@@ -3,56 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Habitaciones</title>
-    <!-- Bootstrap 5 CSS -->
+    <title>Iniciar sesión</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
     />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
       href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Yrsa:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/habitaciones.css" />
+    <link rel="stylesheet" href="../css/iniciarSesion.css" />
+    <title>Iniciar Sesión</title>
   </head>
   <body>
-    <!-- ================= NAVBAR ================= -->
-  <nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
-    <div class="container-fluid">
+     <!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
+  <div class="container-fluid">
+    <!-- LOGO -->
+    <a class="navbar-brand ms-5 d-flex align-items-center" href="../index.html">
+      <img
+        src="../assets/logo/LogoV2.png"
+        alt="Logo TerraViva"
+        width="70"
+        height="70"
+        class="me-3 logo-nav"
+        style="border-radius: 50%;"
+      />
+      TerraViva
+    </a>
 
-      <!-- LOGO -->
-      <a class="navbar-brand ms-5 d-flex align-items-center" href="index.html">
-        <img
-          src="../assets/logo/LogoV2.png"
-          alt="Logo TerraViva"
-          width="70"
-          height="70"
-          class="me-3 logo-nav"
-          style="border-radius: 50%;">
-        TerraViva
-      </a>
+    <!-- BOTÓN MOBILE -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <!-- BOTÓN MOBILE -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- MENÚ -->
-      <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
-
-        <!-- LINKS — activo: Inicio -->
+    <!-- MENÚ + BOTONES -->
+    <div class="collapse navbar-collapse justify-content-evenly align-items-center" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="../index.html">Inicio</a>
@@ -68,56 +74,60 @@
           </li>
         </ul>
 
-        <!-- BOTONES -->
-        <div class="d-flex gap-2">
-          
-          <a href="../html/registrar.html"
+      <div class="d-flex gap-2 ms-lg-4 mt-3 mt-lg-0">
+        
+        <a href="..//html/registrar.html"
             class="btn custom-btn-primary btn-sm"
             style="border-radius: 32px; width: 100px;">
             Registrarse
-          </a>
-
-          <a href="../html/iniciarSesion.html"
-            class="btn custom-btn-secondary btn-sm"
-            style="border-radius: 32px; width: 100px;">
-            Iniciar sesión
-            </a>
-        </div>
-
+        </a>
       </div>
     </div>
-  </nav>
-    
+  </div>
+</nav>
 
-    <!-- BANNER -->
-    <div class="banner-wrapper">
-      <img
-        src="../assets/habitaciones/bannerHabitaciones.png"
-        alt="Banner"
-        class="img-banner-contacto"
-      />
-      <div class="banner-overlay"></div>
-      <div class="texto-banner-contacto">
-        <h1>Habitaciones</h1>
-      </div>
-    </div>
+    <h1>Iniciar sesión</h1>
 
-    <!-- CONTENEDOR  -->
-    <div class="container mt-5">
-      <div class="text-center mb-4">
-        <h2 class="titulo-habitaciones">
-          Habitaciones diseñadas para brindarte descanso, confort y una
-          experiencia inolvidable
-        </h2>
-        <div class="linea"></div>
+    <section class="section-registro">
+      <div class="card card-registro">
+        <form>
+          <div class="mb-3">
+            <label for="inputCorreo" class="form-label"
+              >Correo electrónico</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="inputCorreo"
+              aria-describedby="emailHelp"
+              placeholder="correoejemplo@gmail.com"
+            />
+            <div id="emailHelp" class="form-text"></div>
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="inputPassword"
+              placeholder="****************"
+            />
+          </div>
+          <!-- >Esto de recordarme hay que revisarlo con las profes por cuestión de cookies y LocalStorage -->
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >Recordarme</label
+            >
+          </div>
+          <button type="button" id="btnIniciarSesion" class="btn btn-primary">Iniciar sesión</button>
+        </form>
       </div>
-      <div
-        id="contenedorHabitaciones"
-        class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3"
-      >
-        <!-- Aquí se cargarán dinámicamente las habitaciones visibles -->
-      </div>
-    </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer py-5">
@@ -170,7 +180,6 @@
     </footer>
     <!-- FIN FOOTER -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/habitaciones.js"></script>
+    <script src="/js/iniciarSesion.js"></script>
   </body>
 </html>

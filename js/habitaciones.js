@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const CLAVE_HABITACIONES = "habitacionesHuellas"; // Clave para almacenar las habitaciones en localStorage
 
 const btnEnviarHabitacion = document.getElementById("btnEnviarHabitacion");
@@ -6,22 +7,36 @@ const listaContenedor = document.getElementById("lista");
 
 document.addEventListener("DOMContentLoaded", mostrarLista);
 
+=======
+const CLAVE_HABITACIONES = "habitacionesHuellas";
+
+>>>>>>> test
 const habitacionesIniciales = [
   // Datos de para inicializar las habitaciones
   {
     id: 1,
     nombre: "ALOJAMIENTO",
     precio: 340000,
+<<<<<<< HEAD
     imagen: "",
+=======
+    imagen: "../assets/habitaciones/habitacion1.png",
+>>>>>>> test
     descripcion:
       "Elegante esia cotancn cama gfgfgfgfgdfgdfgddfgdfgdfgdfghghghg.",
     mostrar: true,
   },
   {
     id: 2,
+<<<<<<< HEAD
     nombre: "Habitación 2",
     precio: 700000,
     imagen: "",
+=======
+    nombre: "",
+    precio: 700000,
+    imagen: "../assets/habitaciones/habitacion2.png",
+>>>>>>> test
     descripcion: "Suite de lujo con balcón.",
     mostrar: true,
   },
@@ -29,7 +44,11 @@ const habitacionesIniciales = [
     id: 3,
     nombre: "Habitación 3",
     precio: 250000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion3.png",
+>>>>>>> test
     descripcion: "Habitación temática botánica.",
     mostrar: true,
   },
@@ -37,7 +56,11 @@ const habitacionesIniciales = [
     id: 4,
     nombre: "Habitación 4",
     precio: 800000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion4.png",
+>>>>>>> test
     descripcion: "Suite familiar espaciosa.",
     mostrar: true,
   },
@@ -45,7 +68,11 @@ const habitacionesIniciales = [
     id: 5,
     nombre: "Habitación 5",
     precio: 200000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion5.png",
+>>>>>>> test
     descripcion: "Opción cómoda y funcional.",
     mostrar: true,
   },
@@ -53,7 +80,11 @@ const habitacionesIniciales = [
     id: 6,
     nombre: "Habitación 6",
     precio: 420000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion6.png",
+>>>>>>> test
     descripcion: "Vista a la ciudad, cama Queen.",
     mostrar: true,
   },
@@ -61,7 +92,11 @@ const habitacionesIniciales = [
     id: 7,
     nombre: "Habitación 7",
     precio: 550000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion7.png",
+>>>>>>> test
     descripcion: "Con jacuzzi y terraza.",
     mostrar: true,
   },
@@ -69,7 +104,11 @@ const habitacionesIniciales = [
     id: 8,
     nombre: "Habitación 8",
     precio: 310000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion8.png",
+>>>>>>> test
     descripcion: "Económica pero acogedora.",
     mostrar: true,
   },
@@ -77,7 +116,11 @@ const habitacionesIniciales = [
     id: 9,
     nombre: "Habitación 9",
     precio: 670000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion9.png",
+>>>>>>> test
     descripcion: "Doble con vistas panorámicas.",
     mostrar: true,
   },
@@ -85,12 +128,17 @@ const habitacionesIniciales = [
     id: 10,
     nombre: "Habitación 10",
     precio: 920000,
+<<<<<<< HEAD
     imagen: ".",
+=======
+    imagen: "../assets/habitaciones/habitacion10.png",
+>>>>>>> test
     descripcion: "Presidencial con servicio 24h.",
     mostrar: true,
   },
 ];
 
+<<<<<<< HEAD
 function inicializarHabitaciones() {
   // Solo se inicializan si no hay datos previos en localStorage
   const guardadas = localStorage.getItem(CLAVE_HABITACIONES); // Si no hay habitaciones guardadas, se inicializan con los datos predefinidos
@@ -100,10 +148,21 @@ function inicializarHabitaciones() {
       CLAVE_HABITACIONES,
       JSON.stringify(habitacionesIniciales),
     ); // Esto asegura que al cargar por primera vez, el sistema tenga datos para mostrar y administrar
+=======
+// localstorage es la persistencia
+
+function inicializarHabitaciones() {
+  if (!localStorage.getItem(CLAVE_HABITACIONES)) {
+    localStorage.setItem(
+      CLAVE_HABITACIONES,
+      JSON.stringify(habitacionesIniciales),
+    );
+>>>>>>> test
   }
 }
 
 function obtenerHabitaciones() {
+<<<<<<< HEAD
   // Devuelve un array de habitaciones desde localStorage, o un array vacío si no hay datos
   const data = localStorage.getItem(CLAVE_HABITACIONES); // Si no hay datos, devuelve un array vacío para evitar errores al intentar renderizar o administrar habitaciones
   return data ? JSON.parse(data) : []; // Esto garantiza que las funciones que dependen de esta información siempre tengan un array válido para trabajar, incluso si el localStorage está vacío o ha sido limpiado.
@@ -145,9 +204,95 @@ function renderizarCatalogo() {
     // Se itera sobre las habitaciones visibles para crear y agregar las tarjetas al contenedor del catálogo, mostrando solo la información relevante para los usuarios finales.
     const col = document.createElement("div"); // Se crea un elemento div para cada habitación que se va a mostrar en el catálogo, lo que permite organizar las tarjetas de manera responsiva utilizando clases de Bootstrap.
     col.className = "col"; // Se asigna la clase "col" para que cada tarjeta ocupe un espacio adecuado en la cuadrícula del catálogo, adaptándose a diferentes tamaños de pantalla.
+=======
+  return JSON.parse(localStorage.getItem(CLAVE_HABITACIONES)) || [];
+}
+
+function guardarHabitaciones(habitaciones) {
+  localStorage.setItem(CLAVE_HABITACIONES, JSON.stringify(habitaciones));
+}
+
+// utilidades
+
+function generarId() {
+  const habitaciones = obtenerHabitaciones();
+  if (habitaciones.length === 0) return 1;
+  return Math.max(...habitaciones.map((h) => h.id)) + 1;
+}
+
+function placeholderImagen() {
+  return "https://placehold.co/300x200?text=Sin+imagen";
+}
+
+// modelado crud
+
+function agregarHabitacion(nombre, precio, descripcion, imagen) {
+  const habitaciones = obtenerHabitaciones();
+  const nueva = {
+    id: generarId(),
+    nombre: nombre,
+    precio: parseFloat(precio),
+    descripcion: descripcion || "",
+    imagen: imagen || "",
+    mostrar: true,
+  };
+  habitaciones.push(nueva);
+  guardarHabitaciones(habitaciones);
+  return nueva;
+}
+
+function editarHabitacion(id, nombre, precio, descripcion, imagen) {
+  const habitaciones = obtenerHabitaciones();
+  const index = habitaciones.findIndex((h) => h.id === id);
+  if (index === -1) return false;
+  habitaciones[index].nombre = nombre;
+  habitaciones[index].precio = parseFloat(precio);
+  habitaciones[index].descripcion = descripcion || "";
+  if (imagen !== undefined) habitaciones[index].imagen = imagen; // si no se pasa, mantiene la anterior
+  guardarHabitaciones(habitaciones);
+  return true;
+}
+
+function eliminarHabitacion(id) {
+  if (!confirm("¿Eliminar esta habitación?")) return false;
+  let habitaciones = obtenerHabitaciones();
+  habitaciones = habitaciones.filter((h) => h.id !== id);
+  guardarHabitaciones(habitaciones);
+  return true;
+}
+
+function actualizarVisibilidadHabitacion(id, mostrar) {
+  const habitaciones = obtenerHabitaciones();
+  const index = habitaciones.findIndex((h) => h.id === id);
+  if (index !== -1) {
+    habitaciones[index].mostrar = mostrar;
+    guardarHabitaciones(habitaciones);
+  }
+}
+
+// ajustar habitaciones
+
+function ajustarCatalogo() {
+  const contenedor = document.getElementById("contenedorHabitaciones");
+  if (!contenedor) return;
+
+  const habitaciones = obtenerHabitaciones().filter((h) => h.mostrar);
+  contenedor.innerHTML = "";
+
+  if (habitaciones.length === 0) {
+    contenedor.innerHTML =
+      '<div class="col-12 text-center"><p class="text-muted">No hay habitaciones disponibles.</p></div>';
+    return;
+  }
+
+  habitaciones.forEach((hab) => {
+    const col = document.createElement("div");
+    col.className = "col";
+    const imagenSrc = hab.imagen || placeholderImagen();
+>>>>>>> test
     col.innerHTML = `
       <div class="card card-habitacion h-100 shadow-sm">
-        <img src="${hab.imagen}" class="img-habitacion" alt="${hab.nombre}" style="height: 180px; object-fit: cover;">
+        <img src="${imagenSrc}" class="img-habitacion" alt="${hab.nombre}" style="height: 180px; object-fit: cover;" onerror="this.src='${placeholderImagen()}'">
         <div class="card-texto text-center">
           <h6 class="mb-1">${hab.nombre}</h6>
           <p class="precio mb-2">$${hab.precio.toLocaleString("es-CO")} / noche</p>
@@ -156,6 +301,7 @@ function renderizarCatalogo() {
         </div>
       </div>
     `;
+<<<<<<< HEAD
     contenedor.appendChild(col); // Se agrega la tarjeta de la habitación al contenedor del catálogo para que se muestre en la página.
   });
 
@@ -170,11 +316,25 @@ function renderizarCatalogo() {
         alert(
           `Selecciono ${habitacion.nombre}. Precio: $${habitacion.precio.toLocaleString("es-CO")} / noche.`,
         ); // En un sistema real, aquí se redirigiría a una página de reserva o se abriría un formulario para completar la reserva, pero por ahora solo se muestra una alerta con la información de la habitación seleccionada.
+=======
+    contenedor.appendChild(col);
+  });
+
+  document.querySelectorAll(".btn-reservar").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = parseInt(btn.dataset.id);
+      const habitacion = obtenerHabitaciones().find((h) => h.id === id);
+      if (habitacion) {
+        alert(
+          `Seleccionó ${habitacion.nombre}. Precio: $${habitacion.precio.toLocaleString("es-CO")} / noche.`,
+        );
+>>>>>>> test
       }
     });
   });
 }
 
+<<<<<<< HEAD
 function renderizarListaDesplegable() {
   // Renderiza el select con las habitaciones visibles para que los usuarios puedan seleccionar una habitación específica y ver su información detallada.
   const select = document.getElementById("listaDesplegableHabitaciones"); // Si no se encuentra el select, no se intenta renderizar para evitar errores en páginas que no tienen esta sección (como el dashboard de administración)
@@ -242,16 +402,66 @@ function renderizarListaAdmin() {
     const estadoColor = hab.mostrar ? "success" : "secondary"; // Se determina el color del badge que indica el estado de visibilidad de la habitación para mostrarlo en la lista de administración, lo que proporciona a los administradores una indicación visual clara sobre qué habitaciones están visibles u ocultas en el catálogo, lo que mejora la experiencia del usuario al gestionar las opciones disponibles para los usuarios finales.
     item.innerHTML = `
       <div>
+=======
+function actualizarTodosLosContadores() {
+  const spanDisponibles = document.getElementById("contadorDisponible");
+  const spanOcupadas = document.getElementById("contadorOcupadas");
+
+  //obtener los datos reales del LocalStorage
+  const habitaciones = obtenerHabitaciones();
+
+  // actulizamos disponibles (mostrar: true)
+  if (spanDisponibles) {
+    const cantDisponibles = habitaciones.filter(
+      (h) => h.mostrar === true,
+    ).length;
+    spanDisponibles.textContent = cantDisponibles;
+  }
+
+  //actualizar ocupadas con (mostrar: false)
+  if (spanOcupadas) {
+    const cantOcupadas = habitaciones.filter((h) => h.mostrar === false).length;
+    spanOcupadas.textContent = cantOcupadas;
+  }
+}
+
+// ajustar imagen
+
+let imagenBase64 = null; // almacena la imagen seleccionada en base64
+
+function ajustarListaAdmin() {
+  const contenedor = document.getElementById("listaHabitacionesAdmin");
+  if (!contenedor) return;
+
+  const habitaciones = obtenerHabitaciones();
+  contenedor.innerHTML = "";
+
+  habitaciones.forEach((hab) => {
+    const estadoTexto = hab.mostrar ? "Visible" : "Oculto";
+    const estadoColor = hab.mostrar ? "success" : "secondary";
+    const imagenSrc = hab.imagen || placeholderImagen();
+
+    const item = document.createElement("div");
+    item.className = "list-group-item d-flex align-items-center";
+    item.innerHTML = `
+      <div class="me-3">
+        <img src="${imagenSrc}" alt="${hab.nombre}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='${placeholderImagen()}'">
+      </div>
+      <div class="flex-grow-1">
+>>>>>>> test
         <strong>${hab.nombre}</strong> - $${hab.precio.toLocaleString("es-CO")} / noche<br>
         <small class="text-muted">${hab.descripcion || ""}</small><br>
         <span class="badge bg-${estadoColor}">${estadoTexto}</span>
       </div>
-      <div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-sm btn-outline-warning btn-editar" data-id="${hab.id}">Editar</button>
+        <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${hab.id}">Eliminar</button>
         <button class="btn btn-sm btn-outline-primary toggle-visibilidad" data-id="${hab.id}" data-mostrar="${hab.mostrar}">
           ${hab.mostrar ? "Ocultar" : "Mostrar"}
         </button>
       </div>
     `;
+<<<<<<< HEAD
     contenedor.appendChild(item); // Se agrega el elemento de la habitación a la lista de administración para que se muestre en el dashboard y los administradores puedan gestionar su visibilidad de manera eficiente desde esta sección.
   });
 
@@ -266,10 +476,43 @@ function renderizarListaAdmin() {
       renderizarListaAdmin(); // refrescar lista del admin para mostrar el nuevo estado de la habitación
       renderizarCatalogo(); // refrescar catálogo en tiempo real para mostrar/ocultar la habitación según el nuevo estado, lo que mejora la experiencia del usuario al gestionar las opciones disponibles para los usuarios finales sin necesidad de recargar la página.
       renderizarListaDesplegable(); // refrescar select en tiempo real para mostrar/ocultar la habitación según el nuevo estado, lo que mejora la experiencia del usuario al gestionar las opciones disponibles para los usuarios finales sin necesidad de recargar la página.
+=======
+    contenedor.appendChild(item);
+  });
+
+  // Eventos de edición
+  document.querySelectorAll(".btn-editar").forEach((btn) => {
+    btn.addEventListener("click", () =>
+      cargarFormularioEdicion(parseInt(btn.dataset.id)),
+    );
+  });
+
+  // Eventos de eliminación
+  document.querySelectorAll(".btn-eliminar").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (eliminarHabitacion(parseInt(btn.dataset.id))) {
+        ajustarListaAdmin();
+        ajustarCatalogo();
+        actualizarTodosLosContadores();
+      }
+    });
+  });
+
+  // Eventos de visibilidad
+  document.querySelectorAll(".toggle-visibilidad").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = parseInt(btn.dataset.id);
+      const mostrarActual = btn.dataset.mostrar === "true";
+      actualizarVisibilidadHabitacion(id, !mostrarActual);
+      ajustarListaAdmin();
+      ajustarCatalogo();
+      actualizarTodosLosContadores();
+>>>>>>> test
     });
   });
 }
 
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", () => {
   // Se ejecuta al cargar la página
   inicializarHabitaciones(); // Solo se inicializan si no hay datos previos en localStorage
@@ -355,3 +598,84 @@ function mostrarLista() {
     console.table(guardadas);
   }
 }
+=======
+// formulario
+
+function cargarFormularioEdicion(id) {
+  const habitaciones = obtenerHabitaciones();
+  const hab = habitaciones.find((h) => h.id === id);
+  if (!hab) return;
+
+  document.getElementById("habitacionId").value = hab.id;
+  document.getElementById("nombre").value = hab.nombre;
+  document.getElementById("precio").value = hab.precio;
+  document.getElementById("descripcion").value = hab.descripcion || "";
+  document.getElementById("imagenInput").value = ""; // limpiar input file
+  imagenBase64 = hab.imagen; // mantener la imagen anterior por si no se cambia
+  document.getElementById("tituloFormulario").textContent = "Editar habitación";
+}
+
+function resetFormulario() {
+  document.getElementById("formularioHabitacion").reset();
+  document.getElementById("habitacionId").value = "";
+  document.getElementById("tituloFormulario").textContent =
+    "Agregar nueva habitación";
+  imagenBase64 = null;
+}
+
+function manejarEnvioFormulario(e) {
+  e.preventDefault(); //esto es para evitar el acto natural del formulario.
+  const id = document.getElementById("habitacionId").value;
+  const nombre = document.getElementById("nombre").value.trim();
+  const precio = document.getElementById("precio").value.trim();
+  const descripcion = document.getElementById("descripcion").value.trim();
+
+  if (!nombre || !precio) {
+    alert("Completa al menos el nombre y el precio.");
+    return;
+  }
+
+  if (id) {
+    // Editar
+    editarHabitacion(parseInt(id), nombre, precio, descripcion, imagenBase64);
+  } else {
+    // Agregar
+    agregarHabitacion(nombre, precio, descripcion, imagenBase64);
+  }
+
+  resetFormulario();
+  ajustarListaAdmin();
+  ajustarCatalogo();
+  actualizarTodosLosContadores();
+}
+
+// Convertir imagen a base64 al seleccionar archivo
+document.addEventListener("DOMContentLoaded", () => {
+  inicializarHabitaciones();
+  ajustarCatalogo();
+  actualizarTodosLosContadores();
+
+  if (document.getElementById("listaHabitacionesAdmin")) {
+    ajustarListaAdmin();
+
+    // Configurar formulario
+    const form = document.getElementById("formularioHabitacion");
+    form.addEventListener("submit", manejarEnvioFormulario);
+
+    document
+      .getElementById("btnCancelar")
+      .addEventListener("click", resetFormulario);
+
+    const inputImagen = document.getElementById("imagenInput");
+    inputImagen.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        imagenBase64 = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+});
+>>>>>>> test

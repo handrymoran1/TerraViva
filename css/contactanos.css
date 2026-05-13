@@ -49,10 +49,15 @@ p, a, li   { font-family: var(--font-body); }
 
 .custom-btn-primary {
   font-family: var(--font-body);
+  font-size: 17px;
   background-color: var(--color-button);
   border: none;
   color: #ffffff;
   width: 150px !important;
+  display: inline-flex;        
+  align-items: center;         
+  justify-content: center;     
+  text-align: center;          
 }
 
 .custom-btn-primary:hover {
@@ -62,6 +67,7 @@ p, a, li   { font-family: var(--font-body); }
 
 .custom-btn-secondary {
   font-family: var(--font-body);
+  font-size: 17px;
   background-color: transparent;
   border: 2px solid var(--color-secondary);
   color: #ffffff;
@@ -85,10 +91,37 @@ p, a, li   { font-family: var(--font-body); }
   box-shadow: none;
 }
 
+/* raya debajo de los links */
+.nav-link.active {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* VERSIÓN MÓVIL — NAVBAR */
 @media (max-width: 768px) {
   .navbar-brand { font-size: 22px; }
   .logo-nav { height: 40px; width: 40px; margin-right: 8px; }
+
+  .nav-link.active::after {
+    left: 0;
+    transform: none;
+    width: 30%;
+  }
 }
+
 
 /* ══════════════════════════════
    BANNER CONTACTO
@@ -120,7 +153,7 @@ p, a, li   { font-family: var(--font-body); }
   left: 50%;            
   transform: translate(-50%, -50%); 
   text-align: center;
-  color: white;         /* color del texto */
+  color: white;         
 }
 
 .texto-banner-contacto h1 {
@@ -149,6 +182,7 @@ section h2 {
   color: var(--color-dark);
   font-family: var(--font-title);
   font-size: 40px;
+  margin-top: 80px;
 }
 
 section p {
@@ -220,6 +254,7 @@ textarea.form-control {
   border: none;
   transition: background-color 0.3s;
   width: 150px !important;
+  margin-bottom: 80px;
 }
 
 .btn-enviar:hover {
@@ -228,17 +263,29 @@ textarea.form-control {
 }
 
 /* ══════════════════════════════
-   IMÁGENES DERECHA DEL FORMULARIO
+   FOTOS CONTACTO (2x2)
 ══════════════════════════════ */
-.img-fluid.rounded-4 {
-  transition: transform 0.3s, box-shadow 0.3s;
+.contacto-grid-fotos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;  
+  gap: 12px;
+  height: 100%;                 
 }
 
-.img-fluid.rounded-4:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 24px rgba(111, 93, 68, 0.2) !important;
+.contacto-foto {
+  width: 100%;
+  height: 100%;                 
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
 }
 
+@media (max-width: 768px) {
+  .contacto-grid-fotos {
+    height: 400px;              
+  }
+}
 /* ══════════════════════════════
    FOOTER
 ══════════════════════════════ */
@@ -249,8 +296,8 @@ textarea.form-control {
 }
 
 .logo-footer {
-  width: 120px;
-  height: 120px;
+  width: 75px;
+  height: 75px;
 }
 
 @media (max-width: 768px) {
@@ -295,3 +342,4 @@ textarea.form-control {
 .texto-derechos {
   color: #e5bb89 !important;
 }
+
