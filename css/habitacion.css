@@ -1,6 +1,4 @@
-/* ══════════════════════════════
-   VARIABLES CORPORATIVAS
-══════════════════════════════ */
+
 :root {
   --color-primary: #ccc5b7;
   --color-secondary: #ffffff;
@@ -12,10 +10,6 @@
   --font-body: "Yrsa", serif;
 }
 
-
-/* ══════════════════════════════
-   FUENTE GLOBAL DEL BODY
-══════════════════════════════ */
 body {
   font-family: var(--font-body);
 }
@@ -23,16 +17,9 @@ body {
 h1, h2, h3 { font-family: var(--font-title); }
 p, a, li   { font-family: var(--font-body); }
 
-/* ══════════════════════════════
-   NAVBAR
-══════════════════════════════ */
+
 .custom-navbar {
   background-color: var(--color-opcional);
-}
-
-.custom-navbar .container-fluid {
-  padding-left: 4rem;
-  padding-right: 4rem;
 }
 
 .navbar-brand {
@@ -57,13 +44,9 @@ p, a, li   { font-family: var(--font-body); }
   font-family: var(--font-body);
   font-size: 17px;
   background-color: var(--color-button);
-  border: 2px solid var(--color-secondary);
+  border: none;
   color: #ffffff;
   width: 150px !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
 .custom-btn-primary:hover {
@@ -97,7 +80,7 @@ p, a, li   { font-family: var(--font-body); }
   box-shadow: none;
 }
 
-/* Raya debajo del link activo */
+/* raya debajo de los links */
 .nav-link.active {
   color: var(--color-accent) !important;
   font-weight: 600;
@@ -116,420 +99,86 @@ p, a, li   { font-family: var(--font-body); }
   border-radius: 2px;
 }
 
-/* ══════════════════════════════
-   VERSIÓN MÓVIL — NAVBAR
-══════════════════════════════ */
-@media (max-width: 991px) {
+/* VERSIÓN MÓVIL — NAVBAR */
+@media (max-width: 768px) {
   .navbar-brand { font-size: 22px; }
   .logo-nav { height: 40px; width: 40px; margin-right: 8px; }
 
-  .navbar-nav {
-    text-align: center;
-  }
-
   .nav-link.active::after {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    transform: none;
     width: 30%;
   }
-
-  .navbar-collapse .d-flex {
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 8px;
-  }
 }
 
+/*Habitaciones*/
 
-/* ══════════════════════════════
-   DETALLE HABITACIÓN
-══════════════════════════════ */
-body {
-  background-color: #f9f8f5;
-  font-family: 'Segoe UI', sans-serif;
+.habitaciones-section {
+   padding-bottom: 80px !important;
 }
 
-.seccion-detalle {
-  padding: 3rem 0;
-  padding-top: 6rem; 
-}
-
-/* ── Fotos ── */
-.foto-principal {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  border-radius: 12px;
-  display: block;
-}
-
-.foto-miniatura {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  transition: opacity 0.2s ease, border-color 0.2s ease;
-  display: block;
-}
-
-
-/* ── Texto ── */
-.detalle-nombre {
-  font-family: var(--font-title);
-  font-size: 2rem;
-  font-size: 2.4rem;
-  color: var(--color-opcional);
-  margin-bottom: 0.5rem;
-}
-
-.precio {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--color-button);
-}
-
-.precio-noche {
-  font-size: 1rem;
-  font-weight: 400;
-  color: #6c757d;
-}
-
-.detalle-descripcion {
-  color: #555;
-  line-height: 1.8;
-  font-size: 1rem;
-}
-
-/* ── Amenidades ── */
-.badge-amenidad {
-  background-color: #e9f5ee;
-  color: #2d6a4f;
-  border: 1px solid #b7dfc9;
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ══════════════════════════════
-   MÓVIL
-══════════════════════════════ */
-@media (max-width: 768px) {
-  .foto-principal {
-    height: 220px;
+.card-habitacion{
+    border-radius: 18px;
+    overflow: hidden;
+    max-width: 260px;
+    margin: 0 auto;
   }
 
-  .foto-miniatura {
-    height: 90px;
+  .img-habitacion{
+    height: 150px;
+    object-fit: cover;
   }
 
-  .detalle-nombre {
-    font-size: 1.5rem;
+  .card-texto{
+    padding: 20px;
   }
 
-  .precio {
-    font-size: 1.4rem;
-  }
-}
-
-/* ══════════════════════════════
-   BUSCADOR DETALLE HABITACIÓN
-══════════════════════════════ */
-.detalle-buscador-section {
-  margin-top: 16px;
-  position: relative;
-  z-index: 3;
-}
-
-.detalle-buscador-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #ffffff;
-  border: 1px solid #e0ddd6;
-  border-radius: 16px;
-  padding: 10px 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.detalle-buscador-campo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  min-width: 150px;
-}
-
-.detalle-buscador-label {
-  font-size: .8rem;
-  font-weight: 600;
-  color: #555;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-
-.detalle-buscador-input {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: .95rem;
-  color: #333;
-  background: #fff;
-  outline: none;
-  width: 100%;
-  cursor: pointer;
-}
-
-.detalle-buscador-input:focus {
-  border-color: #5FA62D;
-  box-shadow: 0 0 0 3px rgba(95, 166, 45, 0.15);
-}
-
-.detalle-buscador-divider {
-  width: 1px;
-  height: 50px;
-  background: #e0ddd6;
-  align-self: flex-end;
-  margin-bottom: 4px;
-}
-
-.detalle-buscador-btn {
-  background: #5FA62D;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background .2s ease;
-}
-
-.detalle-buscador-btn:hover {
-  background-color:  var(--color-opcional);
-}
-
-/* MÓVIL */
-@media (max-width: 768px) {
-  .detalle-buscador-card {
-    flex-direction: column;
+  .card-habitacion h6{
+    font-size: 25px;;
+    font-weight: 700;
   }
 
-  .detalle-buscador-divider {
-    display: none;
+  .precio{
+    font-size: .9rem;
+    color: #6b5b3e;
+    font-weight: 600;
   }
 
-  .detalle-buscador-btn {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-/* ══════════════════════════════
-   SECCIÓN MAS HABITACIONES
-══════════════════════════════ */
-#habitaciones {
-  background-color: #ffffff;
-}
-
-.featured-section {
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-
-.section-subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-button);
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  margin-bottom: 6px;
-}
-
-.section-title {
-  font-family: var(--font-title);
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--color-opcional);
-  margin-bottom: 0;
-}
-
-/* VERSIÓN MÓVIL — HABITACIONES */
-@media (max-width: 768px) {
-  #habitaciones {
-    padding-left: 16px;
-    padding-right: 16px;
+  .texto-card-habitacion{
+    font-size: .8rem;
+    line-height: 1.3;
+    margin-bottom: 0;
   }
 
-  .section-title {
-    font-size: 1.8rem;
+  .titulo-habitaciones{
+    margin-top: 140px !important;
+    font-family: var(--font-body);
+    color: #244d22;
+    font-size: 2.5rem;
+    font-weight: 700;
   }
-}
 
-
-/* ══════════════════════════════
-   CARD DE HABITACIÓN
-══════════════════════════════ */
-.room-card {
-  border: none;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.room-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
-}
-
-.room-card .card-img-top {
-  height: 220px;
-  object-fit: cover;
-  width: 100%;
-}
-
-.room-card .card-body {
-  padding: 20px;
-  background: #ffffff;
-}
-
-.room-card .card-title {
-  font-family: var(--font-title);
-  font-size: 1.25rem;
-  color: var(--color-opcional);
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.room-card .card-text {
-  font-family: var(--font-body);
-  font-size: .95rem;
-  color: #666;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-.room-card .btn-pill {
-  border-radius: 30px;
-  padding: 8px 22px;
-  font-family: var(--font-body);
-  font-size: .9rem;
-  font-weight: 600;
-  background-color: var(--color-button);
-  color: #fff;
-  border: none;
-  transition: background .2s ease;
-  display: block;
-}
-
-.precio-hab {
-  font-size: 20px;
-  font-family: var(--font-body);
-  text-align: center;
-}
-
-.btn-reserva-card {
-  display: block;
-  width: fit-content;
-  margin: 0 auto;
-  border-radius: 30px;
-  padding: 8px 22px;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 600;
-  background-color: var(--color-button);
-  color: #fff;
-  border: none;
-  transition: background .2s ease;
-}
-
-.btn-reserva-card:hover {
-  background-color: var(--color-opcional);
-  color: #fff;
-}
-
-.btn-pill {
-  margin-top: 50px;
-  margin-bottom: 10px;
-  background-color: var(--color-opcional);
-  color: #ffffff;
-  white-space: nowrap;
-  width: auto !important;
-  padding: 12px 30px;
-  display: inline-block;
-  overflow: visible;
-  border-radius: 50px;
-  font-size: 18px;
-}
-
-.btn-pill:hover {
-  background-color: var(--color-accent);
-  font-weight: bold;
-}
-
-
-/* ══════════════════════════════
-   FOOTER
-══════════════════════════════ */
-.footer {
-  background-color: var(--color-opcional);
-  color: var(--color-secondary);
-  margin-top: 80px;
-}
-
-.logo-footer {
-  width: 75px;
-  height: 75px;
-}
-
-.footer p {
-  color: var(--color-primary);
-  font-family: var(--font-body);
-}
-
-.footer hr {
-  border-color: var(--color-accent);
-  opacity: 0.5;
-}
-
-.footer-link {
-  display: inline-block;
-  color: var(--color-primary);
-  font-family: var(--font-body);
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.footer-link:hover {
-  color: var(--color-accent);
-  transform: translateY(-2px);
-}
-
-.footer ul li {
-  margin-bottom: 8px;
-}
-
-.texto-derechos {
-  color: #e5bb89 !important;
-}
-
-/* 📱 VERSIÓN MÓVIL — FOOTER */
-@media (max-width: 768px) {
-  .logo-footer {
-    width: 100px;
-    height: 100px;
-    margin-top: 5px;
-    margin-bottom: 20px;
+  .btn-reservar {
+    margin: 20px;
+    font-family: var(--font-body);
+    background-color: var(--color-button);
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    color: #ffffff;
+    width: 150px !important;
   }
-}
 
-/* *********************************************************** */
+  .btn-reservar:hover {
+    background-color: var(--color-accent) !important;
+    color: #1B4015;
+  }
+
+  .linea{
+    margin-bottom: 80px !important;
+    width: 90px;
+    height: 3px;
+    background: #caa95a;
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }

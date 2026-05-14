@@ -31,11 +31,6 @@ p, a, li   { font-family: var(--font-body); }
   background-color: var(--color-opcional);
 }
 
-.custom-navbar .container-fluid {
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-
 .navbar-brand {
   font-family: var(--font-title);
   font-size: 35px;
@@ -58,13 +53,13 @@ p, a, li   { font-family: var(--font-body); }
   font-family: var(--font-body);
   font-size: 17px;
   background-color: var(--color-button);
-  border: 2px solid var(--color-secondary);
+  border: none;
   color: #ffffff;
   width: 150px !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  display: inline-flex;        
+  align-items: center;         
+  justify-content: center;     
+  text-align: center;          
 }
 
 .custom-btn-primary:hover {
@@ -98,7 +93,7 @@ p, a, li   { font-family: var(--font-body); }
   box-shadow: none;
 }
 
-/* Raya debajo del link activo */
+/* raya debajo de los links */
 .nav-link.active {
   color: var(--color-accent) !important;
   font-weight: 600;
@@ -117,29 +112,18 @@ p, a, li   { font-family: var(--font-body); }
   border-radius: 2px;
 }
 
-/* ══════════════════════════════
-   VERSIÓN MÓVIL — NAVBAR
-══════════════════════════════ */
-@media (max-width: 991px) {
+/* VERSIÓN MÓVIL — NAVBAR */
+@media (max-width: 768px) {
   .navbar-brand { font-size: 22px; }
   .logo-nav { height: 40px; width: 40px; margin-right: 8px; }
 
-  .navbar-nav {
-    text-align: center;
-  }
-
   .nav-link.active::after {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    transform: none;
     width: 30%;
   }
-
-  .navbar-collapse .d-flex {
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 8px;
-  }
 }
+
 
 /* ══════════════════════════════
    BANNER INICIO

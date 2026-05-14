@@ -59,175 +59,44 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-  <!-- ================= NAVBAR ================= -->
-<nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
-  <div class="container-fluid">
+        <!-- MENÚ -->
+        <div
+          class="collapse navbar-collapse justify-content-evenly"
+          id="navbarNav"
+        >
+          <!-- LINKS — activo: Inicio -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="html/habitaciones.html">Habitaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="html/nosotros.html">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="html/contactanos.html">Contáctanos</a>
+            </li>
+          </ul>
 
-    <!-- LOGO -->
-    <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img
-        src="assets/logo/LogoV2.png"
-        alt="Logo TerraViva"
-        width="70"
-        height="70"
-        class="me-3 logo-nav"
-        style="border-radius: 50%;">
-      TerraViva
-    </a>
+          <!-- BOTONES -->
+          <div class="d-flex gap-2">
+            <a
+              href="./html/registrar.html"
+              class="btn custom-btn-primary btn-sm"
+              style="border-radius: 32px; width: 100px"
+            >
+              Registrarse
+            </a>
 
-    <!-- BOTÓN MOBILE -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- MENÚ -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-
-      <!-- LINKS — mx-auto centra el menú -->
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="index.html">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="html/habitaciones.html">Habitaciones</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="html/nosotros.html">Nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="html/contactanos.html">Contáctanos</a>
-        </li>
-      </ul>
-
-      <!-- BOTONES -->
-      <div class="d-flex gap-2">
-        <a href="./html/registrar.html"
-          class="btn custom-btn-primary btn-sm"
-          style="border-radius: 32px; width: 100px;">
-          Registrarse
-        </a>
-        <a href="./html/iniciarSesion.html"
-          class="btn custom-btn-secondary btn-sm"
-          style="border-radius: 32px; width: 100px;">
-          Iniciar sesión
-        </a>
-      </div>
-
-    </div>
-  </div>
-</nav>
-
-  <!-- ================= CARRUSEL BANNER ================= -->
-<div id="carouselBanner" class="carousel slide banner-wrapper" data-bs-ride="carousel" data-bs-interval="4000">
-
-  <!-- INDICADORES -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-
-  <!-- SLIDES -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="./assets/fotos_index/bannerInicio.png" class="img-banner-inicio" alt="Vista de Guaduas">
-      <div class="banner-overlay"></div>
-      <div class="texto-banner-contacto">
-        <h1>Vive la esencia de Guaduas</h1>
-        <p class="frase-banner-inicio">Confort, atención cercana y una experiencia auténtica desde el primer momento.</p>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="./assets/fotos_index/hotelBoutique.png" class="img-banner-inicio" alt="Habitaciones TerraViva">
-      <div class="banner-overlay"></div>
-      <div class="texto-banner-contacto">
-        <h1>Descanso que mereces</h1>
-        <p class="frase-banner-inicio">Habitaciones diseñadas para tu comodidad en el corazón de Cundinamarca.</p>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="./assets/fotos_index/bannerInicio2.png" class="img-banner-inicio" alt="Paisajes de Guaduas">
-      <div class="banner-overlay"></div>
-      <div class="texto-banner-contacto">
-        <h1>Guaduas te espera</h1>
-        <p class="frase-banner-inicio">Historia, naturaleza y hospitalidad colombiana en un solo lugar.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTROLES -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
-</div>
-
-  <!-- ================= BUSCADOR ================= -->
-  <section class="buscador-section">
-    <div class="buscador-card">
-
-      <div class="buscador-campo">
-        <label for="fechaLlegada" class="buscador-label">Llegada</label>
-        <input type="date" id="fechaLlegada" class="buscador-input">
-      </div>
-
-      <div class="buscador-divider"></div>
-
-      <div class="buscador-campo">
-        <label for="fechaSalida" class="buscador-label">Salida</label>
-        <input type="date" id="fechaSalida" class="buscador-input">
-      </div>
-
-      <div class="buscador-divider"></div>
-
-      <div class="buscador-campo">
-        <label for="huespedes" class="buscador-label">Huéspedes</label>
-        <select id="huespedes" class="buscador-input">
-          <option>1 adulto</option>
-          <option selected>2 adultos</option>
-          <option>3 adultos</option>
-          <option>4 adultos</option>
-          <option>2 adultos + 1 niño</option>
-          <option>2 adultos + 2 niños</option>
-        </select>
-      </div>
-
-      <button class="buscador-btn">Buscar disponibilidad</button>
-
-    </div>
-  </section>
-  <!-- ================= FIN BUSCADOR ================= -->
-   
-
-  <!-- ================= HABITACIONES DESTACADAS ================= -->
-  <section id="habitaciones" class="container featured-section py-5">
-    <div class="text-center mb-5">
-      <p class="section-subtitle">Habitaciones</p>
-      <h2 class="section-title">Habitaciones destacadas</h2>
-    </div>
-    <div class="row g-4">
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card room-card h-100">
-          <img src="./assets/fotos_index/habitacion2.png" class="card-img-top" alt="Habitación Doble Jardín" loading="lazy" />
-          <div class="card-body">
-            <h5 class="card-title">Habitación Doble Jardín</h5>
-            <p class="card-text">Espacio acogedor con vista a zonas verdes y excelente iluminación natural. Perfecta para relajarse.</p>
-            <p class="precio-hab">200.000 / noche</p>
-            <a href="html/contactanos.html" class="btn btn-reserva-card">Reservar</a>
+            <a
+              href="./html/iniciarSesion.html"
+              class="btn custom-btn-secondary btn-sm"
+              style="border-radius: 32px; width: 100px"
+            >
+              Iniciar sesión
+            </a>
           </div>
         </div>
       </div>

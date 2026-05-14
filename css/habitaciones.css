@@ -111,62 +111,7 @@ p, a, li   { font-family: var(--font-body); }
   }
 }
 
-
-/* ══════════════════════════════
-   BANNER HABITACIONES
-══════════════════════════════ */
-.banner-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.img-banner-habitaciones {
-  height: 400px;
-  object-fit: cover;
-  object-position: center;
-  width: 100%;
-  display: block;
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* El texto encima del banner */
-.texto-banner-habitaciones {
-  position: absolute;   
-  top: 50%;             
-  left: 50%;            
-  transform: translate(-50%, -50%); 
-  text-align: center;
-  color: white;         
-}
-
-.texto-banner-habitaciones h1 {
-  font-size: 60px;
-  font-weight: 700;
-}
-
-/* banner mobile */
-@media (max-width: 768px) {
-  .img-banner-habitaciones {
-    height: 200px;      
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .texto-banner-habitaciones h1 {
-    font-size: 2rem;    
-  }
-}
-
-
-/* ══════════════════════════════
-   HABITACIONES 
-══════════════════════════════ */
+/*Habitaciones*/
 
 .habitaciones-section {
    padding-bottom: 80px !important;
