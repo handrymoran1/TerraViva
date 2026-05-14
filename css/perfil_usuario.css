@@ -6,12 +6,11 @@
   --color-secondary: #ffffff;
   --color-accent: #e5bb89;
   --color-dark: #6f5d44;
-  --color-button: #5FA62D;
-  --color-opcional: #1B4015;
+  --color-button: #5fa62d;
+  --color-opcional: #1b4015;
   --font-title: "Berkshire Swash", cursive;
   --font-body: "Yrsa", serif;
 }
-
 
 /* ══════════════════════════════
    FUENTE GLOBAL DEL BODY
@@ -20,9 +19,16 @@ body {
   font-family: var(--font-body);
 }
 
-h1, h2, h3 { font-family: var(--font-title); }
-p, a, li   { font-family: var(--font-body); }
-
+h1,
+h2,
+h3 {
+  font-family: var(--font-title);
+}
+p,
+a,
+li {
+  font-family: var(--font-body);
+}
 
 /* ══════════════════════════════
    NAVBAR — BOTÓN MI PERFIL
@@ -38,16 +44,18 @@ p, a, li   { font-family: var(--font-body); }
   padding: 6px 14px;
   border-radius: 32px;
   border: 2px solid transparent;
-  transition: border-color .25s ease, background .25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 }
- 
+
 .nav-perfil-btn:hover,
 .nav-perfil-btn.active {
   border-color: var(--color-accent);
-  background-color: rgba(229, 187, 137, .12);
+  background-color: rgba(229, 187, 137, 0.12);
   color: var(--color-accent);
 }
- 
+
 .nav-avatar-icon {
   width: 32px;
   height: 32px;
@@ -55,15 +63,29 @@ p, a, li   { font-family: var(--font-body); }
   background-color: var(--color-accent);
   color: var(--color-opcional);
   font-family: var(--font-title);
-  font-size: .9rem;
+  font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   flex-shrink: 0;
 }
- 
- 
+
+.perfil-toast {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  position: fixed; /* O donde lo tengas ubicado */
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+
+.perfil-toast.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* ══════════════════════════════
    HERO
 ══════════════════════════════ */
@@ -74,36 +96,40 @@ p, a, li   { font-family: var(--font-body); }
   text-align: center;
   overflow: hidden;
 }
-  
+
 .perfil-hero-sup {
   font-family: var(--font-body);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--color-accent);
   text-transform: uppercase;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   margin-bottom: 8px;
 }
- 
+
 .perfil-hero-title {
   font-family: var(--font-title);
   font-size: 2.8rem;
   color: var(--color-opcional);
   margin-bottom: 0;
 }
- 
+
 @media (max-width: 768px) {
-  .perfil-hero { padding: 40px 20px; }
-  .perfil-hero-title { font-size: 2rem; }
+  .perfil-hero {
+    padding: 40px 20px;
+  }
+  .perfil-hero-title {
+    font-size: 2rem;
+  }
 }
- 
- 
+
 /* ══════════════════════════════
    FONDO SECCIÓN PRINCIPAL
 ══════════════════════════════ */
-.perfil-main { background-color: #f4f2ed; }
- 
- 
+.perfil-main {
+  background-color: #f4f2ed;
+}
+
 /* ══════════════════════════════
    TARJETA PERFIL (izquierda)
 ══════════════════════════════ */
@@ -112,19 +138,19 @@ p, a, li   { font-family: var(--font-body); }
   border-radius: 24px;
   padding: 36px 28px;
   text-align: center;
-  box-shadow: 0 6px 28px rgba(27, 64, 21, .09);
+  box-shadow: 0 6px 28px rgba(27, 64, 21, 0.09);
   position: sticky;
   top: 90px;
-  animation: fadeUp .5s ease both;
+  animation: fadeUp 0.5s ease both;
 }
- 
+
 /* Foto */
 .perfil-foto-wrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
- 
+
 .perfil-foto-ring {
   position: relative;
   width: 120px;
@@ -134,58 +160,64 @@ p, a, li   { font-family: var(--font-body); }
   padding: 3px;
   cursor: pointer;
 }
- 
+
 .perfil-foto {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  transition: filter .3s ease;
+  transition: filter 0.3s ease;
 }
- 
+
 .perfil-foto-overlay {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: rgba(27, 64, 21, .65);
+  background: rgba(27, 64, 21, 0.65);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
   color: #fff;
-  font-size: .72rem;
+  font-size: 0.72rem;
   font-family: var(--font-body);
   font-weight: 600;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   opacity: 0;
-  transition: opacity .25s ease;
+  transition: opacity 0.25s ease;
   cursor: pointer;
 }
- 
-.perfil-foto-overlay i { font-size: 1.4rem; }
- 
-.perfil-foto-ring:hover .perfil-foto-overlay { opacity: 1; }
-.perfil-foto-ring:hover .perfil-foto { filter: brightness(.7); }
- 
+
+.perfil-foto-overlay i {
+  font-size: 1.4rem;
+}
+
+.perfil-foto-ring:hover .perfil-foto-overlay {
+  opacity: 1;
+}
+.perfil-foto-ring:hover .perfil-foto {
+  filter: brightness(0.7);
+}
+
 /* Nombre y correo */
 .perfil-nombre-display {
   font-family: var(--font-title);
   font-size: 1.5rem;
   color: var(--color-opcional);
   margin-bottom: 4px;
-  transition: all .2s;
+  transition: all 0.2s;
 }
- 
+
 .perfil-correo-display {
   font-family: var(--font-body);
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: #888;
   margin-bottom: 16px;
-  transition: all .2s;
+  transition: all 0.2s;
 }
- 
+
 /* Badges */
 .perfil-badge-wrap {
   display: flex;
@@ -193,35 +225,38 @@ p, a, li   { font-family: var(--font-body); }
   align-items: center;
   gap: 8px;
 }
- 
+
 .perfil-badge {
   display: inline-flex;
   align-items: center;
   font-family: var(--font-body);
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 600;
   padding: 4px 14px;
   border-radius: 999px;
-  background-color: rgba(95, 166, 45, .12);
+  background-color: rgba(95, 166, 45, 0.12);
   color: var(--color-button);
-  border: 1px solid rgba(95, 166, 45, .25);
+  border: 1px solid rgba(95, 166, 45, 0.25);
 }
- 
+
 .perfil-badge-fecha {
-  background-color: rgba(27, 64, 21, .08);
+  background-color: rgba(27, 64, 21, 0.08);
   color: var(--color-opcional);
-  border-color: rgba(27, 64, 21, .15);
+  border-color: rgba(27, 64, 21, 0.15);
 }
- 
-.perfil-divider { border-color: #e8e4dc; margin: 20px 0; }
- 
+
+.perfil-divider {
+  border-color: #e8e4dc;
+  margin: 20px 0;
+}
+
 /* Estadísticas */
 .perfil-stats {
   display: flex;
   align-items: center;
   justify-content: center;
 }
- 
+
 .perfil-stat {
   display: flex;
   flex-direction: column;
@@ -229,30 +264,29 @@ p, a, li   { font-family: var(--font-body); }
   padding: 0 20px;
   gap: 4px;
 }
- 
+
 .perfil-stat-num {
   font-family: var(--font-title);
   font-size: 2rem;
   color: var(--color-opcional);
   line-height: 1;
 }
- 
+
 .perfil-stat-label {
   font-family: var(--font-body);
-  font-size: .72rem;
+  font-size: 0.72rem;
   color: #999;
   text-align: center;
   line-height: 1.3;
 }
- 
+
 .perfil-stat-sep {
   width: 1px;
   height: 40px;
   background: #e8e4dc;
   flex-shrink: 0;
 }
- 
- 
+
 /* ══════════════════════════════
    TARJETAS SECCIÓN (derecha)
 ══════════════════════════════ */
@@ -260,63 +294,64 @@ p, a, li   { font-family: var(--font-body); }
   background: #ffffff;
   border-radius: 24px;
   padding: 30px;
-  box-shadow: 0 6px 28px rgba(27, 64, 21, .09);
-  animation: fadeUp .5s ease both;
+  box-shadow: 0 6px 28px rgba(27, 64, 21, 0.09);
+  animation: fadeUp 0.5s ease both;
 }
- 
-.perfil-section-card:nth-child(2) { animation-delay: .1s; }
- 
+
+.perfil-section-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
 .perfil-section-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
- 
+
 .perfil-section-title {
   font-family: var(--font-title);
   font-size: 1.5rem;
   color: var(--color-opcional);
   margin-bottom: 4px;
 }
- 
+
 .perfil-section-sub {
   font-family: var(--font-body);
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: #999;
   margin-bottom: 0;
 }
- 
+
 .perfil-section-icon {
   font-size: 1.8rem;
   color: var(--color-accent);
-  opacity: .8;
+  opacity: 0.8;
   flex-shrink: 0;
   margin-top: 2px;
 }
- 
- 
+
 /* ══════════════════════════════
    INFORMACION PERSONAL
 ══════════════════════════════ */
 .perfil-label {
   display: block;
   font-family: var(--font-body);
-  font-size: .78rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #666;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   margin-bottom: 6px;
 }
- 
+
 .perfil-label-op {
   font-weight: 400;
   color: #bbb;
   text-transform: none;
   letter-spacing: 0;
 }
- 
+
 .perfil-input {
   width: 100%;
   font-family: var(--font-body);
@@ -327,31 +362,37 @@ p, a, li   { font-family: var(--font-body); }
   border-radius: 12px;
   padding: 11px 16px;
   outline: none;
-  transition: border-color .2s, box-shadow .2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
- 
+
 .perfil-input:focus {
   border-color: var(--color-button);
-  box-shadow: 0 0 0 3px rgba(95, 166, 45, .15);
+  box-shadow: 0 0 0 3px rgba(95, 166, 45, 0.15);
   background: #fff;
 }
- 
+
 /* Aviso contraseña bloqueada */
 .perfil-pass-info {
   display: flex;
   align-items: flex-start;
   gap: 4px;
   font-family: var(--font-body);
-  font-size: .83rem;
+  font-size: 0.83rem;
   color: #aaa;
   background: #f9f8f5;
   border: 1px dashed #ddd;
   border-radius: 10px;
   padding: 10px 14px;
 }
- 
-.perfil-pass-info i { flex-shrink: 0; margin-top: 1px; color: #bbb; }
- 
+
+.perfil-pass-info i {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #bbb;
+}
+
 /* Botón guardar */
 .btn-perfil-guardar {
   font-family: var(--font-body);
@@ -363,36 +404,42 @@ p, a, li   { font-family: var(--font-body); }
   border-radius: 30px;
   padding: 11px 32px;
   cursor: pointer;
-  transition: background .2s ease, transform .15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
- 
+
 .btn-perfil-guardar:hover {
   background-color: var(--color-opcional);
   transform: translateY(-2px);
 }
- 
+
 /* Toast confirmación */
 .perfil-toast {
   display: flex;
   align-items: center;
-  background: rgba(95, 166, 45, .12);
-  border: 1px solid rgba(95, 166, 45, .35);
+  background: rgba(95, 166, 45, 0.12);
+  border: 1px solid rgba(95, 166, 45, 0.35);
   color: var(--color-button);
   font-family: var(--font-body);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
   border-radius: 12px;
   padding: 11px 18px;
   margin-top: 16px;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity .3s ease, transform .3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
   pointer-events: none;
 }
- 
-.perfil-toast.visible { opacity: 1; transform: translateY(0); }
- 
- 
+
+.perfil-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ==============================
    SECCIÓN RESERVAS
    ============================== */
@@ -408,14 +455,14 @@ p, a, li   { font-family: var(--font-body); }
 }
 
 .reservas-title {
-  font-family: 'Berkshire Swash', cursive;
+  font-family: "Berkshire Swash", cursive;
   color: #1b4015;
   font-size: 1.6rem;
   margin-bottom: 0.2rem;
 }
 
 .reservas-sub {
-  font-family: 'Yrsa', serif;
+  font-family: "Yrsa", serif;
   color: #7a7060;
   font-size: 0.95rem;
   margin: 0;
@@ -459,14 +506,14 @@ p, a, li   { font-family: var(--font-body); }
 
 .reservas-stat-num {
   display: block;
-  font-family: 'Berkshire Swash', cursive;
+  font-family: "Berkshire Swash", cursive;
   font-size: 1.6rem;
   color: #1b4015;
   line-height: 1;
 }
 
 .reservas-stat-label {
-  font-family: 'Yrsa', serif;
+  font-family: "Yrsa", serif;
   font-size: 0.85rem;
   color: #7a7060;
   text-transform: uppercase;
@@ -480,9 +527,9 @@ p, a, li   { font-family: var(--font-body); }
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
   padding: 2.5rem;
   min-height: 280px;
-  display: flex;              /* ← esto es clave */
-  align-items: center;        /* ← centra verticalmente */
-  justify-content: center;    /* ← centra horizontalmente */
+  display: flex; /* ← esto es clave */
+  align-items: center; /* ← centra verticalmente */
+  justify-content: center; /* ← centra horizontalmente */
 }
 
 /* ── Estado vacío (placeholder) ── */
@@ -500,14 +547,14 @@ p, a, li   { font-family: var(--font-body); }
 }
 
 .reservas-empty-title {
-  font-family: 'Berkshire Swash', cursive;
+  font-family: "Berkshire Swash", cursive;
   color: #1b4015;
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
 
 .reservas-empty-text {
-  font-family: 'Yrsa', serif;
+  font-family: "Yrsa", serif;
   color: #7a7060;
   font-size: 0.95rem;
   margin-bottom: 1.5rem;
@@ -518,27 +565,33 @@ p, a, li   { font-family: var(--font-body); }
   align-items: center;
   background: #1b4015;
   color: #fff;
-  font-family: 'Yrsa', serif;
+  font-family: "Yrsa", serif;
   font-size: 0.95rem;
   font-weight: 600;
   padding: 0.6rem 1.6rem;
   border-radius: 32px;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .btn-reservas-cta:hover {
-  background: #5FA62D;
+  background: #5fa62d;
   color: #fff;
   transform: translateY(-2px);
 }
- 
- 
+
 /* ══════════════════════════════
    ANIMACIONES
 ══════════════════════════════ */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
- 
