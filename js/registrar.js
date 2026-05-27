@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 btnRegistrar.addEventListener("click", function (e) {
   e.preventDefault();
   console.log("vamos bien.");
+  registrarUsuario();
 });
 
 function registrarUsuario() {
@@ -70,10 +71,8 @@ function registrarUsuario() {
   let existeEmail = false;
   let existeTelefono = false;
 
-  
   //verificar el nombre primero que no exista
   for (let i = 0; i < usuarios.length; i++) {
-
     if (usuarios[i].nombre === nombre) {
       existeNombre = true;
       textoAlerta.innerHTML = `<h5>Este nombre ya está registrado.</h5>`;

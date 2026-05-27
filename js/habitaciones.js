@@ -4,7 +4,7 @@ const habitacionesIniciales = [
   // Datos de para inicializar las habitaciones
   {
     id: 1,
-    nombre: "ALOJAMIENTO",
+    nombre: "Habitación 1",
     precio: 340000,
     imagen: "../assets/habitaciones/habitacion1.png",
     descripcion:
@@ -13,7 +13,7 @@ const habitacionesIniciales = [
   },
   {
     id: 2,
-    nombre: "",
+    nombre: "Habitación 2",
     precio: 700000,
     imagen: "../assets/habitaciones/habitacion2.png",
     descripcion: "Suite de lujo con balcón.",
