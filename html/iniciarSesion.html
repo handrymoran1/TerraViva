@@ -92,42 +92,138 @@
 
     <section class="section-registro">
       <div class="card card-registro">
-        <form>
-          <div class="mb-3">
-            <label for="inputCorreo" class="form-label"
-              >Correo electrónico</label
+        <div class="row align-items-center g-4">
+          <!-- columna izquierda -->
+          <div class="col-md-6 text-center text-md-start">
+            <img
+              src="../assets/logo/LogoV2.png"
+              alt="Huellas de la Pola"
+              width="90"
+              height="90"
+              class="mb-3"
+              style="border-radius: 50%"
+            />
+            <h2
+              style="
+                font-family: var(--font-title);
+                color: var(--color-dark);
+                font-size: clamp(2rem, 5vw, 3rem);
+              "
             >
-            <input
-              type="email"
-              class="form-control"
-              id="inputCorreo"
-              aria-describedby="emailHelp"
-              placeholder="correoejemplo@gmail.com"
-            />
-            <div id="emailHelp" class="form-text"></div>
-          </div>
-          <div class="mb-3">
-            <label for="inputPassword" class="form-label">Contraseña</label>
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword"
-              placeholder="****************"
-            />
-          </div>
-          <!-- >Esto de recordarme hay que revisarlo con las profes por cuestión de cookies y LocalStorage -->
-          <div class="mb-3 form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="exampleCheck1"
-            />
-            <label class="form-check-label" for="exampleCheck1"
-              >Recordarme</label
+              ¡Bienvenido!
+            </h2>
+            <span
+              style="
+                background-color: var(--color-accent);
+                color: var(--color-dark);
+                border-radius: 50px;
+                padding: 6px 20px;
+                font-size: 0.9rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+              "
             >
+              <i class="bi bi-shield-fill-check"></i>
+              SEGURO
+            </span>
+            <p class="mt-3" style="color: var(--color-dark); opacity: 0.8">
+              Accede a tu cuenta de forma segura
+            </p>
           </div>
-          <button type="button" id="btnIniciarSesion" class="btn btn-primary">Iniciar sesión</button>
-        </form>
+
+          <!-- columna derecha: formulario -->
+          <div class="col-md-6">
+            <!-- alerta visual neutra  -->
+            <div
+              id="alerta-login"
+              class="alert d-none align-items-center mb-3"
+              role="alert"
+              style="
+                background-color: var(--color-accent);
+                color: var(--color-dark);
+                border: 1px solid var(--color-dark);
+                border-radius: 12px;
+              "
+            >
+              <span id="icono-alerta" class="me-2"></span>
+              <span id="mensaje-alerta"></span>
+            </div>
+
+            <form>
+              <!-- correo electrónico -->
+              <div class="mb-3">
+                <label for="inputCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <div class="input-group">
+                  <span
+                    class="input-group-text"
+                    style="background-color: transparent; border-right: none"
+                  >
+                    <i class="bi bi-envelope-fill"></i>
+                  </span>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputCorreo"
+                    placeholder="correoejemplo@gmail.com"
+                  />
+                </div>
+                <div id="emailHelp" class="form-text"></div>
+              </div>
+
+              <!-- contraseña -->
+              <div class="mb-3">
+                <label for="inputPassword" class="form-label">Contraseña</label>
+                <div class="input-group">
+                  <span
+                    class="input-group-text"
+                    style="background-color: transparent; border-right: none"
+                  >
+                    <i class="bi bi-lock-fill"></i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputPassword"
+                    placeholder="****************"
+                  />
+                  <span
+                    class="input-group-text"
+                    id="toggle-contrasena"
+                    style="
+                      cursor: pointer;
+                      background-color: transparent;
+                      border-left: none;
+                    "
+                  >
+                    <i id="icono-ojo" class="bi bi-eye-fill"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="exampleCheck1"
+                />
+                <label class="form-check-label" for="exampleCheck1"
+                  >Recordarme</label
+                >
+              </div>
+
+              <button
+                type="button"
+                id="btnIniciarSesion"
+                class="btn btn-primary w-100"
+              >
+                Iniciar sesión
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
 

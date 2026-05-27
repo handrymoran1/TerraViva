@@ -1,6 +1,12 @@
 const inputCorreo = document.getElementById("inputCorreo");
 const inputPassword = document.getElementById("inputPassword");
 const btnIniciarSesion = document.getElementById("btnIniciarSesion");
+const alertaLogin = document.getElementById("alerta-login");
+const iconoAlerta = document.getElementById("icono-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
+const toggleContrasena = document.getElementById("toggle-contrasena");
+const iconoOjo = document.getElementById("icono-ojo");
+
 
 // validar que tenga letras y numeros especificos.
 const validarFormatoCorreo = (email) => {
@@ -11,7 +17,7 @@ const validarFormatoCorreo = (email) => {
 // validar que tenga letras y numeros especificos y caracteres mínimos.
 
 const validarFormatoPassword = (password) => {
-  const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*/]).{8,16}$/;
+  const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*/]).{8,35}$/;
   return regex.test(password);
 };
 
@@ -34,6 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       inputPassword.classList.remove("is-valid");
       inputPassword.classList.add("is-invalid");
+    }
+  });
+
+  // Toggle visibilidad de contraseña
+  toggleContrasena.addEventListener("click", function () {
+    const tipo =
+      inputPassword.getAttribute("type") === "password" ? "text" : "password";
+    inputPassword.setAttribute("type", tipo);
+    if (tipo === "password") {
+      iconoOjo.className = "bi bi-eye-fill";
+    } else {
+      iconoOjo.className = "bi bi-eye-slash-fill";
     }
   });
 
