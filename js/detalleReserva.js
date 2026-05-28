@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       sessionStorage.removeItem("busquedaHabitaciones");
 
 
-      window.location.href = "./iniciarSesion.html";
+      window.location.href = "./perfil_usuario.html";
     });
   }
 });
