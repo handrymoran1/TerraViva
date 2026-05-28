@@ -20,7 +20,8 @@ function actualizarNavbar() {
 function cerrarSesionManual() {
   localStorage.removeItem("usuarioLogueado");
   alert("Has cerrado sesión correctamente.");
-  window.location.href = "../index.html";
+  const enSubdirectorio = window.location.pathname.includes("/html/");
+  window.location.href = enSubdirectorio ? "../index.html" : "./index.html";
 }
 
 document.addEventListener("DOMContentLoaded", actualizarNavbar);

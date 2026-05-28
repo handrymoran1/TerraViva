@@ -1,9 +1,3 @@
-function cerrarSesionManual() {
-  localStorage.removeItem("usuarioLogueado");
-  alert("Has cerrado sesión correctamente.");
-  window.location.href = "../index.html";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   actualizarNavbar();
   // aquí traemos los datos del usuario logueado
@@ -72,33 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000);
   });
 });
-
-// actulizamos segun logeo del usuario
-function actualizarNavbar() {
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-
-  const divNoLogueado = document.getElementById("navNoLogueado");
-  const divLogueado = document.getElementById("navLogueado");
-  const navAvatar = document.getElementById("navAvatar");
-
-  if (usuario) {
-    if (divNoLogueado) divNoLogueado.classList.add("d-none"); // Ocultar Registrar/Login
-    if (divLogueado) divLogueado.classList.remove("d-none"); // Mostrar Perfil/Cerrar Sesión
-
-    if (navAvatar && usuario.nombre) {
-      navAvatar.textContent = usuario.nombre.charAt(0).toUpperCase();
-    }
-  } else {
-    if (divNoLogueado) divNoLogueado.classList.remove("d-none"); // Mostrar Registrar/Login
-    if (divLogueado) divLogueado.classList.add("d-none"); // Ocultar Perfil/Cerrar Sesión
-  }
-}
-
-function cerrarSesionManual() {
-  localStorage.removeItem("usuarioLogueado");
-  alert("Has cerrado sesión correctamente.");
-  window.location.href = "../index.html";
-}
 
 // Esto va cuando ya se tenga la base de datos (LLENAR LOS NUMEROS)
 // fetch("/api/usuario/estadisticas")
