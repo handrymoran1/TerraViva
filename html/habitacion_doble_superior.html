@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle Habitación | TerraViva</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Yrsa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/detalleHabitacion.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
+      <div class="container-fluid">
+        <!-- LOGO -->
+        <a
+          class="navbar-brand ms-5 d-flex align-items-center"
+          href="./index.html"
+        >
+          <img
+            src="../assets/logo/LogoV2.png"
+            alt="Logo TerraViva"
+            width="70"
+            height="70"
+            class="me-3 logo-nav"
+            style="border-radius: 50%"
+          />
+          TerraViva
+        </a>
+
+        <!-- BOTÓN MOBILE -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- MENÚ -->
+        <div
+          class="collapse navbar-collapse justify-content-evenly"
+          id="navbarNav"
+        >
+          <!-- LINKS — activo: Inicio -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./habitaciones.html">Habitaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./nosotros.html">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contactanos.html">Contáctanos</a>
+            </li>
+          </ul>
+
+          <!-- BOTONES -->
+          <div class="d-flex gap-2 align-items-center">
+            <!--si no  está logueado es visible por defecto-->
+            <div id="navNoLogueado">
+              <a
+                href="./html/registrar.html"
+                class="btn custom-btn-primary btn-sm"
+                style="border-radius: 32px; width: 100px"
+              >
+                Registrarse
+              </a>
+              <a
+                href="./html/iniciarSesion.html"
+                class="btn custom-btn-secondary btn-sm"
+                style="border-radius: 32px; width: 100px"
+              >
+                Iniciar sesión
+              </a>
+            </div>
+
+            <!-- si si está logueado Oculto por defecto con 'd-none' -->
+            <div id="navLogueado" class="d-none">
+              <a href="./html/perfil_usuario.html" class="nav-perfil-btn">
+                <span class="nav-avatar-icon" id="navAvatar">U</span>
+                <span>Mi perfil</span>
+              </a>
+              <button
+                onclick="cerrarSesionManual()"
+                class="btn custom-btn-secondary btn-sm"
+                style="border-radius: 32px; width: 100px"
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- DETALLE -->
+  <main class="container seccion-detalle">
+    <div class="row g-4 align-items-start">
+
+      <div class="col-12 col-lg-6">
+        <img
+          id="fotoPrincipal"
+          src="../assets/habitacion_doble_balcon/01.png"
+          alt="Foto principal de la Suite Colonial"
+          class="foto-principal mb-3"
+        >
+
+        <div class="row g-3">
+          <div class="col-4">
+            <img
+              src="../assets/habitacion_doble_balcon/02.png"
+              alt="Vista 1 de la Suite Colonial"
+              class="foto-miniatura activa"
+              onclick="cambiarFoto(this)"
+            >
+          </div>
+          <div class="col-4">
+            <img
+              src="../assets/habitacion_doble_balcon/03.png"
+              alt="Vista 2 de la Suite Colonial"
+              class="foto-miniatura"
+              onclick="cambiarFoto(this)"
+            >
+          </div>
+          <div class="col-4">
+            <img
+              src="../assets/habitacion_doble_balcon/04.png"
+              alt="Vista 3 de la Suite Colonial"
+              class="foto-miniatura"
+              onclick="cambiarFoto(this)"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <p class="detalle-etiqueta">Habitación</p>
+        <h1 class="detalle-nombre">Doble Superior</h1>
+
+        <div class="precio-detalle">
+          $250.000 <span class="precio-noche">/ noche</span>
+        </div>
+
+        <p class="detalle-descripcion">
+          La Doble Superior ofrece una experiencia más completa gracias a su amplitud, diseño armonioso y acabados modernos. Es una opción ideal para huéspedes que buscan un nivel extra de confort, con un ambiente agradable que combina funcionalidad, descanso y estilo.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <span class="badge-amenidad"><i class="bi bi-wifi"></i> WiFi</span>
+          <span class="badge-amenidad"><i class="bi bi-snow"></i> Aire acondicionado</span>
+          <span class="badge-amenidad"><i class="bi bi-tv"></i> TV</span>
+          <span class="badge-amenidad"><i class="bi bi-droplet"></i> Baño privado</span>
+        </span>
+        </span>
+        </div>
+
+        <section class="detalle-buscador-section">
+          <div class="detalle-buscador-card">
+
+            <div class="detalle-buscador-campo">
+              <label for="fechaLlegada" class="detalle-buscador-label">Llegada</label>
+              <input type="date" id="fechaLlegada" class="detalle-buscador-input">
+            </div>
+
+            <div class="detalle-buscador-divider"></div>
+
+            <div class="detalle-buscador-campo">
+              <label for="fechaSalida" class="detalle-buscador-label">Salida</label>
+              <input type="date" id="fechaSalida" class="detalle-buscador-input">
+            </div>
+
+            <div class="detalle-buscador-divider"></div>
+
+            <div class="detalle-buscador-campo">
+              <label for="huespedes" class="detalle-buscador-label">Huéspedes</label>
+              <select id="huespedes" class="detalle-buscador-input">
+                <option>1 adulto</option>
+                <option selected>2 adultos</option>
+                <option>3 adultos</option>
+                <option>4 adultos</option>
+                <option>2 adultos + 1 niño</option>
+                <option>2 adultos + 2 niños</option>
+              </select>
+            </div>
+
+            <button class="detalle-buscador-btn" id="btnBuscar">
+              Buscar disponibilidad
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- MÁS OPCIONES -->
+<section id="habitaciones" class="container featured-section">
+  <div class="text-center mb-5">
+    <p class="section-subtitle">Más opciones</p>
+    <h2 class="section-title">Explora más habitaciones</h2>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card room-card h-100">
+        <img src="../assets/habitaciones/habitacion2.png" class="card-img-top" alt="Habitación Doble Jardín" loading="lazy">
+        <div class="card-body">
+          <h5 class="card-title">Habitación Doble Jardín</h5>
+          <p class="card-text">Espacio acogedor con vista a zonas verdes y excelente iluminación natural. Perfecta para relajarse.</p>
+          <p class="precio-hab">$200.000 / noche</p>
+          <a href="./contactanos.html" class="btn btn-reserva-card">Más detalles</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card room-card h-100">
+        <img src="../assets/habitaciones/habitacion6.png" class="card-img-top" alt="Habitación Doble Ejecutiva" loading="lazy">
+        <div class="card-body">
+          <h5 class="card-title">Habitación Doble Ejecutiva</h5>
+          <p class="card-text">Incluye escritorio y buena iluminación, ideal para trabajar y descansar con comodidad.</p>
+          <p class="precio-hab">$220.000 / noche</p>
+          <a href="./contactanos.html" class="btn btn-reserva-card">Más detalles</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card room-card h-100">
+        <img src="../assets/habitaciones/habitacion7.png" class="card-img-top" alt="Habitación Vista Exterior" loading="lazy">
+        <div class="card-body">
+          <h5 class="card-title">Habitación Vista Exterior</h5>
+          <p class="card-text">Habitación luminosa con cama doble y vista exterior. Ideal para una experiencia más abierta.</p>
+          <p class="precio-hab">$240.000 / noche</p>
+          <a href="./contactanos.html" class="btn btn-reserva-card">Más detalles</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card room-card h-100">
+        <img src="../assets/habitaciones/habitacion10.png" class="card-img-top" alt="Suite Premium" loading="lazy">
+        <div class="card-body">
+          <h5 class="card-title">Suite Premium</h5>
+          <p class="card-text">La opción más exclusiva, con diseño moderno, cama amplia y detalles elegantes.</p>
+          <p class="precio-hab">$330.000 / noche</p>
+          <a href="./contactanos.html" class="btn btn-reserva-card">Más detalles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="../html/habitaciones.html" class="btn btn-pill">Ver más habitaciones</a>
+  </div>
+</section>
+
+  <!-- ================= FOOTER ================= -->
+    <!-- FOOTER -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-2 mb-3 mb-md-0 text-center text-md-start">
+            <img
+              src="../assets/logo/LogoV2.png"
+              alt="Logo TerraViva"
+              style="border-radius: 50%"
+              width="120"
+              height="120"
+              class="d-inline-block logo-footer"
+            />
+          </div>
+
+          <div
+            class="col-12 col-md-9 d-flex align-items-center justify-content-center justify-content-md-start gap-5 flex-wrap"
+          >
+            <ul class="list-unstyled mb-0 d-flex gap-4 flex-wrap">
+              <li><a href="../index.html" class="footer-link">Inicio</a></li>
+              <li>
+                <a href="../html/nosotros.html" class="footer-link">Nosotros</a>
+              </li>
+              <li>
+                <a href="../html/habitaciones.html" class="footer-link"
+                  >Habitaciones</a
+                >
+              </li>
+              <li>
+                <a href="../html/contactanos.html" class="footer-link"
+                  >Contacto</a
+                >
+              </li>
+            </ul>
+
+            <div class="d-flex gap-3 justify-content-center ms-md-auto">
+              <a href="https://www.instagram.com/" class="footer-link fs-4">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://www.facebook.com/" class="footer-link fs-4">
+                <i class="bi bi-facebook"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="text-center">
+          <p class="mb-2">
+            Equipo de desarrollo<br />
+            Robinson Salamanca | Joan Triana | Handry Moran | Brayan Velasquez
+          </p>
+          <p class="mb-0 texto-derechos">
+            &copy; 2026 TerraViva. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- FIN FOOTER -->
+
+  <script>
+    function cambiarFoto(miniatura) {
+      document.getElementById("fotoPrincipal").src = miniatura.src;
+      document.querySelectorAll(".foto-miniatura").forEach(img => {
+        img.classList.remove("activa");
+      });
+      miniatura.classList.add("activa");
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/habitaciones.js"></script>
+</body>
+</html>
