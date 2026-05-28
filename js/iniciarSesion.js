@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../html/dashboard.html";
       } else {
         console.log("Usuario normal detectado.");
-        window.location.href = "../html/perfil_usuario.html";
+        window.location.href = "../html/detalleReserva.html";
       }
     } else if (usuarioEncontrado && !passwordCorrecta) {
       alert("La contraseña es incorrecta.");
