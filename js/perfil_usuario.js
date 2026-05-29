@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // si no hay usuario lo sacamos de la página y con eso garantizamos un poco más de seguridad
   if (!usuario) {
-    alert("Debes iniciar sesión para ver esta página.");
     window.location.href = "../html/iniciarSesion.html";
+    alert("Debes iniciar sesión para ver esta página.");
     return;
   }
 
