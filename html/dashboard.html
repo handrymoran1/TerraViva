@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habitaciones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Yrsa:ital,wght@0,300..700;1,300..700&display=swap"
+      rel="stylesheet"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -16,7 +22,7 @@
   </head>
   <body>
     <!-- NAVBAR-->
-    <nav class="navbar navbar-expand-lg custom-navbar py-4">
+    <nav class="navbar navbar-expand-lg custom-navbar py-4 fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand ms-5" href="../index.html">
           <img
@@ -75,30 +81,32 @@
       </div>
     </nav>
 
-    <section style="margin-top: 4%">
-      <div class="row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Habitaciones disponibles</h5>
-              <p class="card-text">
-                <span id="contadorDisponible">0</span>
-              </p>
+    <div class="container">
+        <section>
+            <div class="row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Habitaciones disponibles</h5>
+                    <p class="card-text">
+                      <span id="contadorDisponible">0</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Habitaciones ocupadas</h5>
+                    <p class="card-text">
+                      <span id="contadorOcupadas">0</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Habitaciones ocupadas</h5>
-              <p class="card-text">
-                <span id="contadorOcupadas">0</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </section>
+    </div>
 
     <div class="container my-5">
       <h1 class="text-center mb-4">Panel de Administración</h1>
@@ -223,7 +231,8 @@
     </footer>
     <!-- FIN FOOTER -->
 
+    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/habitaciones.js"></script>
+    <script src="../js/index.js"></script>
   </body>
 </html>

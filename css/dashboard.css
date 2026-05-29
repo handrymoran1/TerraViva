@@ -9,18 +9,42 @@
   --font-body: "Yrsa", serif;
 }
 
+@keyframes pulse-green {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(95, 166, 45, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 20px rgba(95, 166, 45, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(95, 166, 45, 0);
+  }
+}
+
+@keyframes shake-horizontal {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+
 body {
   font-family: var(--font-body);
+  background: linear-gradient(180deg, #fdfbf7 0%, #f2ede7 100%);
+  padding-top: 130px;
 }
 
 h1,
 h2,
-h3 {
+h3, h4 {
   font-family: var(--font-title);
 }
 p,
 a,
-li {
+li, label, small {
   font-family: var(--font-body);
 }
 
@@ -38,14 +62,10 @@ li {
   font-family: var(--font-body);
   font-size: 18px;
   color: var(--color-secondary) !important;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
 }
 
 .nav-link:hover {
   color: var(--color-accent) !important;
-  transform: translateY(-2px);
 }
 
 .custom-btn-secondary {
@@ -74,7 +94,6 @@ li {
   box-shadow: none;
 }
 
-/* raya debajo de los links */
 .nav-link.active {
   color: var(--color-accent) !important;
   font-weight: 600;
@@ -91,37 +110,6 @@ li {
   height: 2px;
   background-color: var(--color-accent);
   border-radius: 2px;
-}
-
-/* VERSIÓN MÓVIL — NAVBAR */
-@media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 22px;
-  }
-  .logo-nav {
-    height: 40px;
-    width: 40px;
-    margin-right: 8px;
-  }
-
-  .nav-link.active::after {
-    left: 0;
-    transform: none;
-    width: 30%;
-  }
-}
-
-/* banner mobile */
-@media (max-width: 768px) {
-  .img-banner-contacto {
-    height: 200px;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .texto-banner-contacto h1 {
-    font-size: 2rem;
-  }
 }
 
 .footer {
@@ -151,14 +139,10 @@ li {
   font-family: var(--font-body);
   text-decoration: none;
   font-size: 18px;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
 }
 
 .footer-link:hover {
   color: var(--color-accent);
-  transform: translateY(-2px);
 }
 
 .footer ul li {
@@ -169,14 +153,76 @@ li {
   color: #e5bb89 !important;
 }
 
-/* 📱 VERSIÓN MÓVIL — FOOTER */
-@media (max-width: 768px) {
-  .logo-footer {
-    width: 100px;
-    height: 100px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-  }
+.container.my-5 > h1.text-center {
+    font-weight: 700;
+    font-family: var(--font-title);
+    background: linear-gradient(45deg, var(--color-opcional), var(--color-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-/* *********************************************************** */
+.card {
+    text-align: center;
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.card-title {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-dark);
+}
+
+.card-text {
+    font-family: var(--font-body);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(45deg, var(--color-button), var(--color-opcional));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+#tituloFormulario,
+.container.my-5 h2 {
+    font-family: var(--font-title);
+    color: var(--color-dark);
+}
+
+.btn-primary {
+  background-color: var(--color-opcional) !important;
+  border-color: var(--color-opcional) !important;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 32px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  animation: pulse-green 1.5s infinite;
+}
+
+#btnCancelar.btn-secondary {
+    font-family: var(--font-body);
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 32px;
+    background-color: #6c757d;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#btnCancelar.btn-secondary:hover {
+    animation: shake-horizontal 0.8s;
+    background-color: #d9534f; /* Rojo suave */
+    border-color: #d9534f;
+}
