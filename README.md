@@ -11,7 +11,7 @@
 
 ## 📖 Descripción
 
-**Huellas de la Pola** es un sistema de reservas para un hotel boutique, desarrollado como aplicación web estática con HTML, CSS y JavaScript puro. Permite a los usuarios registrarse, iniciar sesión, buscar disponibilidad, explorar habitaciones, realizar reservas y gestionar su perfil personal. Incluye además un panel de administración completo para la gestión del catálogo de habitaciones.
+**VivaTerra** es un sistema de reservas para un hotel boutique, desarrollado como aplicación web estática con HTML, CSS y JavaScript puro. Permite a los usuarios registrarse, iniciar sesión, buscar disponibilidad, explorar habitaciones, realizar reservas y gestionar su perfil personal. Incluye además un panel de administración completo para la gestión del catálogo de habitaciones.
 
 ---
 
