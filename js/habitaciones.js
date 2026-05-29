@@ -1,98 +1,92 @@
 const CLAVE_HABITACIONES = "habitacionesHuellas";
 
 const habitacionesIniciales = [
-  // Datos de para inicializar las habitaciones
   {
     id: 1,
-    nombre: "Habitación 1",
+    nombre: "Suite Colonial",
     precio: 340000,
     imagen: "../assets/habitaciones/habitacion1.png",
-    descripcion:
-      "Elegante esia cotancn cama gfgfgfgfgdfgdfgddfgdfgdfgdfghghghg.",
+    descripcion: "Elegante habitación con cama doble, decoración colonial y vista al patio interior.",
     mostrar: true,
   },
   {
     id: 2,
-    nombre: "Habitación 2",
-    precio: 700000,
-    imagen: "../assets/habitaciones/habitacion2.png",
-    descripcion: "Suite de lujo con balcón.",
+    nombre: "Habitación Doble Superior",
+    precio: 250000,
+    imagen: "../assets/habitaciones/habitacion4.png",
+    descripcion: "Habitación amplia y elegante, con detalles modernos.",
     mostrar: true,
   },
   {
     id: 3,
-    nombre: "Habitación 3",
-    precio: 250000,
-    imagen: "../assets/habitaciones/habitacion3.png",
-    descripcion: "Habitación temática botánica.",
+    nombre: "Habitación Doble Jardín",
+    precio: 200000,
+    imagen: "../assets/habitaciones/habitacion2.png",
+    descripcion: "Espacio acogedor con vista a zonas verdes y excelente iluminación natural.",
     mostrar: true,
   },
   {
     id: 4,
-    nombre: "Habitación 4",
-    precio: 800000,
-    imagen: "../assets/habitaciones/habitacion4.png",
-    descripcion: "Suite familiar espaciosa.",
+    nombre: "Habitación Doble Natural",
+    precio: 210000,
+    imagen: "../assets/habitaciones/habitacion5.png",
+    descripcion: "Decoración cálida con elementos en madera y tonos suaves.",
     mostrar: true,
   },
   {
     id: 5,
-    nombre: "Habitación 5",
-    precio: 200000,
-    imagen: "../assets/habitaciones/habitacion5.png",
-    descripcion: "Opción cómoda y funcional.",
+    nombre: "Habitación Doble con Balcón",
+    precio: 330000,
+    imagen: "../assets/habitaciones/habitacion3.png",
+    descripcion: "Cama doble y balcón privado para disfrutar del aire libre.",
     mostrar: true,
   },
   {
     id: 6,
-    nombre: "Habitación 6",
-    precio: 420000,
+    nombre: "Habitación Doble Ejecutiva",
+    precio: 220000,
     imagen: "../assets/habitaciones/habitacion6.png",
-    descripcion: "Vista a la ciudad, cama Queen.",
+    descripcion: "Incluye escritorio y buena iluminación, ideal para trabajar y descansar.",
     mostrar: true,
   },
   {
     id: 7,
-    nombre: "Habitación 7",
-    precio: 550000,
+    nombre: "Habitación Vista Exterior",
+    precio: 240000,
     imagen: "../assets/habitaciones/habitacion7.png",
-    descripcion: "Con jacuzzi y terraza.",
+    descripcion: "Habitación luminosa con cama doble y vista exterior.",
     mostrar: true,
   },
   {
     id: 8,
-    nombre: "Habitación 8",
-    precio: 310000,
+    nombre: "Habitación Doble Romántica",
+    precio: 260000,
     imagen: "../assets/habitaciones/habitacion8.png",
-    descripcion: "Económica pero acogedora.",
+    descripcion: "Ambiente íntimo con iluminación cálida y decoración acogedora.",
     mostrar: true,
   },
   {
     id: 9,
-    nombre: "Habitación 9",
-    precio: 670000,
+    nombre: "Junior Suite",
+    precio: 290000,
     imagen: "../assets/habitaciones/habitacion9.png",
-    descripcion: "Doble con vistas panorámicas.",
+    descripcion: "Espacio amplio con zona de descanso adicional.",
     mostrar: true,
   },
   {
     id: 10,
-    nombre: "Habitación 10",
-    precio: 920000,
+    nombre: "Suite Premium",
+    precio: 330000,
     imagen: "../assets/habitaciones/habitacion10.png",
-    descripcion: "Presidencial con servicio 24h.",
+    descripcion: "La más exclusiva, con cama amplia y diseño moderno.",
     mostrar: true,
   },
 ];
 
-// localstorage es la persistencia
-
+// [CAMBIO] inicializar habitaciones si no existen en localStorage
 function inicializarHabitaciones() {
   if (!localStorage.getItem(CLAVE_HABITACIONES)) {
-    localStorage.setItem(
-      CLAVE_HABITACIONES,
-      JSON.stringify(habitacionesIniciales),
-    );
+    localStorage.setItem(CLAVE_HABITACIONES, JSON.stringify(habitacionesIniciales));
   }
 }
 
@@ -104,8 +98,6 @@ function guardarHabitaciones(habitaciones) {
   localStorage.setItem(CLAVE_HABITACIONES, JSON.stringify(habitaciones));
 }
 
-// utilidades
-
 function generarId() {
   const habitaciones = obtenerHabitaciones();
   if (habitaciones.length === 0) return 1;
@@ -116,8 +108,7 @@ function placeholderImagen() {
   return "https://placehold.co/300x200?text=Sin+imagen";
 }
 
-// modelado crud
-
+// [CAMBIO] CRUD de habitaciones
 function agregarHabitacion(nombre, precio, descripcion, imagen) {
   const habitaciones = obtenerHabitaciones();
   const nueva = {
@@ -140,7 +131,7 @@ function editarHabitacion(id, nombre, precio, descripcion, imagen) {
   habitaciones[index].nombre = nombre;
   habitaciones[index].precio = parseFloat(precio);
   habitaciones[index].descripcion = descripcion || "";
-  if (imagen !== undefined) habitaciones[index].imagen = imagen; // si no se pasa, mantiene la anterior
+  if (imagen !== undefined) habitaciones[index].imagen = imagen;
   guardarHabitaciones(habitaciones);
   return true;
 }
@@ -162,31 +153,22 @@ function actualizarVisibilidadHabitacion(id, mostrar) {
   }
 }
 
-// ajustar habitaciones
-
+// [CAMBIO] mostrar catálogo de habitaciones públicas
 function ajustarCatalogo() {
   const contenedor = document.getElementById("contenedorHabitaciones");
-
-  if (!contenedor) {
-    return;
-  }
+  if (!contenedor) return;
 
   const todasLasHabitaciones = obtenerHabitaciones();
   contenedor.innerHTML = "";
   let hayHabitacionesVisibles = false;
-  //aquí recorremos una por una de las habitaciones
+
   for (let i = 0; i < todasLasHabitaciones.length; i++) {
     const habitacion = todasLasHabitaciones[i];
-
-    // Si la habitacion no esta marcada para mostrarse nos la saltamos
-    if (habitacion.mostrar === false) {
-      continue;
-    }
+    if (!habitacion.mostrar) continue;
     hayHabitacionesVisibles = true;
 
     const col = document.createElement("div");
-    col.className = "col"; // clase de bootstrap
-
+    col.className = "col";
     const imagenSrc = habitacion.imagen || placeholderImagen();
 
     col.innerHTML = `
@@ -200,46 +182,32 @@ function ajustarCatalogo() {
         </div>
       </div>
     `;
-    contenedor.appendChild(col); //aquí estoy agregando al DOM
+    contenedor.appendChild(col);
   }
 
-  if (hayHabitacionesVisibles === false) {
-    contenedor.innerHTML =
-      '<div class="col-12 text-center"><p class="text-muted">No hay habitaciones disponibles.</p></div>';
+  if (!hayHabitacionesVisibles) {
+    contenedor.innerHTML = '<div class="col-12 text-center"><p class="text-muted">No hay habitaciones disponibles.</p></div>';
   }
 
+  // [CAMBIO] añadir eventos a los botones "Reservar"
   const botones = document.querySelectorAll(".btn-reservar");
-
   for (let j = 0; j < botones.length; j++) {
     botones[j].addEventListener("click", function (e) {
-      const idString = this.dataset.id; //aquí obtenemos el ID del atributo data-id
-      const idNum = parseInt(idString); //y con esto lo convertimos a int
-
+      const idNum = parseInt(this.dataset.id);
       let habSeleccionada = null;
       for (let k = 0; k < todasLasHabitaciones.length; k++) {
         if (todasLasHabitaciones[k].id === idNum) {
           habSeleccionada = todasLasHabitaciones[k];
           break;
-          //esto era para buscar la habitación por id
         }
       }
-
       if (habSeleccionada) {
-        sessionStorage.setItem(
-          "habitacionSeleccionada",
-          JSON.stringify(habSeleccionada),
-        );
-
+        sessionStorage.setItem("habitacionSeleccionada", JSON.stringify(habSeleccionada));
         const datosBusqueda = sessionStorage.getItem("busquedaHabitaciones");
-
         if (datosBusqueda) {
           window.location.href = "../html/detalleReserva.html";
         } else {
-          if (
-            confirm(
-              "Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?",
-            )
-          ) {
+          if (confirm("Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?")) {
             window.location.href = "../index.html";
           }
         }
@@ -248,56 +216,34 @@ function ajustarCatalogo() {
   }
 }
 
+// [CAMBIO] actualizar contadores de dashboard
 function actualizarTodosLosContadores() {
   const spanDisponibles = document.getElementById("contadorDisponible");
   const spanOcupadas = document.getElementById("contadorOcupadas");
-
   const habitaciones = obtenerHabitaciones();
-
   if (spanDisponibles) {
-    const cantDisponibles = habitaciones.filter(
-      (h) => h.mostrar === true,
-    ).length;
-    spanDisponibles.textContent = cantDisponibles;
+    spanDisponibles.textContent = habitaciones.filter(h => h.mostrar).length;
   }
-
   if (spanOcupadas) {
-    const cantOcupadas = habitaciones.filter((h) => h.mostrar === false).length;
-    spanOcupadas.textContent = cantOcupadas;
+    spanOcupadas.textContent = habitaciones.filter(h => !h.mostrar).length;
   }
 }
-// Función simple para pintar la lista del admin
+
+// [CAMBIO] pintar lista en panel de administración
 function pintarListaAdmin() {
   const contenedor = document.getElementById("listaHabitacionesAdmin");
   if (!contenedor) return;
-
   const habitaciones = obtenerHabitaciones();
   contenedor.innerHTML = "";
-
-  // Usamos un ciclo for clásico como te gusta
   for (let i = 0; i < habitaciones.length; i++) {
     const hab = habitaciones[i];
-
-    // Definimos textos y colores según el estado
-    let estadoTexto = "";
-    let estadoColor = "";
-    let textoBtnAccion = "";
-
-    if (hab.mostrar === true) {
-      estadoTexto = "Visible";
-      estadoColor = "success";
-      textoBtnAccion = "Ocultar";
-    } else {
-      estadoTexto = "Oculto";
-      estadoColor = "secondary";
-      textoBtnAccion = "Mostrar";
-    }
-
+    const estadoTexto = hab.mostrar ? "Visible" : "Oculto";
+    const estadoColor = hab.mostrar ? "success" : "secondary";
+    const textoBtnAccion = hab.mostrar ? "Ocultar" : "Mostrar";
     const imagenSrc = hab.imagen || placeholderImagen();
 
     const item = document.createElement("div");
     item.className = "list-group-item d-flex align-items-center";
-
     item.innerHTML = `
       <div class="me-3">
         <img src="${imagenSrc}" alt="${hab.nombre}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
@@ -310,141 +256,111 @@ function pintarListaAdmin() {
       <div class="d-flex gap-2">
         <button class="btn btn-sm btn-outline-warning btn-editar" data-id="${hab.id}">Editar</button>
         <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${hab.id}">Eliminar</button>
-        <button class="btn btn-sm btn-outline-primary toggle-visibilidad" data-id="${hab.id}" data-mostrar="${hab.mostrar}">
-          ${textoBtnAccion}
-        </button>
+        <button class="btn btn-sm btn-outline-primary toggle-visibilidad" data-id="${hab.id}" data-mostrar="${hab.mostrar}">${textoBtnAccion}</button>
       </div>
     `;
     contenedor.appendChild(item);
   }
 }
 
-// Función simple para activar los botones del admin
+// [CAMBIO] activar eventos de botones del admin (delegación)
 function activarEventosAdmin() {
   const contenedor = document.getElementById("listaHabitacionesAdmin");
   if (!contenedor) return;
-
-  // Delegación de eventos: escuchamos clics en el contenedor padre
   contenedor.addEventListener("click", function (e) {
-    // 1. Lógica para ELIMINAR
     if (e.target.classList.contains("btn-eliminar")) {
-      const idStr = e.target.dataset.id;
-      const idNum = parseInt(idStr);
-
-      if (confirm("¿Seguro quieres eliminar esta habitación?")) {
-        eliminarHabitacion(idNum); // Usamos tu función CRUD existente
-        pintarListaAdmin(); // Volvemos a pintar
-        ajustarCatalogo(); // Actualizamos el catálogo público
-        actualizarTodosLosContadores(); // Actualizamos números
+      const id = parseInt(e.target.dataset.id);
+      if (eliminarHabitacion(id)) {
+        pintarListaAdmin();
+        ajustarCatalogo();
+        actualizarTodosLosContadores();
       }
     }
-
-    // 2. Lógica para EDITAR
     if (e.target.classList.contains("btn-editar")) {
-      const idStr = e.target.dataset.id;
-      const idNum = parseInt(idStr);
-      cargarFormularioEdicion(idNum); // Usamos tu función existente
+      const id = parseInt(e.target.dataset.id);
+      cargarFormularioEdicion(id);  // definida más abajo
     }
-
-    // 3. Lógica para TOGGLE VISIBILIDAD (Mostrar/Ocultar)
     if (e.target.classList.contains("toggle-visibilidad")) {
-      const idStr = e.target.dataset.id;
-      const idNum = parseInt(idStr);
-      const estadoActualStr = e.target.dataset.mostrar;
-
-      // Convertimos el string "true"/"false" a booleano real
-      let estadoActual = false;
-      if (estadoActualStr === "true") {
-        estadoActual = true;
-      }
-
-      // Invertimos el estado
-      actualizarVisibilidadHabitacion(idNum, !estadoActual);
-
-      // Refrescamos todo
+      const id = parseInt(e.target.dataset.id);
+      const estadoActual = e.target.dataset.mostrar === "true";
+      actualizarVisibilidadHabitacion(id, !estadoActual);
       pintarListaAdmin();
       ajustarCatalogo();
       actualizarTodosLosContadores();
     }
   });
 }
-// ajustar imagen
 
-let imagenBase64 = null; // almacena la imagen seleccionada en base64
+// [CAMBIO] variable para almacenar imagen en base64
+let imagenBase64 = null;
 
-function ajustarListaAdmin() {
-  const contenedor = document.getElementById("listaHabitacionesAdmin");
-  if (!contenedor) return;
-
+// [CAMBIO] cargar formulario de edición
+function cargarFormularioEdicion(id) {
   const habitaciones = obtenerHabitaciones();
-  contenedor.innerHTML = "";
-
-  habitaciones.forEach((hab) => {
-    const estadoTexto = hab.mostrar ? "Visible" : "Oculto";
-    const estadoColor = hab.mostrar ? "success" : "secondary";
-    const imagenSrc = hab.imagen || placeholderImagen();
-
-    const item = document.createElement("div");
-    item.className = "list-group-item d-flex align-items-center";
-    item.innerHTML = `
-      <div class="me-3">
-        <img src="${imagenSrc}" alt="${hab.nombre}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='${placeholderImagen()}'">
-      </div>
-      <div class="flex-grow-1">
-        <strong>${hab.nombre}</strong> - $${hab.precio.toLocaleString("es-CO")} / noche<br>
-        <small class="text-muted">${hab.descripcion || ""}</small><br>
-        <span class="badge bg-${estadoColor}">${estadoTexto}</span>
-      </div>
-      <div class="d-flex gap-2">
-        <button class="btn btn-sm btn-outline-warning btn-editar" data-id="${hab.id}">Editar</button>
-        <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${hab.id}">Eliminar</button>
-        <button class="btn btn-sm btn-outline-primary toggle-visibilidad" data-id="${hab.id}" data-mostrar="${hab.mostrar}">
-          ${hab.mostrar ? "Ocultar" : "Mostrar"}
-        </button>
-      </div>
-    `;
-    contenedor.appendChild(item);
-  });
+  const hab = habitaciones.find(h => h.id === id);
+  if (!hab) return;
+  document.getElementById("habitacionId").value = hab.id;
+  document.getElementById("nombre").value = hab.nombre;
+  document.getElementById("precio").value = hab.precio;
+  document.getElementById("descripcion").value = hab.descripcion || "";
+  // no se puede asignar un File a un input file, así que reseteamos
+  document.getElementById("imagenInput").value = "";
+  imagenBase64 = hab.imagen; // guardamos la actual por si no se elige nueva
+  document.getElementById("tituloFormulario").textContent = "Editar habitación";
 }
 
+// [CAMBIO] resetear formulario
+function resetFormulario() {
+  document.getElementById("habitacionId").value = "";
+  document.getElementById("nombre").value = "";
+  document.getElementById("precio").value = "";
+  document.getElementById("descripcion").value = "";
+  document.getElementById("imagenInput").value = "";
+  imagenBase64 = null;
+  document.getElementById("tituloFormulario").textContent = "Agregar nueva habitación";
+}
+
+// [CAMBIO] manejar envío del formulario (crear o editar)
+function manejarEnvioFormulario(e) {
+  e.preventDefault();
+  const id = document.getElementById("habitacionId").value;
+  const nombre = document.getElementById("nombre").value;
+  const precio = document.getElementById("precio").value;
+  const descripcion = document.getElementById("descripcion").value;
+  // la imagen se toma de imagenBase64 (actualizada al seleccionar archivo)
+  if (!nombre || !precio) {
+    alert("Nombre y precio son obligatorios.");
+    return;
+  }
+  if (id) {
+    // editar
+    editarHabitacion(parseInt(id), nombre, precio, descripcion, imagenBase64);
+  } else {
+    // agregar
+    agregarHabitacion(nombre, precio, descripcion, imagenBase64);
+  }
+  resetFormulario();
+  pintarListaAdmin();
+  ajustarCatalogo();
+  actualizarTodosLosContadores();
+}
+
+// [CAMBIO] mostrar resumen de búsqueda en habitaciones.html
 function mostrarResumenBusqueda() {
-  const datosBusqueda = JSON.parse(
-    sessionStorage.getItem("busquedaHabitaciones"),
-  );
+  const datosBusqueda = JSON.parse(sessionStorage.getItem("busquedaHabitaciones"));
   const divResumen = document.getElementById("resumenBusqueda");
-
   if (datosBusqueda && divResumen) {
-    const opcionesFecha = {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    };
-
-    const fechaLlegada = new Date(
-      datosBusqueda.llegada + "T00:00:00",
-    ).toLocaleDateString("es-CO", opcionesFecha);
-    const fechaSalida = new Date(
-      datosBusqueda.salida + "T00:00:00",
-    ).toLocaleDateString("es-CO", opcionesFecha);
-
-    document.getElementById("resumenFechas").textContent =
-      `${fechaLlegada} - ${fechaSalida}`;
-    document.getElementById("resumenHuespedes").textContent =
-      datosBusqueda.huespedes;
-
+    const opcionesFecha = { weekday: "short", month: "short", day: "numeric" };
+    const fechaLlegada = new Date(datosBusqueda.llegada + "T00:00:00").toLocaleDateString("es-CO", opcionesFecha);
+    const fechaSalida = new Date(datosBusqueda.salida + "T00:00:00").toLocaleDateString("es-CO", opcionesFecha);
+    document.getElementById("resumenFechas").textContent = `${fechaLlegada} - ${fechaSalida}`;
+    document.getElementById("resumenHuespedes").textContent = datosBusqueda.huespedes;
     divResumen.classList.remove("d-none");
     divResumen.classList.add("d-flex");
-
-    const btnNueva = document.getElementById("btnNuevaBusqueda");
-    if (btnNueva) {
-      btnNueva.addEventListener("click", function () {
-        sessionStorage.removeItem("busquedaHabitaciones");
-        window.location.href = "../index.html";
-      });
-    }
   }
 }
 
+// [CAMBIO] Inicialización cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", function () {
   actualizarNavbar();
   inicializarHabitaciones();
@@ -452,11 +368,11 @@ document.addEventListener("DOMContentLoaded", function () {
   actualizarTodosLosContadores();
   mostrarResumenBusqueda();
 
+  // Panel de administración
   if (document.getElementById("listaHabitacionesAdmin")) {
-    pintarListaAdmin(); // colorea la lista
-    activarEventosAdmin(); // ahora activamos los botones
+    pintarListaAdmin();
+    activarEventosAdmin();
 
-    //este es el formulario
     const form = document.getElementById("formularioHabitacion");
     if (form) form.addEventListener("submit", manejarEnvioFormulario);
 
@@ -476,12 +392,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
-  const btnCerrarSesion = document.getElementById("btnCerrarSesion");
-  console.log("¿Botón encontrado?", btnCerrarSesion);
 
+  // Cerrar sesión desde el dashboard (si existe el botón)
+  const btnCerrarSesion = document.getElementById("btnCerrarSesion");
   if (btnCerrarSesion) {
     btnCerrarSesion.addEventListener("click", function () {
-      console.log("Intentando cerrar sesión..."); // Para depuración
       localStorage.removeItem("usuarioLogueado");
       alert("Has cerrado sesión correctamente.");
       window.location.href = "../index.html";
@@ -489,25 +404,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
-// actulizamos segun logeo del usuario
+// [CAMBIO] funciones compartidas de navbar
 function actualizarNavbar() {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  
   const divNoLogueado = document.getElementById("navNoLogueado");
   const divLogueado = document.getElementById("navLogueado");
   const navAvatar = document.getElementById("navAvatar");
-
   if (usuario) {
-    if(divNoLogueado) divNoLogueado.classList.add("d-none"); // Ocultar Registrar/Login
-    if(divLogueado) divLogueado.classList.remove("d-none");  // Mostrar Perfil/Cerrar Sesión
-    
+    if(divNoLogueado) divNoLogueado.classList.add("d-none");
+    if(divLogueado) divLogueado.classList.remove("d-none");
     if(navAvatar && usuario.nombre) {
       navAvatar.textContent = usuario.nombre.charAt(0).toUpperCase();
     }
   } else {
-    if(divNoLogueado) divNoLogueado.classList.remove("d-none"); // Mostrar Registrar/Login
-    if(divLogueado) divLogueado.classList.add("d-none");        // Ocultar Perfil/Cerrar Sesión
+    if(divNoLogueado) divNoLogueado.classList.remove("d-none");
+    if(divLogueado) divLogueado.classList.add("d-none");
   }
 }
 

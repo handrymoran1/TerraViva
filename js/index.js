@@ -1,6 +1,4 @@
-let btnBuscarDisponibilidad = document.getElementById(
-  "btnBuscarDisponibilidad",
-);
+let btnBuscarDisponibilidad = document.getElementById("btnBuscarDisponibilidad");
 
 btnBuscarDisponibilidad.addEventListener("click", function (e) {
   e.preventDefault();
@@ -23,31 +21,29 @@ btnBuscarDisponibilidad.addEventListener("click", function (e) {
     salida: salida,
     huespedes: huespedes,
   };
-  // aquí cuando cerremos el navegador se borra ese almacenamiento en sessionStorage
+  // [CAMBIO] guardamos en sessionStorage para que persista durante la navegación
   sessionStorage.setItem("busquedaHabitaciones", JSON.stringify(datosBusqueda));
 
-  window.location.href = "/html/habitaciones.html";
+  // [CAMBIO] ruta relativa corregida
+  window.location.href = "./html/habitaciones.html";
 });
 
-
-// actulizamos segun logeo del usuario
+// [CAMBIO] funciones de navegación (iguales en todos los JS)
 function actualizarNavbar() {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  
   const divNoLogueado = document.getElementById("navNoLogueado");
   const divLogueado = document.getElementById("navLogueado");
   const navAvatar = document.getElementById("navAvatar");
 
   if (usuario) {
-    if(divNoLogueado) divNoLogueado.classList.add("d-none"); // Ocultar Registrar/Login
-    if(divLogueado) divLogueado.classList.remove("d-none");  // Mostrar Perfil/Cerrar Sesión
-    
+    if(divNoLogueado) divNoLogueado.classList.add("d-none");
+    if(divLogueado) divLogueado.classList.remove("d-none");
     if(navAvatar && usuario.nombre) {
       navAvatar.textContent = usuario.nombre.charAt(0).toUpperCase();
     }
   } else {
-    if(divNoLogueado) divNoLogueado.classList.remove("d-none"); // Mostrar Registrar/Login
-    if(divLogueado) divLogueado.classList.add("d-none");        // Ocultar Perfil/Cerrar Sesión
+    if(divNoLogueado) divNoLogueado.classList.remove("d-none");
+    if(divLogueado) divLogueado.classList.add("d-none");
   }
 }
 
@@ -56,3 +52,8 @@ function cerrarSesionManual() {
   alert("Has cerrado sesión correctamente.");
   window.location.href = "../index.html";
 }
+
+// [CAMBIO] Ejecutar actualizarNavbar al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+  actualizarNavbar();
+});

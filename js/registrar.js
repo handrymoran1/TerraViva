@@ -1,3 +1,5 @@
+// [ARCHIVO] js/registrar.js – Registro de nuevos usuarios con validaciones y toggle de contraseña
+
 const btnRegistrar = document.getElementById("btnRegistrar");
 const textoAlerta = document.getElementById("textoAlerta");
 const textoEmail = document.getElementById("textoEmail");
@@ -21,7 +23,7 @@ function mostrarAlertaRegistro(exito, mensaje) {
   }
 }
 
-// configurar el toggle de cualquier campo de contraseña
+// [CAMBIO] configurar el toggle de cualquier campo de contraseña
 function configurarToggleContrasena(idToggle, idInput, idIcono) {
   const toggle = document.getElementById(idToggle);
   const input = document.getElementById(idInput);
@@ -38,7 +40,7 @@ function configurarToggleContrasena(idToggle, idInput, idIcono) {
   });
 }
 
-// toggles al cargar la página
+// [CAMBIO] toggles al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
   configurarToggleContrasena(
     "toggle-contrasena-reg",
@@ -64,31 +66,29 @@ function registrarUsuario() {
   const telefono = document.getElementById("inputTelefono").value;
   const password = document.getElementById("inputPassword").value;
   const inputPasswordDos = document.getElementById("inputPasswordDos").value;
+  // [CAMBIO] también capturamos ciudad si existe el campo
+  const ciudad = document.getElementById("inputCiudad")
+    ? document.getElementById("inputCiudad").value
+    : "";
 
   let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-  let existeNombre = false;
-  let existeEmail = false;
-  let existeTelefono = false;
 
   //verificar el nombre primero que no exista
   for (let i = 0; i < usuarios.length; i++) {
     if (usuarios[i].nombre === nombre) {
-      existeNombre = true;
       textoAlerta.innerHTML = `<h5>Este nombre ya está registrado.</h5>`;
       return;
     }
   }
   //ahora que no esté vacío el campo.
   if (nombre.trim() === "") {
-    alert("El nombre ome.");
+    alert("El nombre no puede estar vacío.");
     textoAlerta.innerHTML = "<h5>¡Ingrese su nombre completo primero! ⚠️<h5>";
     return;
   }
   //en esta verificamos que el correo no exista y despues que no esté vacío el campo
   for (let i = 0; i < usuarios.length; i++) {
     if (usuarios[i].email === email) {
-      existeEmail = true;
       textoEmail.innerHTML = `<h5>Este correo ya está registrado.</h5>`;
       return;
     }
@@ -101,7 +101,6 @@ function registrarUsuario() {
   //esta es la misma lógica para el numero de telefono
   for (let i = 0; i < usuarios.length; i++) {
     if (usuarios[i].telefono === telefono) {
-      existeTelefono = true;
       textoTelefono.innerHTML = `<h5>Este teléfono ya está registrado.</h5>`;
       return;
     }
@@ -124,13 +123,41 @@ function registrarUsuario() {
     return;
   }
 
+  // [CAMBIO] Se añade el array de reservas vacío y la ciudad
   usuarios.push({
     nombre: nombre,
     email: email,
     telefono: telefono,
     password: password,
+    ciudad: ciudad,
+    reservas: []   // <-- array vacío para guardar reservas futuras
   });
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
   textoAlerta.innerHTML = "";
   window.location.href = "../html/iniciarSesion.html";
 }
+
+// [CAMBIO] funciones compartidas de navegación (se duplican en varios JS)
+function cerrarSesionManual() {
+  localStorage.removeItem("usuarioLogueado");
+  alert("Has cerrado sesión correctamente.");
+  window.location.href = "../index.html";
+}
+
+function actualizarNavbar() {
+  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  const divNoLogueado = document.getElementById("navNoLogueado");
+  const divLogueado = document.getElementById("navLogueado");
+  const navAvatar = document.getElementById("navAvatar");
+  if (usuario) {
+    if (divNoLogueado) divNoLogueado.classList.add("d-none");
+    if (divLogueado) divLogueado.classList.remove("d-none");
+    if (navAvatar && usuario.nombre) {
+      navAvatar.textContent = usuario.nombre.charAt(0).toUpperCase();
+    }
+  } else {
+    if (divNoLogueado) divNoLogueado.classList.remove("d-none");
+    if (divLogueado) divLogueado.classList.add("d-none");
+  }
+}
+// [NOTA] No se llama a actualizarNavbar en esta página porque el registro no muestra el navbar de usuario logueado.

@@ -7,15 +7,13 @@ const mensajeAlerta = document.getElementById("mensaje-alerta");
 const toggleContrasena = document.getElementById("toggle-contrasena");
 const iconoOjo = document.getElementById("icono-ojo");
 
-
-// validar que tenga letras y numeros especificos.
+// [CAMBIO] validar que tenga letras y numeros especificos.
 const validarFormatoCorreo = (email) => {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,6}$/;
   return regex.test(email);
 };
 
-// validar que tenga letras y numeros especificos y caracteres mínimos.
-
+// [CAMBIO] validar que tenga mayúscula, número, carácter especial y longitud
 const validarFormatoPassword = (password) => {
   const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*/]).{8,35}$/;
   return regex.test(password);
@@ -56,65 +54,54 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnIniciarSesion.addEventListener("click", (e) => {
-    // prevenimos el comportamiento por defecto del botón (si estuviera en un form)
     e.preventDefault();
 
     const correoValor = inputCorreo.value;
     const passwordValor = inputPassword.value;
 
-    // verificamos si los formatos son correctos
     const correoEsValido = validarFormatoCorreo(correoValor);
     const passwordEsValida = validarFormatoPassword(passwordValor);
 
-    // si alguno falla, mostramos error y detenemos todo
     if (!correoEsValido || !passwordEsValida) {
       alert("Por favor, complete los campos correctamente.");
-
-      if (!correoEsValido) {
-        inputCorreo.classList.add("is-invalid");
-      }
-      if (!passwordEsValida) {
-        inputPassword.classList.add("is-invalid");
-      }
-
+      if (!correoEsValido) inputCorreo.classList.add("is-invalid");
+      if (!passwordEsValida) inputPassword.classList.add("is-invalid");
       return;
     }
 
-    //lógica para usuarios normales
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
     let usuarioEncontrado = null;
     let passwordCorrecta = false;
 
-    // Buscamos el correo en la lista
     for (let i = 0; i < usuarios.length; i++) {
       if (usuarios[i].email === correoValor) {
         usuarioEncontrado = usuarios[i];
-
-        // Verificamos la contraseña
         if (usuarios[i].password === passwordValor) {
           passwordCorrecta = true;
         }
-        break; // Salimos del ciclo porque ya encontramos el correo
+        break;
       }
     }
 
     if (usuarioEncontrado && passwordCorrecta) {
-      localStorage.setItem(
-        "usuarioLogueado",
-        JSON.stringify(usuarioEncontrado),
-      );
+      localStorage.setItem("usuarioLogueado", JSON.stringify(usuarioEncontrado));
       alert("¡Te damos la bienvenida, " + usuarioEncontrado.nombre + "!");
 
-      if (
-        correoValor === "admin@gmail.com" &&
-        passwordValor === "Admin123456789*"
-      ) {
-        console.log("¡Bienvenido Admin!");
-        window.location.href = "../html/dashboard.html";
+      // [CAMBIO] verificar si hay redirección pendiente después del login
+      const redirigir = sessionStorage.getItem("redirectAfterLogin");
+      if (redirigir) {
+        sessionStorage.removeItem("redirectAfterLogin");
+        window.location.href = "../html/" + redirigir;  // p.ej. detalleReserva.html
       } else {
-        console.log("Usuario normal detectado.");
-        window.location.href = "../html/detalleReserva.html";
+        // Admin por defecto o usuario normal
+        if (correoValor === "admin@gmail.com" && passwordValor === "Admin123456789*") {
+          console.log("¡Bienvenido Admin!");
+          window.location.href = "../html/dashboard.html";
+        } else {
+          console.log("Usuario normal detectado.");
+          // [CAMBIO] redirigir al perfil del usuario
+          window.location.href = "../html/perfil_usuario.html";
+        }
       }
     } else if (usuarioEncontrado && !passwordCorrecta) {
       alert("La contraseña es incorrecta.");
