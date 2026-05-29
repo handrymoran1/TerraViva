@@ -407,6 +407,11 @@ function ajustarListaAdmin() {
   });
 }
 
+function limpiarBusqueda() {
+  sessionStorage.removeItem("busquedaHabitaciones");
+  window.location.href = "../index.html";
+}
+
 function mostrarResumenBusqueda() {
   const datosBusqueda = JSON.parse(
     sessionStorage.getItem("busquedaHabitaciones"),
@@ -437,10 +442,7 @@ function mostrarResumenBusqueda() {
 
     const btnNueva = document.getElementById("btnNuevaBusqueda");
     if (btnNueva) {
-      btnNueva.addEventListener("click", function () {
-        sessionStorage.removeItem("busquedaHabitaciones");
-        window.location.href = "../index.html";
-      });
+      btnNueva.addEventListener("click", limpiarBusqueda);
     }
   }
 }
