@@ -326,4 +326,48 @@ p, a, li   { font-family: var(--font-body); }
   }
 }
 
+/* ══════════════════════════════
+   FILTRO PERSONAS
+══════════════════════════════ */
+.filtro-personas-wrapper {
+  margin-bottom: 32px;
+}
+
+.filtro-label {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.btn-filtro-personas {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 2px solid var(--color-dark);
+  color: var(--color-dark);
+  border-radius: 20px;
+  padding: 5px 18px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.btn-filtro-personas:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-opcional);
+}
+
+.btn-filtro-personas.active {
+  background-color: var(--color-opcional);
+  border-color: var(--color-opcional);
+  color: #ffffff;
+}
+
+/* Badge de capacidad en cada tarjeta */
+.capacidad-badge {
+  font-size: 0.78rem;
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
 /* *********************************************************** */

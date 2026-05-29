@@ -42,5 +42,5 @@ btnBuscarDisponibilidad.addEventListener("click", function (e) {
   // aquí cuando cerremos el navegador se borra ese almacenamiento en sessionStorage
   sessionStorage.setItem("busquedaHabitaciones", JSON.stringify(datosBusqueda));
 
-  window.location.href = "/html/habitaciones.html";
+  window.location.href = "./html/habitaciones.html";
 });

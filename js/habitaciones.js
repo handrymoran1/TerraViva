@@ -10,6 +10,7 @@ const habitacionesIniciales = [
       "Decoración cálida con elementos en madera y tonos suaves, ambiente relajante y armonioso.",
     url: "../html/habit_suite_colonial.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const habitacionesIniciales = [
       "Habitación con cama doble y balcón privado, perfecta para disfrutar del aire libre y una vista agradable.",
     url: "../html/habit_doble_balcon.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ const habitacionesIniciales = [
       "Incluye escritorio y buena iluminación, ideal para trabajar y descansar con comodidad. Espacio práctico y funcional.",
     url: "../html/habit_doble_ejecutiva.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ const habitacionesIniciales = [
       "Espacio acogedor con vista a zonas verdes y excelente iluminación natural. Perfecta para relajarse.",
     url: "../html/habit_doble_jardin.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ const habitacionesIniciales = [
       "Decoración cálida con elementos en madera y tonos suaves. Un ambiente relajante y armonioso.",
     url: "../html/habit_doble_natural.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 6,
@@ -60,6 +65,7 @@ const habitacionesIniciales = [
       "Habitación amplia con 2 camas dobles, ideal para familias o grupos que buscan mayor comodidad en su estadía.",
     url: "../html/habit_doble_plus.html",
     mostrar: true,
+    capacidad: 4,
   },
   {
     id: 7,
@@ -70,6 +76,7 @@ const habitacionesIniciales = [
       "Ambiente íntimo con iluminación cálida y decoración acogedora, ideal para parejas. Espacio romántico y relajante.",
     url: "../html/habit_doble_romantica.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 8,
@@ -80,6 +87,7 @@ const habitacionesIniciales = [
       "La opción más exclusiva, con diseño moderno, cama amplia y detalles elegantes.",
     url: "../html/habit_premium.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 9,
@@ -90,6 +98,7 @@ const habitacionesIniciales = [
       "Habitación amplia y elegante, con detalles modernos que brindan mayor comodidad. Espacio cómodo y acogedor.",
     url: "../html/habitacion_doble_superior.html",
     mostrar: true,
+    capacidad: 2,
   },
   {
     id: 10,
@@ -100,10 +109,15 @@ const habitacionesIniciales = [
       "Habitación con 4 camas individuales, ideal para familias o grupos que buscan comodidad y descanso compartido.",
     url: "../html/habitacion_familiar.html",
     mostrar: true,
+    capacidad: 4,
   },
 ];
 
 // localstorage es la persistencia
+
+const CAPACIDADES_POR_ID = { 1:2, 2:2, 3:2, 4:2, 5:2, 6:4, 7:2, 8:2, 9:2, 10:4 };
+
+let filtroPersonas = 0; // 0 = todos, 2 = hasta 2 personas, 4 = 3-4 personas
 
 function inicializarHabitaciones() {
   if (!localStorage.getItem(CLAVE_HABITACIONES)) {
@@ -111,6 +125,27 @@ function inicializarHabitaciones() {
       CLAVE_HABITACIONES,
       JSON.stringify(habitacionesIniciales),
     );
+  } else {
+    // Migración: agregar capacidad a habitaciones existentes que no la tengan
+    const stored = obtenerHabitaciones();
+    let actualizado = false;
+    for (let i = 0; i < stored.length; i++) {
+      if (stored[i].capacidad === undefined) {
+        stored[i].capacidad = CAPACIDADES_POR_ID[stored[i].id] || 2;
+        actualizado = true;
+      }
+    }
+    if (actualizado) guardarHabitaciones(stored);
+  }
+}
+
+function actualizarBotonesFiltro() {
+  const botones = document.querySelectorAll(".btn-filtro-personas");
+  for (let i = 0; i < botones.length; i++) {
+    botones[i].classList.remove("active");
+    if (parseInt(botones[i].dataset.personas) === filtroPersonas) {
+      botones[i].classList.add("active");
+    }
   }
 }
 
@@ -197,22 +232,27 @@ function ajustarCatalogo() {
   for (let i = 0; i < todasLasHabitaciones.length; i++) {
     const habitacion = todasLasHabitaciones[i];
 
-    if (habitacion.mostrar === false) {
-      continue;
-    }
+    if (habitacion.mostrar === false) continue;
+
+    // Filtro por capacidad
+    if (filtroPersonas === 2 && habitacion.capacidad > 2) continue;
+    if (filtroPersonas === 4 && habitacion.capacidad < 3) continue;
+
     hayHabitacionesVisibles = true;
 
     const col = document.createElement("div");
     col.className = "col";
 
     const imagenSrc = habitacion.imagen || placeholderImagen();
+    const capacidad = habitacion.capacidad || 2;
 
     col.innerHTML = `
       <div class="card card-habitacion h-100 shadow-sm">
         <img src="${imagenSrc}" class="img-habitacion" alt="${habitacion.nombre}" style="height: 180px; object-fit: cover;">
         <div class="card-texto text-center">
           <h6 class="mb-1">${habitacion.nombre}</h6>
-          <p class="precio mb-2">$${habitacion.precio.toLocaleString("es-CO")} / noche</p>
+          <p class="precio mb-1">$${habitacion.precio.toLocaleString("es-CO")} / noche</p>
+          <p class="capacidad-badge mb-2"><i class="bi bi-people-fill me-1"></i>Hasta ${capacidad} persona${capacidad > 1 ? 's' : ''}</p>
           <p class="card-text texto-card-habitacion">${habitacion.descripcion || ""}</p>
           <button class="btn-reservar" data-id="${habitacion.id}">Reservar</button>
           <a href="${habitacion.url || '#'}" class="btn-reservar btn-ver-detalles">Ver detalles</a>
@@ -479,6 +519,24 @@ function mostrarResumenBusqueda() {
     if (btnNueva) {
       btnNueva.addEventListener("click", limpiarBusqueda);
     }
+
+    // Pre-aplicar filtro de capacidad según huéspedes buscados.
+    // Se suman todos los números del string ("2 adultos + 2 niños" → 4).
+    // Si son 1-2 personas no se restringe: podrían venir con niños adicionales.
+    // Solo se filtra a habitaciones grandes cuando el total ya indica 3 o más.
+    const numeros = (datosBusqueda.huespedes || "").match(/\d+/g);
+    const hues = numeros ? numeros.reduce((sum, n) => sum + parseInt(n), 0) : 0;
+    if (!isNaN(hues) && hues > 0) {
+      if (hues >= 3) {
+        filtroPersonas = 4;
+        actualizarBotonesFiltro();
+        ajustarCatalogo();
+      }
+
+      // Ocultar el filtro visual porque ya viene una cantidad definida desde la búsqueda
+      const filtroWrapper = document.getElementById("filtroPersonasWrapper");
+      if (filtroWrapper) filtroWrapper.classList.add("d-none");
+    }
   }
 }
 
@@ -488,6 +546,16 @@ document.addEventListener("DOMContentLoaded", function () {
   ajustarCatalogo();
   actualizarTodosLosContadores();
   mostrarResumenBusqueda();
+
+  // Filtros de capacidad
+  const botonesFiltro = document.querySelectorAll(".btn-filtro-personas");
+  for (let i = 0; i < botonesFiltro.length; i++) {
+    botonesFiltro[i].addEventListener("click", function () {
+      filtroPersonas = parseInt(this.dataset.personas);
+      actualizarBotonesFiltro();
+      ajustarCatalogo();
+    });
+  }
 
   if (document.getElementById("listaHabitacionesAdmin")) {
     pintarListaAdmin();
