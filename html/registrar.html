@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../css/registrar.css" />
   </head>
   <body>
-    <!-- ================= NAVBAR ================= -->
     <nav class="navbar navbar-expand-lg custom-navbar py-4 sticky-top">
       <div class="container-fluid">
         <a class="navbar-brand ms-5 d-flex align-items-center" href="../index.html">
@@ -45,10 +44,8 @@
         <div class="card card-registro">
           <div class="row align-items-center g-4">
             <div class="col-md-6 text-center">
-              <img src="../assets/logo/LogoV2.png" alt="Huellas de la Pola" width="90" height="90" class="mb-3" style="border-radius: 50%" />
-              <h2 style="font-family: var(--font-title); color: var(--color-dark); font-size: clamp(2rem, 5vw, 3rem);">
-                Únete a TerraViva
-              </h2>
+              <img src="../assets/logo/LogoV2.png" alt="TerraViva" width="90" height="90" class="mb-3" style="border-radius: 50%" />
+              <h2 style="font-family: var(--font-title); color: var(--color-dark); font-size: clamp(2rem, 5vw, 3rem);">Únete a TerraViva</h2>
               <span style="background-color: var(--color-accent); color: var(--color-dark); border-radius: 50px; padding: 6px 20px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;">
                 <i class="bi bi-shield-fill-check"></i> DATOS PROTEGIDOS
               </span>
@@ -65,16 +62,16 @@
                   <label for="inputNombre" class="form-label">Nombre completo</label>
                   <div class="input-group">
                     <span class="input-group-text" style="background-color: transparent; border-right: none"><i class="bi bi-person-fill"></i></span>
-                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre de ejemplo: pepito perez" autocomplete="off" spellcheck="false" />
+                    <input type="text" class="form-control" id="inputNombre" placeholder="Ej: Pepito Pérez" autocomplete="off" spellcheck="false" />
                   </div>
-                  <div class="form-text" id="textoAlerta">Nunca compartiremos tus datos personales con terceros.</div>
+                  <div class="form-text" id="textoAlerta">Nunca compartiremos tus datos.</div>
                 </div>
                 <!-- Correo -->
                 <div class="mb-3">
                   <label for="inputCorreo" class="form-label">Correo Electrónico</label>
                   <div class="input-group">
                     <span class="input-group-text" style="background-color: transparent; border-right: none"><i class="bi bi-envelope-fill"></i></span>
-                    <input type="email" class="form-control" id="inputCorreo" placeholder="correoejemplo@gmail.com" autocomplete="off" spellcheck="false" />
+                    <input type="email" class="form-control" id="inputCorreo" placeholder="correo@ejemplo.com" autocomplete="off" spellcheck="false" />
                   </div>
                   <div class="form-text" id="textoEmail"></div>
                 </div>
@@ -83,7 +80,7 @@
                   <label for="inputTelefono" class="form-label">Número de teléfono</label>
                   <div class="input-group">
                     <span class="input-group-text" style="background-color: transparent; border-right: none"><i class="bi bi-telephone-fill"></i></span>
-                    <input type="tel" class="form-control" id="inputTelefono" placeholder="310-000-00-00" autocomplete="off" spellcheck="false" />
+                    <input type="tel" class="form-control" id="inputTelefono" placeholder="310-000-0000" autocomplete="off" spellcheck="false" />
                   </div>
                   <div class="form-text" id="textoTelefono"></div>
                 </div>
@@ -92,26 +89,26 @@
                   <label for="inputPassword" class="form-label">Contraseña</label>
                   <div class="input-group">
                     <span class="input-group-text" style="background-color: transparent; border-right: none"><i class="bi bi-lock-fill"></i></span>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="****************" autocomplete="off" spellcheck="false" />
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Mínimo 10 caracteres" autocomplete="off" spellcheck="false" />
                     <span class="input-group-text" id="toggle-contrasena-reg" style="cursor: pointer; background-color: transparent; border-left: none;"><i id="icono-ojo-reg" class="bi bi-eye-fill"></i></span>
                   </div>
                   <div class="form-text" id="textoPassword"></div>
                 </div>
                 <!-- Confirmar contraseña -->
                 <div class="mb-3">
-                  <label for="inputPasswordDos" class="form-label">Escriba nuevamente su contraseña</label>
+                  <label for="inputPasswordDos" class="form-label">Confirmar contraseña</label>
                   <div class="input-group">
                     <span class="input-group-text" style="background-color: transparent; border-right: none"><i class="bi bi-lock-fill"></i></span>
-                    <input type="password" class="form-control" id="inputPasswordDos" placeholder="****************" autocomplete="off" spellcheck="false" />
+                    <input type="password" class="form-control" id="inputPasswordDos" placeholder="Repite la contraseña" autocomplete="off" spellcheck="false" />
                     <span class="input-group-text" id="toggle-confirmar-reg" style="cursor: pointer; background-color: transparent; border-left: none;"><i id="icono-ojo-confirmar" class="bi bi-eye-fill"></i></span>
                   </div>
                   <div class="form-text" id="textoConfirmarPassword"></div>
                 </div>
                 <div class="mb-3 form-check text-start">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                  <label class="form-check-label" for="exampleCheck1">Términos y condiciones</label>
+                  <label class="form-check-label" for="exampleCheck1">Acepto términos y condiciones</label>
                 </div>
-                <button type="submit" class="btn btn-primary w-100" id="btnRegistrar">Registrar</button>
+                <button type="submit" class="btn btn-primary w-100" id="btnRegistrar">Registrarme</button>
               </form>
             </div>
           </div>

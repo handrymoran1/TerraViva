@@ -1,4 +1,4 @@
-// [CAMBIO] Perfil de usuario con reservas reales y estadísticas
+// js/perfil_usuario.js – Perfil con reservas reales, estadísticas y edición de datos
 
 function cerrarSesionManual() {
   localStorage.removeItem("usuarioLogueado");
@@ -6,18 +6,25 @@ function cerrarSesionManual() {
   window.location.href = "../index.html";
 }
 
+function actualizarNavbar() {
+  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  const navAvatar = document.getElementById("navAvatar");
+  if (navAvatar && usuario && usuario.nombre) {
+    navAvatar.textContent = usuario.nombre.charAt(0).toUpperCase();
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   actualizarNavbar();
 
   const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-
-  // [CAMBIO] seguridad: si no hay usuario, redirigir
   if (!usuario) {
     alert("Debes iniciar sesión para ver esta página.");
     window.location.href = "../html/iniciarSesion.html";
     return;
   }
 
+  // Referencias
   const inputNombre = document.getElementById("inputNombre");
   const inputCorreo = document.getElementById("inputCorreo");
   const inputTelefono = document.getElementById("inputTelefono");
@@ -26,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const correoDisplay = document.getElementById("correoDisplay");
   const fotoPreview = document.getElementById("fotoPreview");
 
-  // [CAMBIO] rellenar campos
+  // Rellenar campos
   inputNombre.value = usuario.nombre || "";
   inputCorreo.value = usuario.email || "";
   inputTelefono.value = usuario.telefono || "";
@@ -34,9 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
   nombreDisplay.textContent = usuario.nombre || "Usuario";
   correoDisplay.textContent = usuario.email || "";
 
-  const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
-  fotoPreview.src = `https://ui-avatars.com/api/?name=${iniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
+  const inicial = (usuario.nombre || "U").charAt(0).toUpperCase();
+  fotoPreview.src = `https://ui-avatars.com/api/?name=${inicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
 
+  // Guardar cambios
   const btnGuardar = document.getElementById("btnGuardar");
   const toastGuardado = document.getElementById("toastGuardado");
 
@@ -50,13 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // [CAMBIO] actualizar objeto usuario
     usuario.nombre = nuevoNombre;
     usuario.telefono = nuevoTelefono;
     usuario.ciudad = nuevaCiudad;
     localStorage.setItem("usuarioLogueado", JSON.stringify(usuario));
 
-    // actualizar en array de usuarios
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     for (let i = 0; i < usuarios.length; i++) {
       if (usuarios[i].email === usuario.email) {
@@ -69,41 +75,37 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     nombreDisplay.textContent = nuevoNombre;
-    const nuevasIniciales = nuevoNombre.charAt(0).toUpperCase();
-    fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevasIniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
+    const nuevaInicial = nuevoNombre.charAt(0).toUpperCase();
+    fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevaInicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
+    actualizarNavbar();
 
     toastGuardado.classList.add("show");
-    setTimeout(() => {
-      toastGuardado.classList.remove("show");
-    }, 3000);
+    setTimeout(() => toastGuardado.classList.remove("show"), 3000);
   });
 
-  // [CAMBIO] mostrar reservas y estadísticas
+  // Mostrar reservas
   const reservas = usuario.reservas || [];
   mostrarReservas(reservas);
   actualizarEstadisticas(reservas);
 });
 
-// [CAMBIO] función para pintar las reservas en el contenedor
 function mostrarReservas(reservas) {
   const contenedor = document.getElementById("listaReservas");
   const vacio = document.getElementById("reservasVacias");
   if (!contenedor) return;
 
-  // limpiar excepto el div de vacío
-  const hijos = contenedor.children;
-  for (let i = hijos.length - 1; i >= 0; i--) {
-    if (hijos[i] !== vacio) contenedor.removeChild(hijos[i]);
-  }
+  // Limpiar excepto el div de vacío
+  Array.from(contenedor.children).forEach(child => {
+    if (child !== vacio) contenedor.removeChild(child);
+  });
 
   if (reservas.length === 0) {
     if (vacio) vacio.style.display = "block";
     return;
   }
-
   if (vacio) vacio.style.display = "none";
 
-  reservas.forEach((reserva) => {
+  reservas.forEach(reserva => {
     const card = document.createElement("div");
     card.className = "reserva-item card mb-3 p-3 shadow-sm";
     card.innerHTML = `
@@ -118,8 +120,7 @@ function mostrarReservas(reservas) {
             ${new Date(reserva.fechaLlegada + "T00:00:00").toLocaleDateString("es-CO")} 
             → ${new Date(reserva.fechaSalida + "T00:00:00").toLocaleDateString("es-CO")}
           </p>
-          <p class="mb-0"><i class="bi bi-people-fill me-1"></i> ${reserva.huespedes} · 
-          ${reserva.noches} noches</p>
+          <p class="mb-0"><i class="bi bi-people-fill me-1"></i> ${reserva.huespedes} · ${reserva.noches} noches</p>
         </div>
         <div class="col-md-4 text-md-end mt-2 mt-md-0">
           <span class="badge bg-success fs-6">Total: $${reserva.total.toLocaleString("es-CO")}</span>
@@ -129,44 +130,20 @@ function mostrarReservas(reservas) {
   });
 }
 
-// [CAMBIO] calcular estadísticas reales
 function actualizarEstadisticas(reservas) {
   const totalReservas = reservas.length;
-
   let nochesHospedado = 0;
-  for (let i = 0; i < reservas.length; i++) {
-    nochesHospedado += reservas[i].noches;
-  }
+  for (let r of reservas) nochesHospedado += r.noches;
 
   const hoy = new Date();
   hoy.setHours(0,0,0,0);
   let activas = 0;
-  for (let i = 0; i < reservas.length; i++) {
-    const fSalida = new Date(reservas[i].fechaSalida + "T00:00:00");
-    if (fSalida > hoy) {
-      activas++;
-    }
+  for (let r of reservas) {
+    const fSalida = new Date(r.fechaSalida + "T00:00:00");
+    if (fSalida > hoy) activas++;
   }
 
   document.querySelectorAll(".stat-reservas").forEach(el => el.textContent = totalReservas);
   document.querySelectorAll(".stat-activa").forEach(el => el.textContent = activas);
   document.querySelectorAll(".stat-noches").forEach(el => el.textContent = nochesHospedado);
-}
-
-// [CAMBIO] función compartida de navbar
-function actualizarNavbar() {
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  const divNoLogueado = document.getElementById("navNoLogueado");
-  const divLogueado = document.getElementById("navLogueado");
-  const navAvatar = document.getElementById("navAvatar");
-  if (usuario) {
-    if(divNoLogueado) divNoLogueado.classList.add("d-none");
-    if(divLogueado) divLogueado.classList.remove("d-none");
-    if(navAvatar && usuario.nombre) {
-      navAvatar.textContent = usuario.nombre.charAt(0).toUpperCase();
-    }
-  } else {
-    if(divNoLogueado) divNoLogueado.classList.remove("d-none");
-    if(divLogueado) divLogueado.classList.add("d-none");
-  }
 }
