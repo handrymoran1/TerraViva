@@ -1,18 +1,19 @@
-// ---------- perfil_usuario.js ----------
-document.addEventListener("DOMContentLoaded", function () {
-  // cargar navbar dinámico
+const API_URL = "http://localhost:8081";
+
+document.addEventListener("DOMContentLoaded", async function () {
   actualizarNavbar();
 
-  // obtener usuario logueado
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+  // Verificamos sesión activa con token y email del localStorage
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("usuarioEmail");
 
-  // si no hay sesión, redirigir a inicio de sesión
-  if (!usuario) {
+  // Si no hay sesión, redirigir al login
+  if (!token || !email) {
     window.location.href = "../html/iniciarSesion.html";
     return;
   }
 
-  // ---------- SECCIÓN: INFORMACIÓN DEL PERFIL ----------
+  // ── REFERENCIAS AL DOM ──────────────────────────────────────────────────
   const inputNombre = document.getElementById("inputNombre");
   const inputCorreo = document.getElementById("inputCorreo");
   const inputTelefono = document.getElementById("inputTelefono");
@@ -20,22 +21,52 @@ document.addEventListener("DOMContentLoaded", function () {
   const correoDisplay = document.getElementById("correoDisplay");
   const fotoPreview = document.getElementById("fotoPreview");
 
-  // cargar datos del usuario en los campos
-  inputNombre.value = usuario.nombre || "";
-  inputCorreo.value = usuario.email || "";
-  inputTelefono.value = usuario.telefono || "";
-  nombreDisplay.textContent = usuario.nombre || "Usuario";
-  correoDisplay.textContent = usuario.email || "";
+  // Mostramos el email mientras cargamos los datos del backend
+  inputCorreo.value = email;
+  correoDisplay.textContent = email;
 
-  // generar avatar con inicial
-  const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
-  fotoPreview.src = `https://ui-avatars.com/api/?name=${iniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
+  // Avatar temporal con la inicial del email
+  const inicial = email.charAt(0).toUpperCase();
+  fotoPreview.src = `https://ui-avatars.com/api/?name=${inicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
 
-  // botón guardar cambios
+  // ── CARGAR DATOS DEL USUARIO DESDE EL BACKEND ──────────────────────────
+  let usuario = null;
+  try {
+    const res = await fetch(`${API_URL}/api/clientes/me`, {
+      headers: { "Authorization": "Bearer " + token }
+    });
+
+    if (!res.ok) {
+      // Token inválido o expirado → mandamos al login
+      localStorage.removeItem("token");
+      localStorage.removeItem("usuarioEmail");
+      window.location.href = "../html/iniciarSesion.html";
+      return;
+    }
+
+    usuario = await res.json();
+
+    // Rellenamos los campos con los datos reales de Supabase
+    inputNombre.value = usuario.nombre || "";
+    inputCorreo.value = usuario.email || "";
+    inputTelefono.value = usuario.telefono || "";
+    nombreDisplay.textContent = usuario.nombre || "Usuario";
+    correoDisplay.textContent = usuario.email || "";
+
+    // Avatar con la inicial del nombre real
+    const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
+    fotoPreview.src = `https://ui-avatars.com/api/?name=${iniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
+
+  } catch (err) {
+    console.error("Error al cargar perfil:", err);
+    return;
+  }
+
+  // ── GUARDAR CAMBIOS ───────────────────────────────────────────────────
   const btnGuardar = document.getElementById("btnGuardar");
   const toastGuardado = document.getElementById("toastGuardado");
 
-  btnGuardar.addEventListener("click", function () {
+  btnGuardar.addEventListener("click", async function () {
     const nuevoNombre = inputNombre.value.trim();
     const nuevoTelefono = inputTelefono.value.trim();
 
@@ -44,89 +75,76 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // actualizar datos en localStorage
-    usuario.nombre = nuevoNombre;
-    usuario.telefono = nuevoTelefono;
-    localStorage.setItem("usuarioLogueado", JSON.stringify(usuario));
+    try {
+      const res = await fetch(`${API_URL}/api/clientes/${usuario.idCliente}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+          nombre: nuevoNombre,
+          telefono: nuevoTelefono,
+          email: usuario.email,
+          apellido: usuario.apellido,
+          documento: usuario.documento,
+          rol: usuario.rol,
+          password: usuario.password || ""
+        })
+      });
 
-    // sincronizar con lista de usuarios registrados
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    for (let i = 0; i < usuarios.length; i++) {
-      if (usuarios[i].email === usuario.email) {
-        usuarios[i].nombre = nuevoNombre;
-        usuarios[i].telefono = nuevoTelefono;
-        break;
-      }
+      if (!res.ok) throw new Error("No se pudo actualizar");
+
+      nombreDisplay.textContent = nuevoNombre;
+      const nuevaInicial = nuevoNombre.charAt(0).toUpperCase();
+      fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevaInicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
+
+      toastGuardado.classList.add("show");
+      setTimeout(() => toastGuardado.classList.remove("show"), 3000);
+
+    } catch (err) {
+      console.error("Error al guardar:", err);
+      alert("No se pudieron guardar los cambios.");
     }
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    nombreDisplay.textContent = nuevoNombre;
-
-    // actualizar avatar si cambió el nombre
-    const nuevasIniciales = nuevoNombre.charAt(0).toUpperCase();
-    fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevasIniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
-
-    // mostrar toast de confirmación
-    toastGuardado.classList.add("show");
-    setTimeout(() => {
-      toastGuardado.classList.remove("show");
-    }, 3000);
   });
 
-  // ---------- SECCIÓN: RESERVAS DEL USUARIO ----------
-  // obtener reservas vinculadas al correo
-  const claveReservas = "reservas_" + usuario.email;
-  const reservas = JSON.parse(localStorage.getItem(claveReservas)) || [];
-
-  // referencias a elementos de la UI de reservas
+  // ── RESERVAS DEL USUARIO DESDE EL BACKEND ────────────────────────────
   const listaReservasDiv = document.getElementById("listaReservas");
   const reservasVaciasDiv = document.getElementById("reservasVacias");
 
-  // actualizar contadores de estadísticas (todos los elementos con esas clases)
-  const totalReservas = reservas.length;
-  document.querySelectorAll(".stat-reservas").forEach((el) => {
-    el.textContent = totalReservas;
-  });
+  let reservas = [];
+  try {
+    // Llamamos al backend con el idCliente para traer sus reservas
+    const res = await fetch(`${API_URL}/api/reservas/cliente/${usuario.idCliente}`, {
+      headers: { "Authorization": "Bearer " + token }
+    });
 
-  // contar noches totales hospedadas
+    if (res.ok) {
+      reservas = await res.json();
+    }
+  } catch (err) {
+    console.error("Error al cargar reservas:", err);
+  }
+
+  // Actualizamos contadores de estadísticas
+  document.querySelectorAll(".stat-reservas").forEach(el => el.textContent = reservas.length);
+
+  // Contamos noches totales
   let totalNoches = 0;
-  reservas.forEach((r) => {
-    totalNoches += r.noches || 0;
-  });
-  document.querySelectorAll(".stat-noches").forEach((el) => {
-    el.textContent = totalNoches;
-  });
+  reservas.forEach(r => totalNoches += r.cantidadNoches || 0);
+  document.querySelectorAll(".stat-noches").forEach(el => el.textContent = totalNoches);
 
-  // reserva activa: la más cercana en el futuro (fechaSalida > hoy)
+  // Reserva activa: alguna con fechaFin en el futuro y estado RESERVADA
   const hoy = new Date();
-  const reservasFuturas = reservas.filter((r) => {
-    if (r.fechaSalida) {
-      const fechaSalida = new Date(r.fechaSalida);
-      return fechaSalida >= hoy;
-    }
-    return false;
-  });
-  const reservaActiva =
-    reservasFuturas.length > 0
-      ? reservasFuturas.sort(
-          (a, b) => new Date(a.fechaLlegada) - new Date(b.fechaLlegada)
-        )[0]
-      : null;
-  const activasCount = reservaActiva ? 1 : 0;
-  document.querySelectorAll(".stat-activa").forEach((el) => {
-    el.textContent = activasCount;
-  });
+  const activas = reservas.filter(r => r.fechaFin && new Date(r.fechaFin) >= hoy && r.estado === "RESERVADA");
+  document.querySelectorAll(".stat-activa").forEach(el => el.textContent = activas.length);
 
-  // construir HTML de la lista de reservas o mostrar placeholder vacío
+  // Mostramos tabla o placeholder según si hay reservas
   if (reservas.length === 0) {
-    // ya existe el placeholder con id "reservasVacias", no hacer nada
+    if (reservasVaciasDiv) reservasVaciasDiv.style.display = "flex";
   } else {
-    // ocultar placeholder
-    if (reservasVaciasDiv) {
-      reservasVaciasDiv.style.display = "none";
-    }
+    if (reservasVaciasDiv) reservasVaciasDiv.style.display = "none";
 
-    // crear tabla de reservas
     const tablaHTML = `
       <div class="table-responsive">
         <table class="table table-hover align-middle">
@@ -134,59 +152,74 @@ document.addEventListener("DOMContentLoaded", function () {
             <tr>
               <th>Habitación</th>
               <th>Fechas</th>
-              <th>Huéspedes</th>
               <th>Noches</th>
               <th>Total</th>
-              <th>Fecha de reserva</th>
+              <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
-            ${reservas
-              .map((reserva) => {
-                const fechaLlegada = reserva.fechaLlegada
-                  ? new Date(
-                      reserva.fechaLlegada + "T00:00:00"
-                    ).toLocaleDateString("es-CO")
-                  : "-";
-                const fechaSalida = reserva.fechaSalida
-                  ? new Date(
-                      reserva.fechaSalida + "T00:00:00"
-                    ).toLocaleDateString("es-CO")
-                  : "-";
-                const fechaReserva = reserva.fechaReserva
-                  ? new Date(reserva.fechaReserva).toLocaleString("es-CO")
-                  : "-";
+            ${reservas.map(r => {
+              const fechaInicio = r.fechaInicio
+                ? new Date(r.fechaInicio + "T00:00:00").toLocaleDateString("es-CO")
+                : "-";
+              const fechaFin = r.fechaFin
+                ? new Date(r.fechaFin + "T00:00:00").toLocaleDateString("es-CO")
+                : "-";
 
-                return `
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <img src="${
-                          reserva.imagen ||
-                          "https://placehold.co/80x60?text=Sin+Imagen"
-                        }" 
-                             alt="${reserva.habitacion}" 
-                             class="me-2 rounded" 
-                             width="60" height="40" 
-                             style="object-fit: cover;">
-                        <span class="fw-semibold">${reserva.habitacion}</span>
-                      </div>
-                    </td>
-                    <td>${fechaLlegada} → ${fechaSalida}</td>
-                    <td>${reserva.huespedes}</td>
-                    <td>${reserva.noches}</td>
-                    <td>$${reserva.total}</td>
-                    <td>${fechaReserva}</td>
-                  </tr>
-                `;
-              })
-              .join("")}
+              const estadoColor = r.estado === "RESERVADA" ? "success" :
+                                  r.estado === "CANCELADA" ? "danger" : "secondary";
+
+              return `
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="${r.habitacion?.imagen || 'https://placehold.co/80x60?text=Sin+Imagen'}"
+                           class="me-2 rounded" width="60" height="40" style="object-fit:cover;">
+                      <span class="fw-semibold">${r.habitacion?.tipo || "-"}</span>
+                    </div>
+                  </td>
+                  <td>${fechaInicio} → ${fechaFin}</td>
+                  <td>${r.cantidadNoches || 0}</td>
+                  <td>$${r.totalReserva?.toLocaleString("es-CO") || 0}</td>
+                  <td><span class="badge bg-${estadoColor}">${r.estado}</span></td>
+                  <td>
+                    ${r.estado === "RESERVADA" ? `
+                      <button class="btn btn-sm btn-outline-danger btn-cancelar" data-id="${r.idReserva}">
+                        Cancelar
+                      </button>` : "-"}
+                  </td>
+                </tr>
+              `;
+            }).join("")}
           </tbody>
         </table>
       </div>
     `;
-
-    // inyectar la tabla dentro del contenedor de reservas
     listaReservasDiv.insertAdjacentHTML("beforeend", tablaHTML);
+
+    // Eventos para cancelar reserva
+    document.querySelectorAll(".btn-cancelar").forEach(btn => {
+      btn.addEventListener("click", async function () {
+        const idReserva = this.dataset.id;
+        if (!confirm("¿Seguro que quieres cancelar esta reserva?")) return;
+
+        try {
+          const res = await fetch(`${API_URL}/api/reservas/cancelar/${idReserva}`, {
+            method: "PUT",
+            headers: { "Authorization": "Bearer " + token }
+          });
+
+          if (!res.ok) throw new Error("No se pudo cancelar");
+
+          alert("Reserva cancelada correctamente.");
+          window.location.reload();
+
+        } catch (err) {
+          console.error("Error al cancelar:", err);
+          alert("No se pudo cancelar la reserva.");
+        }
+      });
+    });
   }
 });
