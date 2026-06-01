@@ -262,14 +262,40 @@ document.addEventListener("DOMContentLoaded", async function () {
   actualizarTodosLosContadores();
   mostrarResumenBusqueda();
 
-  const botonesFiltro = document.querySelectorAll(".btn-filtro-personas");
-  for (let i = 0; i < botonesFiltro.length; i++) {
-    botonesFiltro[i].addEventListener("click", function () {
-      filtroPersonas = parseInt(this.dataset.personas);
-      actualizarBotonesFiltro();
-      ajustarCatalogo();
-    });
-  }
+  const botones = document.querySelectorAll(".btn-reservar");
+
+for (let j = 0; j < botones.length; j++) {
+  botones[j].addEventListener("click", function () {
+    const idStr = this.dataset.id;
+    if (!idStr) return;
+
+    const idNum = parseInt(idStr);
+    const hab = habitacionesCargadas.find(h => h.id === idNum);
+
+    if (hab) {
+      sessionStorage.setItem("habitacionSeleccionada", JSON.stringify(hab));
+
+      if (sessionStorage.getItem("busquedaHabitaciones")) {
+        window.location.href = "../html/detalleReserva.html";
+      } else {
+        Swal.fire({
+          title: "¿Seleccionar fechas primero?",
+          text: "Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#5FA62D",
+          cancelButtonColor: "#6c757d",
+          confirmButtonText: "Ir al inicio",
+          cancelButtonText: "Cancelar"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "../index.html";
+          }
+        });
+      } // Cierre del else de SweetAlert
+    } // Cierre del if (hab)
+  }); // Cierre del addEventListener
+} // Cierre del bucle for
 
   if (document.getElementById("listaHabitacionesAdmin")) {
     pintarListaAdmin();
