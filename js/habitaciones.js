@@ -2,14 +2,11 @@ const API_URL = "https://terraviva-backend.onrender.com/api/habitaciones";
 let filtroPersonas = 0;
 let habitacionesCargadas = [];
 
-// ── API ──────────────────────────────────────────────────────────────────────
-
 async function cargarHabitacionesDesdeAPI() {
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Error al conectar con el servidor");
     const datos = await response.json();
-
     return datos.map(h => ({
       id: h.idHabitacion,
       nombre: h.tipo,
@@ -26,13 +23,9 @@ async function cargarHabitacionesDesdeAPI() {
   }
 }
 
-// ── UTILIDADES ───────────────────────────────────────────────────────────────
-
 function placeholderImagen() {
   return "https://placehold.co/300x200?text=Sin+imagen";
 }
-
-// ── FILTRO ───────────────────────────────────────────────────────────────────
 
 function actualizarBotonesFiltro() {
   const botones = document.querySelectorAll(".btn-filtro-personas");
@@ -44,8 +37,6 @@ function actualizarBotonesFiltro() {
   }
 }
 
-// ── CATÁLOGO ─────────────────────────────────────────────────────────────────
-
 function ajustarCatalogo() {
   const contenedor = document.getElementById("contenedorHabitaciones");
   if (!contenedor) return;
@@ -55,16 +46,13 @@ function ajustarCatalogo() {
 
   for (let i = 0; i < habitacionesCargadas.length; i++) {
     const hab = habitacionesCargadas[i];
-
     if (hab.mostrar === false) continue;
     if (filtroPersonas === 2 && hab.capacidad > 2) continue;
     if (filtroPersonas === 4 && hab.capacidad < 3) continue;
 
     hayVisibles = true;
-
     const col = document.createElement("div");
     col.className = "col";
-
     const imagenSrc = hab.imagen || placeholderImagen();
     const capacidad = hab.capacidad || 2;
 
@@ -85,50 +73,45 @@ function ajustarCatalogo() {
   }
 
   if (!hayVisibles) {
-    contenedor.innerHTML =
-      '<div class="col-12 text-center"><p class="text-muted">No hay habitaciones disponibles.</p></div>';
+    contenedor.innerHTML = '<div class="col-12 text-center"><p class="text-muted">No hay habitaciones disponibles.</p></div>';
   }
 
-  // Eventos botón Reservar
   const botones = document.querySelectorAll(".btn-reservar");
   for (let j = 0; j < botones.length; j++) {
     botones[j].addEventListener("click", function () {
       const idStr = this.dataset.id;
       if (!idStr) return;
-
       const idNum = parseInt(idStr);
       const hab = habitacionesCargadas.find(h => h.id === idNum);
 
       if (hab) {
         sessionStorage.setItem("habitacionSeleccionada", JSON.stringify(hab));
-
         if (sessionStorage.getItem("busquedaHabitaciones")) {
           window.location.href = "../html/detalleReserva.html";
         } else {
-          if (confirm("Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?")) {
-            window.location.href = "../index.html";
-          }
+          Swal.fire({
+            icon: "info",
+            title: "Selecciona fechas primero",
+            text: "Primero debes seleccionar fechas en el inicio.",
+            showCancelButton: true,
+            confirmButtonText: "Ir al inicio",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#1B4015"
+          }).then(result => {
+            if (result.isConfirmed) window.location.href = "../index.html";
+          });
         }
       }
     });
   }
 }
 
-// ── CONTADORES ───────────────────────────────────────────────────────────────
-
 function actualizarTodosLosContadores() {
   const spanDisponibles = document.getElementById("contadorDisponible");
   const spanOcupadas = document.getElementById("contadorOcupadas");
-
-  if (spanDisponibles) {
-    spanDisponibles.textContent = habitacionesCargadas.filter(h => h.mostrar === true).length;
-  }
-  if (spanOcupadas) {
-    spanOcupadas.textContent = habitacionesCargadas.filter(h => h.mostrar === false).length;
-  }
+  if (spanDisponibles) spanDisponibles.textContent = habitacionesCargadas.filter(h => h.mostrar === true).length;
+  if (spanOcupadas) spanOcupadas.textContent = habitacionesCargadas.filter(h => h.mostrar === false).length;
 }
-
-// ── RESUMEN BÚSQUEDA ─────────────────────────────────────────────────────────
 
 function limpiarBusqueda() {
   sessionStorage.removeItem("busquedaHabitaciones");
@@ -141,11 +124,8 @@ function mostrarResumenBusqueda() {
 
   if (datosBusqueda && divResumen) {
     const opciones = { weekday: "short", month: "short", day: "numeric" };
-
-    const fechaLlegada = new Date(datosBusqueda.llegada + "T00:00:00")
-      .toLocaleDateString("es-CO", opciones);
-    const fechaSalida = new Date(datosBusqueda.salida + "T00:00:00")
-      .toLocaleDateString("es-CO", opciones);
+    const fechaLlegada = new Date(datosBusqueda.llegada + "T00:00:00").toLocaleDateString("es-CO", opciones);
+    const fechaSalida = new Date(datosBusqueda.salida + "T00:00:00").toLocaleDateString("es-CO", opciones);
 
     document.getElementById("resumenFechas").textContent = `${fechaLlegada} - ${fechaSalida}`;
     document.getElementById("resumenHuespedes").textContent = datosBusqueda.huespedes;
@@ -170,12 +150,9 @@ function mostrarResumenBusqueda() {
   }
 }
 
-// ── ADMIN ────────────────────────────────────────────────────────────────────
-
 function pintarListaAdmin() {
   const contenedor = document.getElementById("listaHabitacionesAdmin");
   if (!contenedor) return;
-
   contenedor.innerHTML = "";
 
   habitacionesCargadas.forEach(hab => {
@@ -213,12 +190,22 @@ function activarEventosAdmin() {
   contenedor.addEventListener("click", function (e) {
     if (e.target.classList.contains("btn-eliminar")) {
       const id = parseInt(e.target.dataset.id);
-      if (confirm("¿Seguro quieres eliminar esta habitación?")) {
-        habitacionesCargadas = habitacionesCargadas.filter(h => h.id !== id);
-        pintarListaAdmin();
-        ajustarCatalogo();
-        actualizarTodosLosContadores();
-      }
+      Swal.fire({
+        icon: "warning",
+        title: "¿Eliminar habitación?",
+        text: "Esta acción no se puede deshacer.",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#dc3545"
+      }).then(result => {
+        if (result.isConfirmed) {
+          habitacionesCargadas = habitacionesCargadas.filter(h => h.id !== id);
+          pintarListaAdmin();
+          ajustarCatalogo();
+          actualizarTodosLosContadores();
+        }
+      });
     }
 
     if (e.target.classList.contains("toggle-visibilidad")) {
@@ -234,14 +221,17 @@ function activarEventosAdmin() {
   });
 }
 
-// ── RESERVAR DESDE DETALLE ───────────────────────────────────────────────────
-
 function reservarDesdeDetalle(e, idHabitacion) {
   e.preventDefault();
   const hab = habitacionesCargadas.find(h => h.id === idHabitacion);
 
   if (!hab) {
-    alert("No se encontró la información de esta habitación.");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se encontró la información de esta habitación.",
+      confirmButtonColor: "#1B4015"
+    });
     return;
   }
 
@@ -250,25 +240,28 @@ function reservarDesdeDetalle(e, idHabitacion) {
   if (sessionStorage.getItem("busquedaHabitaciones")) {
     window.location.href = "./detalleReserva.html";
   } else {
-    if (confirm("Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?")) {
-      window.location.href = "../index.html";
-    }
+    Swal.fire({
+      icon: "info",
+      title: "Selecciona fechas primero",
+      text: "Primero debes seleccionar fechas en el inicio.",
+      showCancelButton: true,
+      confirmButtonText: "Ir al inicio",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#1B4015"
+    }).then(result => {
+      if (result.isConfirmed) window.location.href = "../index.html";
+    });
   }
 }
-
-// ── INIT ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", async function () {
   actualizarNavbar();
 
-  // Carga desde el backend
   habitacionesCargadas = await cargarHabitacionesDesdeAPI();
-
   ajustarCatalogo();
   actualizarTodosLosContadores();
   mostrarResumenBusqueda();
 
-  // Filtros de capacidad
   const botonesFiltro = document.querySelectorAll(".btn-filtro-personas");
   for (let i = 0; i < botonesFiltro.length; i++) {
     botonesFiltro[i].addEventListener("click", function () {
@@ -278,19 +271,26 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
-  // Admin
   if (document.getElementById("listaHabitacionesAdmin")) {
     pintarListaAdmin();
     activarEventosAdmin();
   }
 
-  // Cerrar sesión
   const btnCerrarSesion = document.getElementById("btnCerrarSesion");
   if (btnCerrarSesion) {
     btnCerrarSesion.addEventListener("click", function () {
-      localStorage.removeItem("usuarioLogueado");
-      alert("Has cerrado sesión correctamente.");
-      window.location.href = "../index.html";
+      localStorage.removeItem("token");
+      localStorage.removeItem("usuarioEmail");
+      Swal.fire({
+        icon: "success",
+        title: "Sesión cerrada",
+        text: "Has cerrado sesión correctamente.",
+        confirmButtonColor: "#1B4015",
+        timer: 1500,
+        showConfirmButton: false
+      }).then(() => {
+        window.location.href = "../index.html";
+      });
     });
   }
 });

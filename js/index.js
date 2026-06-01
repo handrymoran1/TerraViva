@@ -27,21 +27,28 @@ if (btnBuscarDisponibilidad && inputLlegada && inputSalida && selectHuespedes) {
     const huespedes = selectHuespedes.value;
 
     if (!llegada || !salida) {
-      alert("Seleccione fechas de llegada y salida.");
+      Swal.fire({
+        icon: "warning",
+        title: "Fechas requeridas",
+        text: "Seleccione fechas de llegada y salida.",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#1B4015"
+      });
       return;
     }
 
     if (new Date(salida) <= new Date(llegada)) {
-      alert("La fecha de salida debe ser posterior a la de entrada.");
+      Swal.fire({
+        icon: "warning",
+        title: "Fechas inválidas",
+        text: "La fecha de salida debe ser posterior a la de entrada.",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#1B4015"
+      });
       return;
     }
 
-    const datosBusqueda = {
-      llegada,
-      salida,
-      huespedes
-    };
-
+    const datosBusqueda = { llegada, salida, huespedes };
     sessionStorage.setItem("busquedaHabitaciones", JSON.stringify(datosBusqueda));
     window.location.href = "./html/habitaciones.html";
   });
