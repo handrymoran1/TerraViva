@@ -71,7 +71,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const nuevoTelefono = inputTelefono.value.trim();
 
     if (!nuevoNombre) {
-      alert("El nombre no puede estar vacío.");
+      await Swal.fire({
+        icon: "warning",
+        title: "Campo vacío",
+        text: "El nombre no puede estar vacío.",
+        confirmButtonColor: "#5FA62D"
+      });
       return;
     }
 
@@ -104,7 +109,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     } catch (err) {
       console.error("Error al guardar:", err);
-      alert("No se pudieron guardar los cambios.");
+      await Swal.fire({
+        icon: "error",
+        title: "Error al guardar",
+        text: "No se pudieron guardar los cambios.",
+        confirmButtonColor: "#5FA62D"
+      });
     }
   });
 
@@ -202,7 +212,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelectorAll(".btn-cancelar").forEach(btn => {
       btn.addEventListener("click", async function () {
         const idReserva = this.dataset.id;
-        if (!confirm("¿Seguro que quieres cancelar esta reserva?")) return;
+        const confirmResult = await Swal.fire({
+          title: "¿Cancelar reserva?",
+          text: "¿Seguro que quieres cancelar esta reserva?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#5FA62D",
+          cancelButtonColor: "#6c757d",
+          confirmButtonText: "Sí, cancelar",
+          cancelButtonText: "No"
+        });
+        if (!confirmResult.isConfirmed) return;
 
         try {
           const res = await fetch(`${API_URL}/api/reservas/cancelar/${idReserva}`, {
@@ -212,12 +232,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 
           if (!res.ok) throw new Error("No se pudo cancelar");
 
-          alert("Reserva cancelada correctamente.");
+          await Swal.fire({
+            icon: "success",
+            title: "¡Reserva cancelada!",
+            text: "Tu reserva ha sido cancelada correctamente.",
+            confirmButtonColor: "#5FA62D"
+          });
           window.location.reload();
 
         } catch (err) {
           console.error("Error al cancelar:", err);
-          alert("No se pudo cancelar la reserva.");
+          await Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo cancelar la reserva.",
+            confirmButtonColor: "#5FA62D"
+          });
         }
       });
     });

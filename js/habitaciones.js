@@ -106,9 +106,20 @@ function ajustarCatalogo() {
         if (sessionStorage.getItem("busquedaHabitaciones")) {
           window.location.href = "../html/detalleReserva.html";
         } else {
-          if (confirm("Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?")) {
-            window.location.href = "../index.html";
-          }
+          Swal.fire({
+            title: "¿Seleccionar fechas primero?",
+            text: "Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#5FA62D",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Ir al inicio",
+            cancelButtonText: "Cancelar"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "../index.html";
+            }
+          });
         }
       }
     });
@@ -214,12 +225,23 @@ function activarEventosAdmin() {
   contenedor.addEventListener("click", function (e) {
     if (e.target.classList.contains("btn-eliminar")) {
       const id = parseInt(e.target.dataset.id);
-      if (confirm("¿Seguro quieres eliminar esta habitación?")) {
-        habitacionesCargadas = habitacionesCargadas.filter(h => h.id !== id);
-        pintarListaAdmin();
-        ajustarCatalogo();
-        actualizarTodosLosContadores();
-      }
+      Swal.fire({
+        title: "¿Eliminar habitación?",
+        text: "Esta acción no se puede deshacer.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#5FA62D",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          habitacionesCargadas = habitacionesCargadas.filter(h => h.id !== id);
+          pintarListaAdmin();
+          ajustarCatalogo();
+          actualizarTodosLosContadores();
+        }
+      });
     }
 
     if (e.target.classList.contains("toggle-visibilidad")) {
@@ -242,7 +264,12 @@ function reservarDesdeDetalle(e, idHabitacion) {
   const hab = habitacionesCargadas.find(h => h.id === idHabitacion);
 
   if (!hab) {
-    alert("No se encontró la información de esta habitación.");
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No se encontró la información de esta habitación.",
+      confirmButtonColor: "#5FA62D"
+    });
     return;
   }
 
@@ -251,9 +278,20 @@ function reservarDesdeDetalle(e, idHabitacion) {
   if (sessionStorage.getItem("busquedaHabitaciones")) {
     window.location.href = "./detalleReserva.html";
   } else {
-    if (confirm("Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?")) {
-      window.location.href = "../index.html";
-    }
+    Swal.fire({
+      title: "¿Seleccionar fechas primero?",
+      text: "Primero debes seleccionar fechas en el inicio. ¿Ir allá ahora?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#5FA62D",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Ir al inicio",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "../index.html";
+      }
+    });
   }
 }
 
@@ -289,9 +327,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const btnCerrarSesion = document.getElementById("btnCerrarSesion");
   if (btnCerrarSesion) {
     btnCerrarSesion.addEventListener("click", function () {
-      localStorage.removeItem("usuarioLogueado");
-      alert("Has cerrado sesión correctamente.");
-      window.location.href = "../index.html";
+      cerrarSesionManual();
     });
   }
 });

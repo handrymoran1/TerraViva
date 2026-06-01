@@ -51,7 +51,12 @@ btnEnviarHabitacion.addEventListener("click", function () {
     opcionesLista.options[opcionesLista.selectedIndex].text;
 
   if (opcionesLista.value.trim() === "") {
-    alert("Seleccione una habitación.");
+    Swal.fire({
+      icon: "warning",
+      title: "Selección requerida",
+      text: "Seleccione una habitación.",
+      confirmButtonColor: "#5FA62D"
+    });
     return;
   } else {
     console.log(lista);

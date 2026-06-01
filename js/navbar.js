@@ -32,12 +32,19 @@ function actualizarNavbar() {
 }
 
 function cerrarSesionManual() {
-  // Limpiamos todo lo que guarda el backend tras el login
   localStorage.removeItem("token");
   localStorage.removeItem("usuarioEmail");
-  alert("Has cerrado sesión correctamente.");
-  const enSubdirectorio = window.location.pathname.includes("/html/");
-  window.location.href = enSubdirectorio ? "../index.html" : "./index.html";
+  Swal.fire({
+    icon: "success",
+    title: "¡Hasta pronto!",
+    text: "Has cerrado sesión correctamente.",
+    confirmButtonColor: "#5FA62D",
+    timer: 1500,
+    showConfirmButton: false
+  }).then(() => {
+    const enSubdirectorio = window.location.pathname.includes("/html/");
+    window.location.href = enSubdirectorio ? "../index.html" : "./index.html";
+  });
 }
 
 document.addEventListener("DOMContentLoaded", actualizarNavbar);

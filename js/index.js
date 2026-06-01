@@ -18,19 +18,29 @@ let btnBuscarDisponibilidad = document.getElementById(
   "btnBuscarDisponibilidad",
 );
 
-btnBuscarDisponibilidad.addEventListener("click", function (e) {
+btnBuscarDisponibilidad.addEventListener("click", async function (e) {
   e.preventDefault();
   const llegada = document.getElementById("fechaLlegada").value;
   const salida = document.getElementById("fechaSalida").value;
   const huespedes = document.getElementById("huespedes").value;
 
   if (!llegada || !salida) {
-    alert("Seleccione fechas de llegada y salida.");
+    await Swal.fire({
+      icon: "warning",
+      title: "Fechas requeridas",
+      text: "Seleccione fechas de llegada y salida.",
+      confirmButtonColor: "#5FA62D"
+    });
     return;
   }
 
   if (new Date(salida) <= new Date(llegada)) {
-    alert("La fecha de salida debe ser posterior a la de entrada.");
+    await Swal.fire({
+      icon: "warning",
+      title: "Fechas incorrectas",
+      text: "La fecha de salida debe ser posterior a la de entrada.",
+      confirmButtonColor: "#5FA62D"
+    });
     return;
   }
 
