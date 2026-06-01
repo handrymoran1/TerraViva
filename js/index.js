@@ -1,4 +1,4 @@
-const hoy = new Date().toISOString().split("T")[0];
+const hoy = new Date().toISOString().Split("T")[0];
 const inputLlegada = document.getElementById("fechaLlegada");
 const inputSalida = document.getElementById("fechaSalida");
 

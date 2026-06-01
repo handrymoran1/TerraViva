@@ -1,5 +1,4 @@
-const API_URL = "http://localhost:8081/api/habitaciones";
-
+const API_URL = "https://terraviva-backend.onrender.com/api/habitaciones";
 let filtroPersonas = 0;
 let habitacionesCargadas = [];
 
