@@ -311,3 +311,63 @@ li, label, small {
   padding: 12px 16px;
   border-color: #f0ece6;
 }
+
+.reservas-admin-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.reservas-admin-empty-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(95,166,45,0.12), rgba(27,64,21,0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: var(--color-button);
+  margin-bottom: 20px;
+}
+
+.reservas-admin-empty-title {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.reservas-admin-empty-text {
+  font-family: var(--font-body);
+  color: #a89880;
+  font-size: 0.95rem;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.reservas-admin-cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: 12px;
+  color: var(--color-dark);
+  font-family: var(--font-body);
+}
+
+.reservas-admin-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  color: #c0392b;
+  font-family: var(--font-body);
+  gap: 8px;
+}

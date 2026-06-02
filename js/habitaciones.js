@@ -335,9 +335,12 @@ async function cargarReservasAdmin() {
 
     if (reservas.length === 0) {
       contenedor.innerHTML = `
-        <div class="text-center py-5 text-muted">
-          <i class="bi bi-calendar-x fs-1"></i>
-          <p class="mt-3">No hay reservas registradas aún.</p>
+        <div class="reservas-admin-empty">
+          <div class="reservas-admin-empty-icon">
+            <i class="bi bi-calendar-x"></i>
+          </div>
+          <h4 class="reservas-admin-empty-title">Sin reservas por ahora</h4>
+          <p class="reservas-admin-empty-text">Cuando los huéspedes realicen reservas aparecerán aquí con todos los detalles.</p>
         </div>`;
       return;
     }
@@ -430,9 +433,10 @@ async function cargarReservasAdmin() {
   } catch (err) {
     console.error("Error al cargar reservas admin:", err);
     contenedor.innerHTML = `
-      <div class="text-center py-5 text-muted">
-        <i class="bi bi-wifi-off fs-1"></i>
-        <p class="mt-3">No se pudieron cargar las reservas.<br><small>${err.message}</small></p>
+      <div class="reservas-admin-error">
+        <i class="bi bi-wifi-off" style="font-size:2.2rem;"></i>
+        <strong>No se pudieron cargar las reservas</strong>
+        <small>${err.message}</small>
       </div>`;
   }
 }
