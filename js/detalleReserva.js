@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (response.ok) {
               return await response.json();
             }
-            // Pago ficticio: si el backend falla igual continuamos
+            // Pago ficticio: si el backend falla igual continuamoss se sigue verificando
             return { ficticio: true };
 
           } catch (err) {
