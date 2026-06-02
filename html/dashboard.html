@@ -175,6 +175,56 @@
       </div>
     </div>
 
+    <!-- ================= RESERVAS ADMIN ================= -->
+    <div class="container my-5">
+      <div class="reservas-admin-titulo mb-4">
+        <div>
+          <h2>Reservas de huéspedes</h2>
+          <p class="text-muted mb-0">Monitorea y gestiona todas las reservas del hotel.</p>
+        </div>
+        <i class="bi bi-calendar2-check reservas-admin-icono"></i>
+      </div>
+
+      <!-- Stats -->
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="reserva-stat-card">
+            <i class="bi bi-bookmark-check-fill reserva-stat-icon"></i>
+            <div>
+              <span class="reserva-stat-num" id="adminTotalReservas">0</span>
+              <span>Total reservas</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="reserva-stat-card reserva-stat-activa">
+            <i class="bi bi-house-check-fill reserva-stat-icon"></i>
+            <div>
+              <span class="reserva-stat-num" id="adminReservasActivas">0</span>
+              <span>Activas</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="reserva-stat-card reserva-stat-cancelada">
+            <i class="bi bi-x-circle-fill reserva-stat-icon"></i>
+            <div>
+              <span class="reserva-stat-num" id="adminReservasCanceladas">0</span>
+              <span>Canceladas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div id="tablaReservasAdmin" class="reservas-admin-tabla-wrap">
+        <div class="text-center py-5 text-muted">
+          <div class="spinner-border text-success mb-3" role="status"></div>
+          <p>Cargando reservas...</p>
+        </div>
+      </div>
+    </div>
+
     <!-- ================= FOOTER ================= -->
     <!-- FOOTER -->
     <footer class="footer py-5">

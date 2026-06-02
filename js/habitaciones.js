@@ -1,4 +1,5 @@
 const API_URL = "https://terraviva-backend.onrender.com/api/habitaciones";
+const BASE_URL = "https://terraviva-backend.onrender.com";
 let filtroPersonas = 0;
 let habitacionesCargadas = [];
 
@@ -9,6 +10,7 @@ async function cargarHabitacionesDesdeAPI() {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Error al conectar con el servidor");
     const datos = await response.json();
+    const overrides = JSON.parse(localStorage.getItem("visibilidadHabitaciones") || "{}");
     return datos.map(h => ({
       id: h.idHabitacion,
       nombre: h.tipo,
@@ -16,7 +18,7 @@ async function cargarHabitacionesDesdeAPI() {
       imagen: h.imagen,
       descripcion: h.descripcion,
       url: h.urlDetalle,
-      mostrar: h.visible,
+      mostrar: overrides.hasOwnProperty(h.idHabitacion) ? overrides[h.idHabitacion] : h.visible,
       capacidad: h.capacidad || 2
     }));
   } catch (error) {
@@ -250,39 +252,189 @@ function activarEventosAdmin() {
       const nuevaVisibilidad = !hab.mostrar;
       const token = localStorage.getItem("token");
 
+      // Guardamos override local para que persista en habitaciones.html
+      const overrides = JSON.parse(localStorage.getItem("visibilidadHabitaciones") || "{}");
+      overrides[id] = nuevaVisibilidad;
+      localStorage.setItem("visibilidadHabitaciones", JSON.stringify(overrides));
+
+      // Actualizamos la UI siempre, sin esperar al backend
+      hab.mostrar = nuevaVisibilidad;
+      pintarListaAdmin();
+      ajustarCatalogo();
+      actualizarTodosLosContadores();
+
+      // Intentamos persistir en el backend (sin bloquear)
+      const bodyVisibilidad = {
+        idHabitacion: id,
+        tipo: hab.nombre,
+        precioNoche: hab.precio,
+        imagen: hab.imagen,
+        descripcion: hab.descripcion,
+        urlDetalle: hab.url,
+        visible: nuevaVisibilidad,
+        capacidad: hab.capacidad
+      };
+      console.log("PUT visibilidad →", `${API_URL}/${id}`, bodyVisibilidad);
+
       fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
         },
-        body: JSON.stringify({
-          tipo: hab.nombre,
-          precioNoche: hab.precio,
-          imagen: hab.imagen,
-          descripcion: hab.descripcion,
-          urlDetalle: hab.url,
-          visible: nuevaVisibilidad,
-          capacidad: hab.capacidad
-        })
+        body: JSON.stringify(bodyVisibilidad)
       })
-      .then(res => {
-        if (!res.ok) throw new Error("Error " + res.status);
-        hab.mostrar = nuevaVisibilidad;
-        pintarListaAdmin();
-        ajustarCatalogo();
-        actualizarTodosLosContadores();
+      .then(async res => {
+        const texto = await res.text().catch(() => "");
+        if (!res.ok) {
+          console.warn("PUT visibilidad falló:", res.status, texto);
+        } else {
+          // Backend guardó: limpiamos el override local, la BD es la fuente de verdad
+          const ov = JSON.parse(localStorage.getItem("visibilidadHabitaciones") || "{}");
+          delete ov[id];
+          localStorage.setItem("visibilidadHabitaciones", JSON.stringify(ov));
+          console.log("PUT visibilidad OK:", res.status);
+        }
       })
-      .catch(() => {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "No se pudo cambiar la visibilidad de la habitación.",
-          confirmButtonColor: "#5FA62D"
-        });
+      .catch(err => {
+        console.warn("PUT visibilidad error de red:", err);
       });
     }
   });
+}
+
+// ── RESERVAS ADMIN ───────────────────────────────────────────────────────────
+
+async function cargarReservasAdmin() {
+  const contenedor = document.getElementById("tablaReservasAdmin");
+  if (!contenedor) return;
+
+  const token = localStorage.getItem("token");
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/reservas`, {
+      headers: { "Authorization": "Bearer " + token }
+    });
+
+    if (!res.ok) throw new Error("Status " + res.status);
+    const reservas = await res.json();
+
+    // Actualizar stats
+    const activas = reservas.filter(r => r.estado === "RESERVADA");
+    const canceladas = reservas.filter(r => r.estado === "CANCELADA");
+    document.getElementById("adminTotalReservas").textContent = reservas.length;
+    document.getElementById("adminReservasActivas").textContent = activas.length;
+    document.getElementById("adminReservasCanceladas").textContent = canceladas.length;
+
+    // Actualizar contadores de habitaciones según reservas activas
+    const idsOcupadas = new Set(activas.map(r => r.habitacion?.idHabitacion).filter(Boolean));
+    const spanDisponibles = document.getElementById("contadorDisponible");
+    const spanOcupadas   = document.getElementById("contadorOcupadas");
+    if (spanDisponibles) spanDisponibles.textContent = habitacionesCargadas.filter(h => h.mostrar && !idsOcupadas.has(h.id)).length;
+    if (spanOcupadas)    spanOcupadas.textContent    = idsOcupadas.size;
+
+    if (reservas.length === 0) {
+      contenedor.innerHTML = `
+        <div class="text-center py-5 text-muted">
+          <i class="bi bi-calendar-x fs-1"></i>
+          <p class="mt-3">No hay reservas registradas aún.</p>
+        </div>`;
+      return;
+    }
+
+    contenedor.innerHTML = `
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="tabla-head-admin">
+            <tr>
+              <th>#</th>
+              <th>Habitación</th>
+              <th>Huésped</th>
+              <th>Fechas</th>
+              <th>Noches</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${reservas.map(r => {
+              const fi = r.fechaInicio ? new Date(r.fechaInicio + "T00:00:00").toLocaleDateString("es-CO") : "-";
+              const ff = r.fechaFin    ? new Date(r.fechaFin    + "T00:00:00").toLocaleDateString("es-CO") : "-";
+              const color = r.estado === "RESERVADA" ? "success" : r.estado === "CANCELADA" ? "danger" : "secondary";
+              const nombre = r.cliente ? `${r.cliente.nombre || ""} ${r.cliente.apellido || ""}`.trim() : "-";
+              const emailCliente = r.cliente?.email || "";
+              return `
+                <tr>
+                  <td><small class="text-muted">#${r.idReserva}</small></td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="${r.habitacion?.imagen || "https://placehold.co/60x45?text=+"}"
+                           width="60" height="45" class="rounded" style="object-fit:cover;">
+                      <span class="fw-semibold">${r.habitacion?.tipo || "-"}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="fw-semibold">${nombre}</div>
+                    <small class="text-muted">${emailCliente}</small>
+                  </td>
+                  <td><small>${fi} → ${ff}</small></td>
+                  <td>${r.cantidadNoches || 0}</td>
+                  <td>$${r.totalReserva?.toLocaleString("es-CO") || 0}</td>
+                  <td><span class="badge bg-${color}">${r.estado}</span></td>
+                  <td>
+                    ${r.estado === "RESERVADA"
+                      ? `<button class="btn btn-sm btn-outline-danger btn-cancelar-admin" data-id="${r.idReserva}">
+                           <i class="bi bi-x-circle me-1"></i>Cancelar
+                         </button>`
+                      : `<span class="text-muted">—</span>`}
+                  </td>
+                </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>`;
+
+    contenedor.querySelectorAll(".btn-cancelar-admin").forEach(btn => {
+      btn.addEventListener("click", async function () {
+        const id = this.dataset.id;
+        const confirm = await Swal.fire({
+          title: "¿Cancelar reserva?",
+          text: "Esta acción no se puede deshacer.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#5FA62D",
+          cancelButtonColor: "#6c757d",
+          confirmButtonText: "Sí, cancelar",
+          cancelButtonText: "No"
+        });
+        if (!confirm.isConfirmed) return;
+
+        try {
+          const r = await fetch(`${BASE_URL}/api/reservas/cancelar/${id}`, {
+            method: "PUT",
+            headers: { "Authorization": "Bearer " + token }
+          });
+          if (!r.ok) throw new Error();
+          await Swal.fire({
+            icon: "success", title: "¡Reserva cancelada!",
+            confirmButtonColor: "#5FA62D", timer: 1500, showConfirmButton: false
+          });
+          cargarReservasAdmin();
+        } catch {
+          Swal.fire({ icon: "error", title: "Error", text: "No se pudo cancelar.", confirmButtonColor: "#5FA62D" });
+        }
+      });
+    });
+
+  } catch (err) {
+    console.error("Error al cargar reservas admin:", err);
+    contenedor.innerHTML = `
+      <div class="text-center py-5 text-muted">
+        <i class="bi bi-wifi-off fs-1"></i>
+        <p class="mt-3">No se pudieron cargar las reservas.<br><small>${err.message}</small></p>
+      </div>`;
+  }
 }
 
 // ── RESERVAR DESDE DETALLE ───────────────────────────────────────────────────
@@ -349,6 +501,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (document.getElementById("listaHabitacionesAdmin")) {
     pintarListaAdmin();
     activarEventosAdmin();
+    cargarReservasAdmin();
   }
 
   // Cerrar sesión

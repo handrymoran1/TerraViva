@@ -223,6 +223,91 @@ li, label, small {
 
 #btnCancelar.btn-secondary:hover {
     animation: shake-horizontal 0.8s;
-    background-color: #d9534f; /* Rojo suave */
+    background-color: #d9534f;
     border-color: #d9534f;
+}
+
+/* ── SECCIÓN RESERVAS ADMIN ─────────────────────────────────────────────── */
+.reservas-admin-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 12px;
+}
+
+.reservas-admin-icono {
+  font-size: 2.4rem;
+  color: var(--color-button);
+  opacity: 0.6;
+}
+
+.reserva-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  border-left: 5px solid var(--color-button);
+}
+
+.reserva-stat-card.reserva-stat-activa  { border-left-color: #5FA62D; }
+.reserva-stat-card.reserva-stat-cancelada { border-left-color: #dc3545; }
+
+.reserva-stat-icon {
+  font-size: 2rem;
+  color: var(--color-button);
+  flex-shrink: 0;
+}
+
+.reserva-stat-activa  .reserva-stat-icon { color: #5FA62D; }
+.reserva-stat-cancelada .reserva-stat-icon { color: #dc3545; }
+
+.reserva-stat-card > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.reserva-stat-num {
+  font-family: var(--font-title);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-opcional);
+}
+
+.reserva-stat-card > div > span:last-child {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-dark);
+}
+
+.reservas-admin-tabla-wrap {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.tabla-head-admin th {
+  background-color: var(--color-opcional);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 12px 16px;
+  border: none;
+}
+
+.reservas-admin-tabla-wrap .table tbody tr:hover {
+  background-color: rgba(95, 166, 45, 0.05);
+}
+
+.reservas-admin-tabla-wrap .table td {
+  vertical-align: middle;
+  font-family: var(--font-body);
+  padding: 12px 16px;
+  border-color: #f0ece6;
 }
