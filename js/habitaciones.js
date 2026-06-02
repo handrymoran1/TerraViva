@@ -9,7 +9,11 @@ function placeholderImagen() {
 
 async function cargarHabitacionesDesdeAPI() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL, {
+      method: "GET",
+      cache: "no-store"
+    });
+
     if (!response.ok) throw new Error("Error al conectar con el servidor");
 
     const datos = await response.json();
@@ -28,6 +32,36 @@ async function cargarHabitacionesDesdeAPI() {
     console.error("Error al cargar habitaciones:", error);
     return [];
   }
+}
+
+async function cambiarVisibilidadHabitacion(id, visible) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("No hay sesión activa. Inicia sesión nuevamente.");
+  }
+
+  const response = await fetch(`${API_URL}/${id}/visible`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({ visible })
+  });
+
+  if (!response.ok) {
+    let mensaje = "No se pudo actualizar la visibilidad de la habitación.";
+
+    try {
+      const errorData = await response.json();
+      mensaje = errorData.message || errorData.error || mensaje;
+    } catch (_) {}
+
+    throw new Error(mensaje);
+  }
+
+  return await response.json();
 }
 
 function actualizarBotonesFiltro() {
@@ -268,12 +302,48 @@ function activarEventosAdmin() {
       const id = parseInt(e.target.dataset.id);
       const habitacion = habitacionesCargadas.find(h => h.id === id);
 
-      if (habitacion) {
-        habitacion.mostrar = !habitacion.mostrar;
-        pintarListaAdmin();
-        ajustarCatalogo();
-        actualizarTodosLosContadores();
-      }
+      if (!habitacion) return;
+
+      const nuevoValor = !habitacion.mostrar;
+      const textoAccion = nuevoValor ? "mostrar" : "ocultar";
+
+      Swal.fire({
+        icon: "question",
+        title: `¿Deseas ${textoAccion} esta habitación?`,
+        showCancelButton: true,
+        confirmButtonText: "Sí, continuar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#1B4015"
+      }).then(async result => {
+        if (!result.isConfirmed) return;
+
+        try {
+          await cambiarVisibilidadHabitacion(id, nuevoValor);
+
+          habitacion.mostrar = nuevoValor;
+
+          pintarListaAdmin();
+          ajustarCatalogo();
+          actualizarTodosLosContadores();
+
+          Swal.fire({
+            icon: "success",
+            title: "Actualizado",
+            text: `La habitación ahora está ${nuevoValor ? "visible" : "oculta"}.`,
+            timer: 1400,
+            showConfirmButton: false
+          });
+        } catch (error) {
+          console.error("Error al actualizar visibilidad:", error);
+
+          Swal.fire({
+            icon: "error",
+            title: "No se pudo actualizar",
+            text: error.message || "Ocurrió un error al guardar en la base de datos.",
+            confirmButtonColor: "#1B4015"
+          });
+        }
+      });
     }
   });
 }
