@@ -1,5 +1,5 @@
 // URL base del backend para autenticación
-const API_AUTH = "http://localhost:8081/api/auth";
+const API_AUTH = "https://terraviva-backend.onrender.com/api/auth";
 
 // ── REFERENCIAS AL DOM ───────────────────────────────────────────────────────
 // Capturamos los elementos del HTML para mostrar mensajes de error o éxito
