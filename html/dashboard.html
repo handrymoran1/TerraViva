@@ -26,6 +26,7 @@
     <script src="../js/accesoAdmin.js"></script>
   </head>
   <body>
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg custom-navbar py-4 fixed-top">
       <div class="container-fluid">
         <a class="navbar-brand ms-5" href="../index.html">
@@ -90,9 +91,10 @@
     <div class="container my-5">
       <h1 class="text-center mb-4">Panel de Administración</h1>
       <p class="text-center text-muted mb-5">
-        Vista general del sistema TerraViva
+        Control general de habitaciones, clientes y reservas
       </p>
 
+      <!-- TARJETAS KPI -->
       <section class="mb-5">
         <div class="row g-4">
           <div class="col-12 col-md-6 col-xl-3">
@@ -100,7 +102,9 @@
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-house-door"></i></div>
                 <h5 class="card-title">Total habitaciones</h5>
-                <p class="card-text"><span id="contadorTotalHabitaciones">0</span></p>
+                <p class="card-text">
+                  <span id="contadorTotalHabitaciones">0</span>
+                </p>
               </div>
             </div>
           </div>
@@ -110,7 +114,9 @@
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-eye-fill"></i></div>
                 <h5 class="card-title">Habitaciones visibles</h5>
-                <p class="card-text"><span id="contadorDisponible">0</span></p>
+                <p class="card-text">
+                  <span id="contadorDisponible">0</span>
+                </p>
               </div>
             </div>
           </div>
@@ -120,7 +126,9 @@
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-eye-slash-fill"></i></div>
                 <h5 class="card-title">Habitaciones ocultas</h5>
-                <p class="card-text"><span id="contadorOcupadas">0</span></p>
+                <p class="card-text">
+                  <span id="contadorOcupadas">0</span>
+                </p>
               </div>
             </div>
           </div>
@@ -130,70 +138,44 @@
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-people-fill"></i></div>
                 <h5 class="card-title">Clientes registrados</h5>
-                <p class="card-text"><span id="contadorClientes">0</span></p>
+                <p class="card-text">
+                  <span id="contadorClientes">0</span>
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-md-6 col-xl-3">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card dashboard-kpi h-100">
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-journal-check"></i></div>
                 <h5 class="card-title">Total reservas</h5>
-                <p class="card-text"><span id="contadorReservas">0</span></p>
+                <p class="card-text">
+                  <span id="contadorReservas">0</span>
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-md-6 col-xl-3">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card dashboard-kpi h-100">
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-check-circle-fill"></i></div>
                 <h5 class="card-title">Reservas activas</h5>
-                <p class="card-text"><span id="contadorReservasActivas">0</span></p>
+                <p class="card-text">
+                  <span id="contadorReservasActivas">0</span>
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-md-6 col-xl-3">
+          <div class="col-12 col-md-6 col-xl-4">
             <div class="card dashboard-kpi h-100">
               <div class="card-body">
                 <div class="kpi-icon"><i class="bi bi-x-circle-fill"></i></div>
                 <h5 class="card-title">Reservas canceladas</h5>
-                <p class="card-text"><span id="contadorReservasCanceladas">0</span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6 col-xl-3">
-            <div class="card dashboard-kpi h-100">
-              <div class="card-body">
-                <div class="kpi-icon"><i class="bi bi-calendar-week-fill"></i></div>
-                <h5 class="card-title">Reservas próximas</h5>
-                <p class="card-text"><span id="contadorReservasProximas">0</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="mb-5">
-        <div class="card shadow-sm p-4">
-          <h4 class="mb-3">Resumen administrativo</h4>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="resumen-box">
-                <h6>Estado general</h6>
-                <p id="textoResumenEstado" class="mb-0">
-                  Cargando información del sistema...
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="resumen-box">
-                <h6>Observación rápida</h6>
-                <p id="textoResumenObservacion" class="mb-0">
-                  Consultando habitaciones, clientes y reservas...
+                <p class="card-text">
+                  <span id="contadorReservasCanceladas">0</span>
                 </p>
               </div>
             </div>
@@ -201,6 +183,7 @@
         </div>
       </section>
 
+      <!-- FORMULARIO -->
       <div class="card shadow-sm mb-5 p-4">
         <h4 id="tituloFormulario" class="mb-3">Agregar nueva habitación</h4>
         <form id="formularioHabitacion" novalidate>
@@ -251,6 +234,7 @@
         </form>
       </div>
 
+      <!-- LISTA ADMIN -->
       <h2 class="mb-3">Habitaciones existentes</h2>
       <div id="listaHabitacionesAdmin" class="list-group"></div>
 
@@ -259,6 +243,7 @@
       </div>
     </div>
 
+    <!-- FOOTER -->
     <footer class="footer py-5">
       <div class="container">
         <div class="row align-items-center">
@@ -284,10 +269,20 @@
             </ul>
 
             <div class="d-flex gap-3 justify-content-center ms-md-auto">
-              <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="footer-link fs-4">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-link fs-4"
+              >
                 <i class="bi bi-instagram"></i>
               </a>
-              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="footer-link fs-4">
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-link fs-4"
+              >
                 <i class="bi bi-facebook"></i>
               </a>
             </div>
@@ -308,6 +303,7 @@
       </div>
     </footer>
 
+    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/navbar.js"></script>

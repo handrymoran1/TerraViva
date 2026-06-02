@@ -26,48 +26,11 @@ function calcularReservasCanceladas(reservas) {
   }).length;
 }
 
-function calcularReservasProximas(reservas) {
-  const hoy = new Date();
-  const limite = new Date();
-  limite.setDate(hoy.getDate() + 7);
-
-  return reservas.filter(r => {
-    if (!r.fechaInicio) return false;
-    const inicio = new Date(r.fechaInicio + "T00:00:00");
-    return inicio >= hoy && inicio <= limite;
+function contarClientesHuespedes(clientes) {
+  return clientes.filter(c => {
+    const rol = (c.rol || "").toUpperCase().trim();
+    return rol !== "ADMIN";
   }).length;
-}
-
-function construirResumen(habitaciones, clientes, reservas) {
-  const totalHabitaciones = habitaciones.length;
-  const visibles = habitaciones.filter(h => h.visible === true).length;
-  const ocultas = habitaciones.filter(h => h.visible === false).length;
-  const totalClientes = clientes.length;
-  const totalReservas = reservas.length;
-  const activas = calcularReservasActivas(reservas);
-  const canceladas = calcularReservasCanceladas(reservas);
-
-  const textoEstado = document.getElementById("textoResumenEstado");
-  const textoObservacion = document.getElementById("textoResumenObservacion");
-
-  if (textoEstado) {
-    textoEstado.textContent =
-      `Actualmente TerraViva tiene ${totalHabitaciones} habitaciones, ${visibles} visibles para el catálogo, ` +
-      `${totalClientes} clientes registrados y ${totalReservas} reservas acumuladas.`;
-  }
-
-  if (textoObservacion) {
-    if (canceladas > activas) {
-      textoObservacion.textContent =
-        "Hay más reservas canceladas que activas. Conviene revisar el flujo de reserva y la disponibilidad mostrada al cliente.";
-    } else if (ocultas > visibles) {
-      textoObservacion.textContent =
-        "Hay más habitaciones ocultas que visibles. Esto puede afectar la oferta mostrada en el catálogo.";
-    } else {
-      textoObservacion.textContent =
-        "El panel muestra una operación estable. Conviene seguir monitoreando reservas próximas y visibilidad de habitaciones.";
-    }
-  }
 }
 
 async function fetchJSON(url) {
@@ -92,11 +55,10 @@ async function cargarMetricasDashboard() {
     const totalHabitaciones = habitaciones.length;
     const visibles = habitaciones.filter(h => h.visible === true).length;
     const ocultas = habitaciones.filter(h => h.visible === false).length;
-    const totalClientes = clientes.length;
+    const totalClientes = contarClientesHuespedes(clientes);
     const totalReservas = reservas.length;
     const reservasActivas = calcularReservasActivas(reservas);
     const reservasCanceladas = calcularReservasCanceladas(reservas);
-    const reservasProximas = calcularReservasProximas(reservas);
 
     setText("contadorTotalHabitaciones", totalHabitaciones);
     setText("contadorDisponible", visibles);
@@ -105,32 +67,16 @@ async function cargarMetricasDashboard() {
     setText("contadorReservas", totalReservas);
     setText("contadorReservasActivas", reservasActivas);
     setText("contadorReservasCanceladas", reservasCanceladas);
-    setText("contadorReservasProximas", reservasProximas);
-
-    construirResumen(habitaciones, clientes, reservas);
   } catch (error) {
     console.error("Error cargando métricas del dashboard:", error);
 
-    setText("contadorTotalHabitaciones", "—");
-    setText("contadorDisponible", "—");
-    setText("contadorOcupadas", "—");
-    setText("contadorClientes", "—");
-    setText("contadorReservas", "—");
-    setText("contadorReservasActivas", "—");
-    setText("contadorReservasCanceladas", "—");
-    setText("contadorReservasProximas", "—");
-
-    const textoEstado = document.getElementById("textoResumenEstado");
-    const textoObservacion = document.getElementById("textoResumenObservacion");
-
-    if (textoEstado) {
-      textoEstado.textContent = "No fue posible cargar las métricas del panel en este momento.";
-    }
-
-    if (textoObservacion) {
-      textoObservacion.textContent =
-        "Revisa el backend, CORS, el token o la estructura de respuesta de clientes y reservas.";
-    }
+    setText("contadorTotalHabitaciones", "0");
+    setText("contadorDisponible", "0");
+    setText("contadorOcupadas", "0");
+    setText("contadorClientes", "0");
+    setText("contadorReservas", "0");
+    setText("contadorReservasActivas", "0");
+    setText("contadorReservasCanceladas", "0");
   }
 }
 
