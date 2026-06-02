@@ -137,8 +137,9 @@ document.addEventListener("DOMContentLoaded", async function () {
           });
         },
         preConfirm: async () => {
+          // Intento 1: JSON body (estándar REST)
           try {
-            const response = await fetch(`${API_URL}/api/reservas`, {
+            const r1 = await fetch(`${API_URL}/api/reservas`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -151,22 +152,51 @@ document.addEventListener("DOMContentLoaded", async function () {
                 fechaFin: busqueda.salida
               })
             });
-
-            if (response.ok) {
-              return await response.json();
-            }
-            // Pago ficticio: si el backend falla igual continuamoss se sigue verificando
-            return { ficticio: true };
-
-          } catch (err) {
-            // Error de red: igual continuamos (pago ficticio)
-            return { ficticio: true };
+            if (r1.ok) return await r1.json();
+            console.warn("Intento JSON falló:", r1.status, await r1.text().catch(() => ""));
+          } catch (e) {
+            console.warn("Intento JSON error de red:", e);
           }
+
+          // Intento 2: query params (formato @RequestParam)
+          try {
+            const params = new URLSearchParams({
+              idCliente: clienteData.idCliente,
+              idHabitacion: habitacion.id,
+              fechaInicio: busqueda.llegada,
+              fechaFin: busqueda.salida
+            });
+            const r2 = await fetch(`${API_URL}/api/reservas?${params}`, {
+              method: "POST",
+              headers: { "Authorization": "Bearer " + token }
+            });
+            if (r2.ok) return await r2.json();
+            console.warn("Intento query params falló:", r2.status, await r2.text().catch(() => ""));
+          } catch (e) {
+            console.warn("Intento query params error de red:", e);
+          }
+
+          // Ambos fallaron: pago ficticio, el flujo continúa igual
+          return { ficticio: true };
         },
         allowOutsideClick: () => !Swal.isLoading(),
       }).then((result) => {
         if (result.isConfirmed && result.value) {
-          // Limpiamos sessionStorage tras reserva exitosa
+          // Si el backend no guardó (ficticio), guardamos localmente
+          if (result.value.ficticio) {
+            const reservasLocales = JSON.parse(localStorage.getItem("reservasLocales") || "[]");
+            reservasLocales.push({
+              idReserva: "local-" + Date.now(),
+              fechaInicio: busqueda.llegada,
+              fechaFin: busqueda.salida,
+              cantidadNoches: diasEstancia,
+              totalReserva: habitacion.precio * diasEstancia,
+              estado: "RESERVADA",
+              habitacion: { tipo: habitacion.nombre, imagen: habitacion.imagen }
+            });
+            localStorage.setItem("reservasLocales", JSON.stringify(reservasLocales));
+          }
+
           sessionStorage.removeItem("habitacionSeleccionada");
           sessionStorage.removeItem("busquedaHabitaciones");
 

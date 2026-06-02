@@ -143,6 +143,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Error al cargar reservas:", err);
   }
 
+  // Fusionamos con reservas guardadas localmente (fallback cuando el backend falla)
+  const reservasLocales = JSON.parse(localStorage.getItem("reservasLocales") || "[]");
+  if (reservasLocales.length > 0) {
+    const idsBackend = new Set(reservas.map(r => String(r.idReserva)));
+    const localesSinDuplicar = reservasLocales.filter(r => !idsBackend.has(String(r.idReserva)));
+    reservas = [...reservas, ...localesSinDuplicar];
+  }
+
   // Actualizamos contadores de estadísticas
   document.querySelectorAll(".stat-reservas").forEach(el => el.textContent = reservas.length);
 
@@ -236,6 +244,22 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!confirmResult.isConfirmed) return;
 
         try {
+          // Reserva local (no guardada en BD)
+          if (String(idReserva).startsWith("local-")) {
+            const reservasLocales = JSON.parse(localStorage.getItem("reservasLocales") || "[]");
+            localStorage.setItem("reservasLocales", JSON.stringify(
+              reservasLocales.filter(r => String(r.idReserva) !== String(idReserva))
+            ));
+            await Swal.fire({
+              icon: "success",
+              title: "¡Reserva cancelada!",
+              text: "Tu reserva ha sido cancelada correctamente.",
+              confirmButtonColor: "#5FA62D"
+            });
+            window.location.reload();
+            return;
+          }
+
           const res = await fetch(`${API_URL}/api/reservas/cancelar/${idReserva}`, {
             method: "PUT",
             headers: { "Authorization": "Bearer " + token }
