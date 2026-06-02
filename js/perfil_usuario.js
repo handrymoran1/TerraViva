@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const nombreDisplay = document.getElementById("nombreDisplay");
   const correoDisplay = document.getElementById("correoDisplay");
   const fotoPreview = document.getElementById("fotoPreview");
+  const inputFoto = document.getElementById("inputFoto");
 
   inputCorreo.value = email;
   correoDisplay.textContent = email;
@@ -27,6 +28,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // ── CARGAR DATOS DEL USUARIO ──────────────────────────────────────────
   let usuario = null;
+  let fotoKey = "";
+
   try {
     const res = await fetch(`${API_URL}/api/clientes/me`, {
       headers: { "Authorization": "Bearer " + token }
@@ -40,6 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     usuario = await res.json();
+    fotoKey = "foto_" + usuario.idCliente;
 
     inputNombre.value = usuario.nombre || "";
     inputTelefono.value = usuario.telefono || "";
@@ -55,18 +59,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       inputCorreo.value = usuario.email || "";
     }
 
-    // Ciudad guardada en localStorage
+    // Ciudad desde localStorage
     const ciudadGuardada = localStorage.getItem("ciudad_" + usuario.idCliente);
     if (inputCiudad && ciudadGuardada) inputCiudad.value = ciudadGuardada;
 
-    const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
-
-    // Foto guardada en localStorage
-    const fotoKey = "foto_" + usuario.idCliente;
+    // Foto desde localStorage o avatar generado
     const fotoGuardada = localStorage.getItem(fotoKey);
     if (fotoGuardada) {
       fotoPreview.src = fotoGuardada;
     } else {
+      const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
       fotoPreview.src = `https://ui-avatars.com/api/?name=${iniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
     }
 
@@ -76,9 +78,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // ── FOTO DE PERFIL ────────────────────────────────────────────────────
-  const inputFoto = document.getElementById("inputFoto");
-  const fotoKey = "foto_" + usuario.idCliente;
-
   if (inputFoto) {
     inputFoto.addEventListener("change", function () {
       const file = this.files[0];
@@ -87,6 +86,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       reader.onload = function (e) {
         fotoPreview.src = e.target.result;
         localStorage.setItem(fotoKey, e.target.result);
+        Swal.fire({
+          icon: "success",
+          title: "¡Foto actualizada!",
+          text: "Tu foto de perfil ha sido cambiada.",
+          confirmButtonColor: "#1B4015",
+          timer: 2000,
+          showConfirmButton: false
+        });
       };
       reader.readAsDataURL(file);
     });
@@ -111,6 +118,19 @@ document.addEventListener("DOMContentLoaded", async function () {
       return;
     }
 
+    // Confirmación antes de guardar
+    const confirm = await Swal.fire({
+      icon: "question",
+      title: "¿Guardar cambios?",
+      text: "¿Deseas actualizar tu información personal?",
+      showCancelButton: true,
+      confirmButtonText: "Sí, guardar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#1B4015"
+    });
+
+    if (!confirm.isConfirmed) return;
+
     try {
       const res = await fetch(`${API_URL}/api/clientes/${usuario.idCliente}`, {
         method: "PUT",
@@ -118,7 +138,6 @@ document.addEventListener("DOMContentLoaded", async function () {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
         },
-        // No enviamos password → el backend no la toca si no viene
         body: JSON.stringify({
           nombre: nuevoNombre,
           telefono: nuevoTelefono,
@@ -134,19 +153,25 @@ document.addEventListener("DOMContentLoaded", async function () {
         throw new Error(error.mensaje || "No se pudo actualizar");
       }
 
-      // Ciudad se guarda en localStorage
+      // Ciudad en localStorage
       if (nuevaCiudad) localStorage.setItem("ciudad_" + usuario.idCliente, nuevaCiudad);
 
       nombreDisplay.textContent = nuevoNombre;
 
-      // Solo actualizamos avatar si no hay foto personalizada
+      // Actualizar avatar solo si no hay foto personalizada
       if (!localStorage.getItem(fotoKey)) {
         const nuevaInicial = nuevoNombre.charAt(0).toUpperCase();
         fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevaInicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
       }
 
-      toastGuardado.classList.add("show");
-      setTimeout(() => toastGuardado.classList.remove("show"), 3000);
+      await Swal.fire({
+        icon: "success",
+        title: "¡Cambios guardados!",
+        text: "Tu información ha sido actualizada correctamente.",
+        confirmButtonColor: "#1B4015",
+        timer: 2000,
+        showConfirmButton: false
+      });
 
     } catch (err) {
       console.error("Error al guardar:", err);
