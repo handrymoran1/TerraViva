@@ -22,9 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   inputCorreo.value = email;
   correoDisplay.textContent = email;
-
-  const inicial = email.charAt(0).toUpperCase();
-  fotoPreview.src = `https://ui-avatars.com/api/?name=${inicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
+  fotoPreview.src = `https://ui-avatars.com/api/?name=${email.charAt(0).toUpperCase()}&background=1B4015&color=fff&size=200&font-size=0.4`;
 
   // ── CARGAR DATOS DEL USUARIO ──────────────────────────────────────────
   let usuario = null;
@@ -49,28 +47,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     inputTelefono.value = usuario.telefono || "";
     nombreDisplay.textContent = usuario.nombre || "Usuario";
     correoDisplay.textContent = usuario.email || "";
+    inputCorreo.value = usuario.email || "";
 
     // Correo deshabilitado para ADMIN
     if (usuario.rol === "ADMIN") {
-      inputCorreo.value = usuario.email || "";
       inputCorreo.disabled = true;
       inputCorreo.style.opacity = "0.6";
-    } else {
-      inputCorreo.value = usuario.email || "";
     }
 
     // Ciudad desde localStorage
     const ciudadGuardada = localStorage.getItem("ciudad_" + usuario.idCliente);
     if (inputCiudad && ciudadGuardada) inputCiudad.value = ciudadGuardada;
 
-    // Foto desde localStorage o avatar generado
+    // Foto desde localStorage o avatar
     const fotoGuardada = localStorage.getItem(fotoKey);
-    if (fotoGuardada) {
-      fotoPreview.src = fotoGuardada;
-    } else {
-      const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
-      fotoPreview.src = `https://ui-avatars.com/api/?name=${iniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
-    }
+    fotoPreview.src = fotoGuardada ||
+      `https://ui-avatars.com/api/?name=${(usuario.nombre || "U").charAt(0).toUpperCase()}&background=1B4015&color=fff&size=200&font-size=0.4`;
 
   } catch (err) {
     console.error("Error al cargar perfil:", err);
@@ -101,7 +93,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // ── GUARDAR CAMBIOS ───────────────────────────────────────────────────
   const btnGuardar = document.getElementById("btnGuardar");
-  const toastGuardado = document.getElementById("toastGuardado");
 
   btnGuardar.addEventListener("click", async function () {
     const nuevoNombre = inputNombre.value.trim();
@@ -118,7 +109,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       return;
     }
 
-    // Confirmación antes de guardar
     const confirm = await Swal.fire({
       icon: "question",
       title: "¿Guardar cambios?",
@@ -153,15 +143,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         throw new Error(error.mensaje || "No se pudo actualizar");
       }
 
-      // Ciudad en localStorage
       if (nuevaCiudad) localStorage.setItem("ciudad_" + usuario.idCliente, nuevaCiudad);
 
       nombreDisplay.textContent = nuevoNombre;
 
-      // Actualizar avatar solo si no hay foto personalizada
       if (!localStorage.getItem(fotoKey)) {
-        const nuevaInicial = nuevoNombre.charAt(0).toUpperCase();
-        fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevaInicial}&background=1B4015&color=fff&size=200&font-size=0.4`;
+        fotoPreview.src = `https://ui-avatars.com/api/?name=${nuevoNombre.charAt(0).toUpperCase()}&background=1B4015&color=fff&size=200&font-size=0.4`;
       }
 
       await Swal.fire({
@@ -184,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  // ── RESERVAS DEL USUARIO ──────────────────────────────────────────────
+  // ── RESERVAS ──────────────────────────────────────────────────────────
   const listaReservasDiv = document.getElementById("listaReservas");
   const reservasVaciasDiv = document.getElementById("reservasVacias");
 
@@ -275,19 +262,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             headers: { "Authorization": "Bearer " + token }
           });
           if (!res.ok) throw new Error("No se pudo cancelar");
-          await Swal.fire({
-            icon: "success",
-            title: "Reserva cancelada",
-            confirmButtonColor: "#1B4015"
-          });
+          await Swal.fire({ icon: "success", title: "Reserva cancelada", confirmButtonColor: "#1B4015" });
           window.location.reload();
         } catch (err) {
-          await Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "No se pudo cancelar la reserva.",
-            confirmButtonColor: "#1B4015"
-          });
+          await Swal.fire({ icon: "error", title: "Error", text: "No se pudo cancelar la reserva.", confirmButtonColor: "#1B4015" });
         }
       });
     });
