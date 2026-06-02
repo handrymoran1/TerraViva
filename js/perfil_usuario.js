@@ -19,12 +19,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   const correoDisplay = document.getElementById("correoDisplay");
   const fotoPreview = document.getElementById("fotoPreview");
   const inputFoto = document.getElementById("inputFoto");
+  const btnGuardar = document.getElementById("btnGuardar");
+  const listaReservasDiv = document.getElementById("listaReservas");
+  const reservasVaciasDiv = document.getElementById("reservasVacias");
+
+  if (!inputNombre || !inputCorreo || !inputTelefono || !nombreDisplay || !correoDisplay || !fotoPreview || !btnGuardar || !listaReservasDiv || !reservasVaciasDiv) {
+    console.error("Faltan elementos en perfil_usuario.html");
+    return;
+  }
 
   inputCorreo.value = email;
   correoDisplay.textContent = email;
   fotoPreview.src = `https://ui-avatars.com/api/?name=${email.charAt(0).toUpperCase()}&background=1B4015&color=fff&size=200&font-size=0.4`;
 
-  // ── CARGAR DATOS DEL USUARIO ──────────────────────────────────────────
   let usuario = null;
   let fotoKey = "";
 
@@ -36,11 +43,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!res.ok) {
       localStorage.removeItem("token");
       localStorage.removeItem("usuarioEmail");
+      localStorage.removeItem("usuarioRol");
       window.location.href = "../html/iniciarSesion.html";
       return;
     }
 
     usuario = await res.json();
+
+    if (usuario.rol === "ADMIN") {
+      window.location.href = "../html/dashboard.html";
+      return;
+    }
+
     fotoKey = "foto_" + usuario.idCliente;
 
     inputNombre.value = usuario.nombre || "";
@@ -49,35 +63,26 @@ document.addEventListener("DOMContentLoaded", async function () {
     correoDisplay.textContent = usuario.email || "";
     inputCorreo.value = usuario.email || "";
 
-    // Correo deshabilitado para ADMIN
-    if (usuario.rol === "ADMIN") {
-      inputCorreo.disabled = true;
-      inputCorreo.style.opacity = "0.6";
-    }
-
-    // Ciudad desde localStorage
     const ciudadGuardada = localStorage.getItem("ciudad_" + usuario.idCliente);
     if (inputCiudad && ciudadGuardada) inputCiudad.value = ciudadGuardada;
 
-    // Foto desde localStorage o avatar
     const fotoGuardada = localStorage.getItem(fotoKey);
-    fotoPreview.src = fotoGuardada ||
-      `https://ui-avatars.com/api/?name=${(usuario.nombre || "U").charAt(0).toUpperCase()}&background=1B4015&color=fff&size=200&font-size=0.4`;
-
+    fotoPreview.src = fotoGuardada || `https://ui-avatars.com/api/?name=${(usuario.nombre || "U").charAt(0).toUpperCase()}&background=1B4015&color=fff&size=200&font-size=0.4`;
   } catch (err) {
     console.error("Error al cargar perfil:", err);
     return;
   }
 
-  // ── FOTO DE PERFIL ────────────────────────────────────────────────────
   if (inputFoto) {
     inputFoto.addEventListener("change", function () {
       const file = this.files[0];
       if (!file) return;
+
       const reader = new FileReader();
       reader.onload = function (e) {
         fotoPreview.src = e.target.result;
         localStorage.setItem(fotoKey, e.target.result);
+
         Swal.fire({
           icon: "success",
           title: "¡Foto actualizada!",
@@ -90,9 +95,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       reader.readAsDataURL(file);
     });
   }
-
-  // ── GUARDAR CAMBIOS ───────────────────────────────────────────────────
-  const btnGuardar = document.getElementById("btnGuardar");
 
   btnGuardar.addEventListener("click", async function () {
     const nuevoNombre = inputNombre.value.trim();
@@ -109,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       return;
     }
 
-    const confirm = await Swal.fire({
+    const confirmacion = await Swal.fire({
       icon: "question",
       title: "¿Guardar cambios?",
       text: "¿Deseas actualizar tu información personal?",
@@ -119,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       confirmButtonColor: "#1B4015"
     });
 
-    if (!confirm.isConfirmed) return;
+    if (!confirmacion.isConfirmed) return;
 
     try {
       const res = await fetch(`${API_URL}/api/clientes/${usuario.idCliente}`, {
@@ -159,7 +161,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         timer: 2000,
         showConfirmButton: false
       });
-
     } catch (err) {
       console.error("Error al guardar:", err);
       await Swal.fire({
@@ -170,10 +171,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
     }
   });
-
-  // ── RESERVAS ──────────────────────────────────────────────────────────
-  const listaReservasDiv = document.getElementById("listaReservas");
-  const reservasVaciasDiv = document.getElementById("reservasVacias");
 
   let reservas = [];
   try {
@@ -196,17 +193,23 @@ document.addEventListener("DOMContentLoaded", async function () {
   document.querySelectorAll(".stat-activa").forEach(el => el.textContent = activas.length);
 
   if (reservas.length === 0) {
-    if (reservasVaciasDiv) reservasVaciasDiv.style.display = "flex";
+    reservasVaciasDiv.classList.remove("d-none");
+    reservasVaciasDiv.style.display = "flex";
   } else {
-    if (reservasVaciasDiv) reservasVaciasDiv.style.display = "none";
+    reservasVaciasDiv.classList.add("d-none");
+    reservasVaciasDiv.style.display = "none";
 
     const tablaHTML = `
       <div class="table-responsive">
         <table class="table table-hover align-middle">
           <thead class="table-success">
             <tr>
-              <th>Habitación</th><th>Fechas</th><th>Noches</th>
-              <th>Total</th><th>Estado</th><th>Acción</th>
+              <th>Habitación</th>
+              <th>Fechas</th>
+              <th>Noches</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
@@ -214,12 +217,12 @@ document.addEventListener("DOMContentLoaded", async function () {
               const fechaInicio = r.fechaInicio ? new Date(r.fechaInicio + "T00:00:00").toLocaleDateString("es-CO") : "-";
               const fechaFin = r.fechaFin ? new Date(r.fechaFin + "T00:00:00").toLocaleDateString("es-CO") : "-";
               const estadoColor = r.estado === "RESERVADA" ? "success" : r.estado === "CANCELADA" ? "danger" : "secondary";
+
               return `
                 <tr>
                   <td>
                     <div class="d-flex align-items-center">
-                      <img src="${r.habitacion?.imagen || 'https://placehold.co/80x60?text=Sin+Imagen'}"
-                           class="me-2 rounded" width="60" height="40" style="object-fit:cover;">
+                      <img src="${r.habitacion?.imagen || 'https://placehold.co/80x60?text=Sin+Imagen'}" class="me-2 rounded" width="60" height="40" style="object-fit:cover;">
                       <span class="fw-semibold">${r.habitacion?.tipo || "-"}</span>
                     </div>
                   </td>
@@ -227,11 +230,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                   <td>${r.cantidadNoches || 0}</td>
                   <td>$${r.totalReserva?.toLocaleString("es-CO") || 0}</td>
                   <td><span class="badge bg-${estadoColor}">${r.estado}</span></td>
-                  <td>${r.estado === "RESERVADA" ? `
-                    <button class="btn btn-sm btn-outline-danger btn-cancelar" data-id="${r.idReserva}">
-                      Cancelar
-                    </button>` : "-"}
-                  </td>
+                  <td>${r.estado === "RESERVADA" ? `<button class="btn btn-sm btn-outline-danger btn-cancelar" data-id="${r.idReserva}">Cancelar</button>` : "-"}</td>
                 </tr>
               `;
             }).join("")}
@@ -239,11 +238,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         </table>
       </div>
     `;
-    listaReservasDiv.insertAdjacentHTML("beforeend", tablaHTML);
+
+    listaReservasDiv.innerHTML = tablaHTML;
 
     document.querySelectorAll(".btn-cancelar").forEach(btn => {
       btn.addEventListener("click", async function () {
         const idReserva = this.dataset.id;
+
         const result = await Swal.fire({
           icon: "warning",
           title: "¿Cancelar reserva?",
@@ -261,11 +262,23 @@ document.addEventListener("DOMContentLoaded", async function () {
             method: "PUT",
             headers: { "Authorization": "Bearer " + token }
           });
+
           if (!res.ok) throw new Error("No se pudo cancelar");
-          await Swal.fire({ icon: "success", title: "Reserva cancelada", confirmButtonColor: "#1B4015" });
+
+          await Swal.fire({
+            icon: "success",
+            title: "Reserva cancelada",
+            confirmButtonColor: "#1B4015"
+          });
+
           window.location.reload();
         } catch (err) {
-          await Swal.fire({ icon: "error", title: "Error", text: "No se pudo cancelar la reserva.", confirmButtonColor: "#1B4015" });
+          await Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo cancelar la reserva.",
+            confirmButtonColor: "#1B4015"
+          });
         }
       });
     });

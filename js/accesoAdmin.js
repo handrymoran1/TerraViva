@@ -3,7 +3,7 @@
   const email = localStorage.getItem("usuarioEmail");
 
   if (!token || !email) {
-    window.location.replace("../index.html");
+    window.location.replace("../html/iniciarSesion.html");
     return;
   }
 
@@ -23,15 +23,21 @@
 
     const usuario = await res.json();
 
-    if (!usuario || usuario.rol !== "ADMIN") {
-      window.location.replace("../index.html");
+    if (!usuario) {
+      window.location.replace("../html/iniciarSesion.html");
       return;
     }
 
-    localStorage.setItem("usuarioRol", usuario.rol);
+    localStorage.setItem("usuarioRol", usuario.rol || "");
+
+    if (usuario.rol !== "ADMIN") {
+      window.location.replace("../html/perfil_usuario.html");
+    }
   } catch (err) {
     console.error("Error validando acceso admin:", err);
     localStorage.removeItem("usuarioRol");
-    window.location.replace("../index.html");
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuarioEmail");
+    window.location.replace("../html/iniciarSesion.html");
   }
 })();
