@@ -226,3 +226,59 @@ li, label, small {
     background-color: #d9534f; /* Rojo suave */
     border-color: #d9534f;
 }
+
+.dashboard-kpi {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(111, 93, 68, 0.08);
+  overflow: hidden;
+}
+
+.dashboard-kpi .card-body {
+  padding: 1.5rem;
+}
+
+.kpi-icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, var(--color-accent), var(--color-primary));
+  color: var(--color-opcional);
+  font-size: 1.35rem;
+  box-shadow: 0 6px 14px rgba(27, 64, 21, 0.12);
+}
+
+.resumen-box {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(111, 93, 68, 0.12);
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+}
+
+.resumen-box h6 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+}
+
+.resumen-box p {
+  color: #5f5a52;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+  .card-text {
+    font-size: 2.6rem;
+  }
+
+  .kpi-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.15rem;
+  }
+}

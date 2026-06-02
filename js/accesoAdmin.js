@@ -21,7 +21,7 @@
       window.location.replace("../index.html");
     }
 
-  } catch (err) {
+  } catch (err) {z
     window.location.replace("../index.html");
   }
 })();
