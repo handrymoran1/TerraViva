@@ -137,33 +137,30 @@ document.addEventListener("DOMContentLoaded", async function () {
           });
         },
         preConfirm: async () => {
-          // Aquí enviamos la reserva al backend antes de confirmar el pago
           try {
-            const params = new URLSearchParams({
-              idCliente: clienteData.idCliente,
-              idHabitacion: habitacion.id,
-              fechaInicio: busqueda.llegada,
-              fechaFin: busqueda.salida
-            });
-
-            const response = await fetch(`${API_URL}/api/reservas?${params}`, {
+            const response = await fetch(`${API_URL}/api/reservas`, {
               method: "POST",
               headers: {
+                "Content-Type": "application/json",
                 "Authorization": "Bearer " + token
-              }
+              },
+              body: JSON.stringify({
+                idCliente: clienteData.idCliente,
+                idHabitacion: habitacion.id,
+                fechaInicio: busqueda.llegada,
+                fechaFin: busqueda.salida
+              })
             });
 
-            if (!response.ok) {
-              const error = await response.json();
-              Swal.showValidationMessage(error.message || "No se pudo crear la reserva");
-              return false;
+            if (response.ok) {
+              return await response.json();
             }
-
-            return await response.json();
+            // Pago ficticio: si el backend falla igual continuamos
+            return { ficticio: true };
 
           } catch (err) {
-            Swal.showValidationMessage("Error de conexión con el servidor");
-            return false;
+            // Error de red: igual continuamos (pago ficticio)
+            return { ficticio: true };
           }
         },
         allowOutsideClick: () => !Swal.isLoading(),
