@@ -1,37 +1,33 @@
-// URL base del backend para autenticación
 const API_AUTH = "https://terraviva-backend.onrender.com/api/auth";
-// ── REFERENCIAS AL DOM ───────────────────────────────────────────────────────
+const API_ME = "https://terraviva-backend.onrender.com/api/clientes/me";
+
 const inputCorreo = document.getElementById("inputCorreo");
 const inputPassword = document.getElementById("inputPassword");
 const btnIniciarSesion = document.getElementById("btnIniciarSesion");
 
-const alertaLogin = document.getElementById("alerta-login");       // contenedor alerta
-const iconoAlerta = document.getElementById("icono-alerta");       // ícono ✓ o ⚠
-const mensajeAlerta = document.getElementById("mensaje-alerta");   // texto del mensaje
+const alertaLogin = document.getElementById("alerta-login");
+const iconoAlerta = document.getElementById("icono-alerta");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
 
-const toggleContrasena = document.getElementById("toggle-contrasena"); // botón ojo
-const iconoOjo = document.getElementById("icono-ojo");                 // ícono del ojo
+const toggleContrasena = document.getElementById("toggle-contrasena");
+const iconoOjo = document.getElementById("icono-ojo");
 
-// ── VALIDACIONES ─────────────────────────────────────────────────────────────
-// Valida que el correo tenga formato válido (ejemplo@dominio.com)
 const validarFormatoCorreo = (email) => {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,6}$/;
   return regex.test(email);
 };
 
-// Valida que la contraseña tenga entre 8 y 35 caracteres
 const validarFormatoPassword = (password) => {
   const regex = /^.{8,35}$/;
   return regex.test(password);
 };
 
-// ── MOSTRAR ALERTA ───────────────────────────────────────────────────────────
-// Muestra alerta verde (éxito) o roja (error) según el resultado del login
 function mostrarAlertaLogin(exito, mensaje) {
   if (!alertaLogin || !iconoAlerta || !mensajeAlerta) {
     alert(mensaje);
     return;
   }
+
   alertaLogin.classList.remove("d-none");
   mensajeAlerta.textContent = mensaje;
 
@@ -42,10 +38,7 @@ function mostrarAlertaLogin(exito, mensaje) {
   }
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
-
-  // Validación visual en tiempo real al escribir el correo
   inputCorreo.addEventListener("input", function () {
     if (validarFormatoCorreo(inputCorreo.value)) {
       inputCorreo.classList.remove("is-invalid");
@@ -56,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Validación visual en tiempo real al escribir la contraseña
   inputPassword.addEventListener("input", function () {
     if (validarFormatoPassword(inputPassword.value)) {
       inputPassword.classList.remove("is-invalid");
@@ -67,21 +59,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Toggle para mostrar u ocultar la contraseña
   toggleContrasena.addEventListener("click", function () {
     const tipo = inputPassword.getAttribute("type") === "password" ? "text" : "password";
     inputPassword.setAttribute("type", tipo);
     iconoOjo.className = tipo === "password" ? "bi bi-eye-fill" : "bi bi-eye-slash-fill";
   });
 
-  // ── LOGIN ─────────────────────────────────────────────────────────────────
   btnIniciarSesion.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const correoValor = inputCorreo.value.trim().toLowerCase();
     const passwordValor = inputPassword.value;
 
-    // 1. Validación del lado del cliente antes de llamar al backend
     const correoEsValido = validarFormatoCorreo(correoValor);
     const passwordEsValida = validarFormatoPassword(passwordValor);
 
@@ -93,9 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      // 2. Enviamos email y password al backend vía POST → /api/auth/login
-      //    El backend verifica las credenciales contra la BD en Supabase
-      //    y si son correctas devuelve un token JWT
       const response = await fetch(`${API_AUTH}/login`, {
         method: "POST",
         headers: {
@@ -113,32 +99,36 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(data.message || "Credenciales incorrectas");
       }
 
-      // 3. Guardamos el token JWT y el email en localStorage
-      //    El token se enviará en el header "Authorization: Bearer <token>"
-      //    en todas las peticiones que requieran autenticación (reservas, perfil, etc.)
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuarioEmail", correoValor);
 
+      const meResponse = await fetch(API_ME, {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + data.token,
+          "Content-Type": "application/json"
+        },
+        cache: "no-store"
+      });
+
+      if (!meResponse.ok) {
+        throw new Error("No se pudo obtener el perfil del usuario");
+      }
+
+      const usuario = await meResponse.json();
+      localStorage.setItem("usuarioRol", usuario.rol || "");
+
       mostrarAlertaLogin(true, "Inicio de sesión exitoso");
 
-      // 4. Redirigimos según el rol y el contexto del usuario
       setTimeout(() => {
-        if (correoValor === "admin02@gmail.com") {
-          // Admin siempre va al dashboard
-          window.location.href = "../html/dashboard.html";
-
+        if (usuario.rol === "ADMIN") {
+          window.location.href = "../html/habitacionesAdmin.html";
         } else if (sessionStorage.getItem("habitacionSeleccionada")) {
-          // Venía del flujo de reserva (seleccionó habitación antes de loguearse)
-          // → continuamos con la reserva donde la dejó
           window.location.href = "../html/detalleReserva.html";
-
         } else {
-          // Inició sesión directo sin venir de una reserva
-          // → lo mandamos al inicio, no tiene sentido mandarlo a detalleReserva
           window.location.href = "../index.html";
         }
       }, 1000);
-
     } catch (error) {
       console.error("Error en login:", error);
       mostrarAlertaLogin(false, error.message || "No se pudo iniciar sesión.");

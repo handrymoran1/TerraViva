@@ -9,19 +9,29 @@
 
   try {
     const res = await fetch("https://terraviva-backend.onrender.com/api/clientes/me", {
-      headers: { "Authorization": "Bearer " + token }
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      },
+      cache: "no-store"
     });
 
-    if (!res.ok) throw new Error("No autorizado");
+    if (!res.ok) {
+      throw new Error("No autorizado");
+    }
 
     const usuario = await res.json();
 
-    // Solo ADMIN puede entrar al dashboard
-    if (usuario.rol !== "ADMIN") {
+    if (!usuario || usuario.rol !== "ADMIN") {
       window.location.replace("../index.html");
+      return;
     }
 
-  } catch (err) {z
+    localStorage.setItem("usuarioRol", usuario.rol);
+  } catch (err) {
+    console.error("Error validando acceso admin:", err);
+    localStorage.removeItem("usuarioRol");
     window.location.replace("../index.html");
   }
 })();
