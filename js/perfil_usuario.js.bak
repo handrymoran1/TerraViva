@@ -138,10 +138,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Actualizamos contadores de estadísticas
   document.querySelectorAll(".stat-reservas").forEach(el => el.textContent = reservas.length);
 
-  // Contamos noches totales de reservas activas
+  // Contamos noches totales
   let totalNoches = 0;
-  const reservasActivas = reservas.filter(r => r.estado === "RESERVADA");
-  reservasActivas.forEach(r => totalNoches += r.cantidadNoches || 0);
+  reservas.forEach(r => totalNoches += r.cantidadNoches || 0);
   document.querySelectorAll(".stat-noches").forEach(el => el.textContent = totalNoches);
 
   // Reserva activa: alguna con fechaFin en el futuro y estado RESERVADA
