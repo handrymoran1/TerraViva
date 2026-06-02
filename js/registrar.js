@@ -75,7 +75,7 @@ async function registrarUsuario() {
   limpiarMensajes();
 
   // 1. Leemos los valores del formulario
-  const nombreCompleto = document.getElementById("inputNombre").value.trim();
+  const nombreCompleto = document.getElementById("inputNombre").value.trim().toLowerCase();
   const email = document.getElementById("inputCorreo").value.trim().toLowerCase();
   const telefono = document.getElementById("inputTelefono").value.trim();
   const password = document.getElementById("inputPassword").value;
