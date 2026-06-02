@@ -42,6 +42,31 @@ function limpiarMensajes() {
   if (confirmarPassword) confirmarPassword.innerHTML = "";
 }
 
+// ── REQUISITOS DE CONTRASEÑA ─────────────────────────────────────────────────
+function verificarRequisitos(valor) {
+  return {
+    longitud:  valor.length > 8,
+    mayuscula: /[A-Z]/.test(valor),
+    minuscula: /[a-z]/.test(valor),
+    numero:    /[0-9]/.test(valor),
+    especial:  /[!@#$%^&*()\-_=+\[\]{};:'",.<>/?\\|`~]/.test(valor)
+  };
+}
+
+function renderRequisitos(valor) {
+  const r = verificarRequisitos(valor);
+  const item = (ok, texto) =>
+    `<span class="d-block" style="color:${ok ? "#5FA62D" : "#dc3545"}">` +
+    `<i class="bi ${ok ? "bi-check-circle-fill" : "bi-x-circle-fill"}"></i> ${texto}</span>`;
+
+  textoPassword.innerHTML =
+    item(r.longitud,  "Más de 8 caracteres") +
+    item(r.mayuscula, "Al menos una letra mayúscula") +
+    item(r.minuscula, "Al menos una letra minúscula") +
+    item(r.numero,    "Al menos un número") +
+    item(r.especial,  "Al menos un carácter especial (!@#$%...)");
+}
+
 // ── TOGGLE MOSTRAR/OCULTAR CONTRASEÑA ───────────────────────────────────────
 // Permite ver u ocultar la contraseña al hacer clic en el ícono del ojo
 function configurarToggleContrasena(idToggle, idInput, idIcono) {
@@ -62,6 +87,14 @@ function configurarToggleContrasena(idToggle, idInput, idIcono) {
 document.addEventListener("DOMContentLoaded", function () {
   configurarToggleContrasena("toggle-contrasena-reg", "inputPassword", "icono-ojo-reg");
   configurarToggleContrasena("toggle-confirmar-reg", "inputPasswordDos", "icono-ojo-confirmar");
+
+  document.getElementById("inputPassword").addEventListener("input", function () {
+    if (this.value.length > 0) {
+      renderRequisitos(this.value);
+    } else {
+      textoPassword.innerHTML = "";
+    }
+  });
 });
 
 // Dispara el registro al hacer clic en el botón
@@ -94,8 +127,9 @@ async function registrarUsuario() {
     textoTelefono.innerHTML = "<h5>¡Ingrese su teléfono completo! ⚠️</h5>";
     return;
   }
-  if (password.trim() === "" || password.length < 8) {
-    textoPassword.innerHTML = "<h5>¡La contraseña debe tener al menos 8 caracteres! ⚠️</h5>";
+  const req = verificarRequisitos(password);
+  if (!req.longitud || !req.mayuscula || !req.minuscula || !req.numero || !req.especial) {
+    renderRequisitos(password);
     return;
   }
   if (passwordDos !== password) {

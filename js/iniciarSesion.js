@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 4. Redirigimos según el rol y el contexto del usuario
       setTimeout(() => {
-        if (correoValor === "admin@gmail.com") {
+        if (correoValor === "admin02@gmail.com") {
           // Admin siempre va al dashboard
           window.location.href = "../html/dashboard.html";
 

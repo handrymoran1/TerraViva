@@ -21,6 +21,30 @@ function actualizarNavbar() {
     if (navAvatar && email) {
       navAvatar.textContent = email.charAt(0).toUpperCase();
     }
+
+    // Botón Dashboard para admin
+    const existingDash = document.getElementById('btnDashboard');
+    const enSubdirectorio = window.location.pathname.includes('/html/');
+    const hrefDash = enSubdirectorio ? 'dashboard.html' : 'html/dashboard.html';
+    if (email === 'admin02@gmail.com') {
+      if (!existingDash) {
+        const a = document.createElement('a');
+        a.id = 'btnDashboard';
+        a.className = 'btn custom-btn-primary btn-sm';
+        a.href = hrefDash;
+        a.textContent = 'Dashboard';
+        if (divLogueado) {
+          const btnCerrar = divLogueado.querySelector("button[onclick='cerrarSesionManual()']");
+          if (btnCerrar) divLogueado.insertBefore(a, btnCerrar);
+          else divLogueado.appendChild(a);
+        }
+      } else {
+        existingDash.href = hrefDash;
+        existingDash.style.display = '';
+      }
+    } else if (existingDash) {
+      existingDash.style.display = 'none';
+    }
   } else {
     // No logueado: mostramos botones de registro/login
     if (divNoLogueado) divNoLogueado.style.display = "flex";
@@ -34,6 +58,14 @@ function actualizarNavbar() {
 function cerrarSesionManual() {
   localStorage.removeItem("token");
   localStorage.removeItem("usuarioEmail");
+  const enSubdirectorio = window.location.pathname.includes("/html/");
+  const destino = enSubdirectorio ? "../index.html" : "./index.html";
+
+  if (typeof Swal === "undefined") {
+    window.location.href = destino;
+    return;
+  }
+
   Swal.fire({
     icon: "success",
     title: "¡Hasta pronto!",
@@ -42,8 +74,7 @@ function cerrarSesionManual() {
     timer: 1500,
     showConfirmButton: false
   }).then(() => {
-    const enSubdirectorio = window.location.pathname.includes("/html/");
-    window.location.href = enSubdirectorio ? "../index.html" : "./index.html";
+    window.location.href = destino;
   });
 }
 

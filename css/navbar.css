@@ -10,11 +10,27 @@
   border: none;
   color: #ffffff;
   text-align: center;
+  border-radius: 32px;
+  white-space: nowrap;
+  padding: 0.25rem 1.2rem;
 }
 
 .custom-btn-primary:hover {
   background-color: var(--color-secondary) !important;
   color: var(--color-dark);
+}
+
+#btnDashboard {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#navLogueado {
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
 }
 
 .custom-btn-secondary {

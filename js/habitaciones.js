@@ -9,7 +9,6 @@ async function cargarHabitacionesDesdeAPI() {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error("Error al conectar con el servidor");
     const datos = await response.json();
-
     return datos.map(h => ({
       id: h.idHabitacion,
       nombre: h.tipo,
@@ -246,12 +245,42 @@ function activarEventosAdmin() {
     if (e.target.classList.contains("toggle-visibilidad")) {
       const id = parseInt(e.target.dataset.id);
       const hab = habitacionesCargadas.find(h => h.id === id);
-      if (hab) {
-        hab.mostrar = !hab.mostrar;
+      if (!hab) return;
+
+      const nuevaVisibilidad = !hab.mostrar;
+      const token = localStorage.getItem("token");
+
+      fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+          tipo: hab.nombre,
+          precioNoche: hab.precio,
+          imagen: hab.imagen,
+          descripcion: hab.descripcion,
+          urlDetalle: hab.url,
+          visible: nuevaVisibilidad,
+          capacidad: hab.capacidad
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Error " + res.status);
+        hab.mostrar = nuevaVisibilidad;
         pintarListaAdmin();
         ajustarCatalogo();
         actualizarTodosLosContadores();
-      }
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo cambiar la visibilidad de la habitación.",
+          confirmButtonColor: "#5FA62D"
+        });
+      });
     }
   });
 }

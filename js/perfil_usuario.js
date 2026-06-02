@@ -56,6 +56,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     const iniciales = (usuario.nombre || "U").charAt(0).toUpperCase();
     fotoPreview.src = `https://ui-avatars.com/api/?name=${iniciales}&background=1B4015&color=fff&size=200&font-size=0.4`;
 
+    // Ajustamos el hero según el rol del usuario
+    const esAdmin = usuario.rol === "ADMIN";
+    const heroSup = document.querySelector(".perfil-hero-sup");
+    const heroTitle = document.querySelector(".perfil-hero-title");
+    if (heroSup) heroSup.textContent = esAdmin ? "Administración" : "Mi cuenta";
+    if (heroTitle) heroTitle.textContent = esAdmin ? "Panel de administrador" : "Panel de usuario";
+
   } catch (err) {
     console.error("Error al cargar perfil:", err);
     return;
@@ -123,13 +130,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   let reservas = [];
   try {
-    // Llamamos al backend con el idCliente para traer sus reservas
     const res = await fetch(`${API_URL}/api/reservas/cliente/${usuario.idCliente}`, {
       headers: { "Authorization": "Bearer " + token }
     });
 
     if (res.ok) {
       reservas = await res.json();
+    } else {
+      console.warn("No se pudieron cargar las reservas. Status:", res.status);
     }
   } catch (err) {
     console.error("Error al cargar reservas:", err);
@@ -138,10 +146,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Actualizamos contadores de estadísticas
   document.querySelectorAll(".stat-reservas").forEach(el => el.textContent = reservas.length);
 
-  // Contamos noches totales, excluyendo las canceladas
+  // Contamos noches solo de reservas activas (estado RESERVADA)
   let totalNoches = 0;
   reservas.forEach(r => {
-    if (r.estado !== 'CANCELADA') {
+    if (r.estado === 'RESERVADA') {
       totalNoches += r.cantidadNoches || 0;
     }
   });
