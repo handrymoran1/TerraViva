@@ -30,22 +30,6 @@ li {
   font-family: var(--font-body);
 }
 
-
-.perfil-toast {
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  position: fixed; /* O donde lo tengas ubicado */
-  bottom: 20px;
-  right: 20px;
-  z-index: 1050;
-}
-
-.perfil-toast.show {
-  opacity: 1;
-  visibility: visible;
-}
-
 /* ══════════════════════════════
    HERO
 ══════════════════════════════ */
@@ -322,9 +306,7 @@ li {
   border-radius: 12px;
   padding: 11px 16px;
   outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .perfil-input:focus {
@@ -364,9 +346,7 @@ li {
   border-radius: 30px;
   padding: 11px 32px;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .btn-perfil-guardar:hover {
@@ -374,7 +354,9 @@ li {
   transform: translateY(-2px);
 }
 
-/* Toast confirmación */
+/* ══════════════════════════════
+   TOAST — definición única y corregida
+══════════════════════════════ */
 .perfil-toast {
   display: flex;
   align-items: center;
@@ -387,23 +369,25 @@ li {
   border-radius: 12px;
   padding: 11px 18px;
   margin-top: 16px;
+
+  /* ✅ Oculto por defecto */
   opacity: 0;
+  visibility: hidden;
   transform: translateY(8px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
 }
 
 .perfil-toast.visible {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
-/* ==============================
+/* ══════════════════════════════
    SECCIÓN RESERVAS
-   ============================== */
-
+══════════════════════════════ */
 .reservas-section {
   background: #f4f1e8;
 }
@@ -434,7 +418,7 @@ li {
   opacity: 0.6;
 }
 
-/* ── Tarjetas de estadísticas ── */
+/* Tarjetas de estadísticas */
 .reservas-stat-card {
   background: #fff;
   border-radius: 18px;
@@ -480,19 +464,19 @@ li {
   letter-spacing: 0.04em;
 }
 
-/* ── Contenedor principal ── */
+/* Contenedor principal */
 .reservas-card {
   background: #fff;
   border-radius: 24px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
   padding: 2.5rem;
   min-height: 280px;
-  display: flex; /* ← esto es clave */
-  align-items: center; /* ← centra verticalmente */
-  justify-content: center; /* ← centra horizontalmente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Estado vacío (placeholder) ── */
+/* Estado vacío */
 .reservas-empty {
   text-align: center;
   max-width: 400px;
@@ -531,9 +515,7 @@ li {
   padding: 0.6rem 1.6rem;
   border-radius: 32px;
   text-decoration: none;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .btn-reservas-cta:hover {
